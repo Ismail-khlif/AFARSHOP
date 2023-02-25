@@ -22,4 +22,5 @@ public class Store  implements Serializable {
     private Integer contactInformation ;
     private String storeDescription ;
     private String storeEmailAddress ;
+    /*olfa*/
 }
