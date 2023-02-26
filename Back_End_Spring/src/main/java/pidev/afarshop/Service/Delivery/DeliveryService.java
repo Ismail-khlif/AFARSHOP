@@ -74,18 +74,29 @@ import java.util.List;
 
         @Transactional
         public Delivery updateDelivery(Delivery delivery) {
-            if(delivery.getDeliveryMode().equals("Home"))
+            if(delivery.getDeliveryMode()==DeliveryMode.Home)
             {
-                HomeDelivery home = saveHomeDelivery(delivery);
+                HomeDelivery home = updateHomeDelivery(delivery);
                 delivery.setHomeDelivery(home);
             }
-            if(delivery.getDeliveryMode().equals("Store"))
+            if(delivery.getDeliveryMode()==DeliveryMode.Store)
             {
-                StoreDelivery stores = saveStoresDelivery(delivery);
+                StoreDelivery stores = updateStoresDelivery(delivery);
                 delivery.setStoreDelivery(stores);
             }
             deliveryRepository.save(delivery);
             return delivery;
+        }
+
+        private HomeDelivery updateHomeDelivery(Delivery delivery){
+            HomeDelivery home = delivery.getHomeDelivery();
+            homeDeliveryRepository.save(home);
+            return home;
+        }
+        private StoreDelivery updateStoresDelivery(Delivery delivery){
+            StoreDelivery store = delivery.getStoreDelivery();
+            storesDeliveryRepository.save(store);
+            return store;
         }
 
 
