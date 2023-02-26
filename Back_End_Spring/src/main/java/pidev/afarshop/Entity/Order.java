@@ -18,4 +18,8 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="orderId")
     private Long orderId;
+
+
+    @OneToOne
+    private Bill bill;
 }
