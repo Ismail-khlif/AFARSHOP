@@ -1,10 +1,17 @@
 package pidev.afarshop.Auth;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-@Service
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
 public class AuthenticationController {
@@ -12,8 +19,19 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody RegisterRequest request
+            @Valid @RequestBody RegisterRequest request,
+            BindingResult result
     ) {
+        if (result.hasErrors()) {
+            List<String> errors = result.getAllErrors()
+                    .stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
+            return ResponseEntity.badRequest()
+                    .body(AuthenticationResponse.builder()
+                            .errors(errors)
+                            .build());
+        }
         return ResponseEntity.ok(service.register(request));
     }
     @PostMapping("/authenticate")
