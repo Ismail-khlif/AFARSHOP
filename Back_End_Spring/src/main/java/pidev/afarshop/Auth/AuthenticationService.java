@@ -2,16 +2,13 @@ package pidev.afarshop.Auth;
 
 
 import lombok.RequiredArgsConstructor;
-import lombok.var;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import pidev.afarshop.Config.JwtService;
 import pidev.afarshop.Repository.TokenRepository;
 import pidev.afarshop.Repository.UserRepository;
-import pidev.afarshop.Entity.Role;
 import pidev.afarshop.Entity.Token;
 import pidev.afarshop.Entity.TokenType;
 import pidev.afarshop.Entity.User;
@@ -20,7 +17,6 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Component
 public class AuthenticationService {
     private final UserRepository repository;
     private final TokenRepository tokenRepository;
@@ -29,19 +25,22 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        User user = User.builder()
+        var user = User.builder()
+                .username(request.getFirstname())
                 .lastName(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .roles(request.getRole())
                 .build();
-        User savedUser = repository.save(user);
-        String jwtToken = jwtService.generateToken(savedUser);
+        var savedUser = repository.save(user);
+        var jwtToken = jwtService.generateToken(user);
         saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
     }
+
+
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
@@ -50,9 +49,9 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        User user = repository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        String jwtToken = jwtService.generateToken(user);
+        var user = repository.findByEmail(request.getEmail())
+                .orElseThrow();
+        var jwtToken = jwtService.generateToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
         return AuthenticationResponse.builder()
@@ -61,7 +60,7 @@ public class AuthenticationService {
     }
 
     private void saveUserToken(User user, String jwtToken) {
-        Token token = Token.builder()
+        var token = Token.builder()
                 .user(user)
                 .token(jwtToken)
                 .tokenType(TokenType.BEARER)
@@ -72,7 +71,7 @@ public class AuthenticationService {
     }
 
     private void revokeAllUserTokens(User user) {
-        List<Token> validUserTokens = tokenRepository.findAllValidTokenByUser(user.getUserId());
+        var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getUserId());
         if (validUserTokens.isEmpty())
             return;
         validUserTokens.forEach(token -> {
