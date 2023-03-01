@@ -39,20 +39,18 @@ public class User implements UserDetails {
     private Date dayOfBirth;
     private String cin;
     private String telNum;
+    /*
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
+
+     */
     @Enumerated(EnumType.STRING)
     private Role roles;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
-  /*  @Override
-    public String getUsername(){
-        return this.username;
-    }
-    public void setUsername(String username){
-        this.username=username;
-    }
-*/
+
 
 
     /* @Override

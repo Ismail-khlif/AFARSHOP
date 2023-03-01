@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pidev.afarshop.Entity.User;
 import pidev.afarshop.Repository.UserRepository;
@@ -42,4 +43,30 @@ public class UserService {
     public void deleteUser(long id) {
         userRepository.deleteById(id);
     }
+
+    //mdpoublier
+    /*
+    public void updateResetPasswordToken(String token, String email) throws UserNotFoundException {
+        User customer = userRepository.findByEmail(email);
+        if (customer != null) {
+            customer.setResetPasswordToken(token);
+            userRepository.save(customer);
+        } else {
+            throw new UserNotFoundException("Could not find any customer with the email " + email);
+        }
+    }
+
+    public User getByResetPasswordToken(String token) {
+        return userRepository.findByResetPasswordToken(token);
+    }
+
+    public void updatePassword(User user, String newPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
+
+        user.setResetPasswordToken(null);
+        userRepository.save(user);
+    }
+}*/
 }
