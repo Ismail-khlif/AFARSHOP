@@ -37,4 +37,8 @@ public class ProductServices implements IProductServices {
     public void deleteProduct(Long productId) {
         productRepository.deleteById(productId);
     }
+
+    public Product findStoreByName(String productName){
+        return productRepository.findByProductName(productName);
+    }
 }

@@ -58,4 +58,9 @@ public class ProductController {
     public void deleteProduct(@PathVariable("id") Long id){
         productServices.deleteProduct(id);
     }
+    @GetMapping("/findProductByName/{ProductName}")
+    public Product findStoreByName(@PathVariable("ProductName") String ProductName){
+        return productServices.findStoreByName(ProductName);
+    }
+
 }
