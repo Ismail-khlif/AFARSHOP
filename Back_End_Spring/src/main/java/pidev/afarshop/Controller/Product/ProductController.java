@@ -58,9 +58,42 @@ public class ProductController {
     public void deleteProduct(@PathVariable("id") Long id){
         productServices.deleteProduct(id);
     }
+    //recherche
     @GetMapping("/findProductByName/{ProductName}")
-    public Product findStoreByName(@PathVariable("ProductName") String ProductName){
-        return productServices.findStoreByName(ProductName);
+    public Product findProductByName(@PathVariable("ProductName") String ProductName){
+        return productServices.findProductByName(ProductName);
     }
+    @PutMapping(value ="/updateProduct", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Product update (@RequestParam("productId") Long productId ,
+                           @RequestParam("image") MultipartFile image, @RequestParam("productName") String poductName,
+                           @RequestParam("reference") String reference,@RequestParam("description") String description,
+                           @RequestParam("quantity") Long quantity,@RequestParam("rating") float rating,
+                           @RequestParam("video") MultipartFile video,@RequestParam("price") float price,
+                           @RequestParam("date")  @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateOfProduct,
+                           @RequestParam("discount") float discount,@RequestParam("brand") String brand,
+                           @RequestParam("yearsOfWarranty") int yearsOfWarranty) throws IOException {
+
+        Product product = new Product();
+
+        product.setProductId(productId);
+        product.setProductName(poductName);
+        product.setBrand(brand);
+        product.setImages(image.getBytes());
+        product.setReference(reference);
+        product.setDescription(description);
+        product.setQuantity(quantity);
+        product.setVideo(video.getBytes());
+        product.setPrice(price);
+        product.setDateOfProduct(dateOfProduct);
+        product.setDiscount(discount);
+        product.setYearsOfWarranty(yearsOfWarranty);
+        product.setRating(rating);
+        productRepository.save(product);
+        return product;
+    }
+    //filtre
+    @GetMapping("/filterbyName/{ProductName}")
+    public List<Product> filterProducts(@PathVariable("ProductName") String ProductName){return productServices.filterProducts(ProductName);}
+    //tri
 
 }

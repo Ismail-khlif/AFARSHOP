@@ -3,7 +3,7 @@ package pidev.afarshop.Service.Product;
 
 import pidev.afarshop.Entity.*;
 import pidev.afarshop.Repository.*;
-import pidev.afarshop.Service.Product.IProductServices;
+import pidev.afarshop.Service.ICRUDService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class ProductServices implements IProductServices {
+public class ProductServices implements IProductServices  {
     ProductRepository productRepository;
 
     @Override
@@ -37,8 +37,18 @@ public class ProductServices implements IProductServices {
     public void deleteProduct(Long productId) {
         productRepository.deleteById(productId);
     }
-
-    public Product findStoreByName(String productName){
+    //recherche
+    public Product findProductByName(String productName){
         return productRepository.findByProductName(productName);
     }
+    //filtre
+    public List<Product> filterProducts(String productName) {
+        return productRepository.findByProductNameContaining(productName);
+    }
+    @Override
+    public Product update(Product product) {
+        return productRepository.save(product);
+    }
+
+
 }
