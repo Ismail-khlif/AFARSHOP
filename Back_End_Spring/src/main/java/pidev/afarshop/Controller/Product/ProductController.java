@@ -73,8 +73,8 @@ public class ProductController {
                            @RequestParam("discount") float discount,@RequestParam("brand") String brand,
                            @RequestParam("yearsOfWarranty") int yearsOfWarranty) throws IOException {
 
+        //update working
         Product product = new Product();
-
         product.setProductId(productId);
         product.setProductName(poductName);
         product.setBrand(brand);
