@@ -25,6 +25,7 @@ public class StoreService implements ICRUDService<Store,Long> , IStoreServices {
     }
 
     @Override
+
     public Store add(Store store) {
 
         return storeRepository.save(store);

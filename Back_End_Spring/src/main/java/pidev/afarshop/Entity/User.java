@@ -45,8 +45,17 @@ public class User implements UserDetails {
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
+  /*  @Override
+    public String getUsername(){
+        return this.username;
+    }
+    public void setUsername(String username){
+        this.username=username;
+    }
+*/
 
-   /* @Override
+
+    /* @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(roles.name()));
     }*/

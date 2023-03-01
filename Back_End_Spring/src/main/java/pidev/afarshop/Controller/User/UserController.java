@@ -17,7 +17,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/")
+    @GetMapping("/get")
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
@@ -29,13 +29,13 @@ public class UserController {
     }
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
-    @PostMapping("/")
+    @PostMapping("/add")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         userService.createUser(user);
         return ResponseEntity.ok().body(user);
     }
 
-    @PutMapping("/")
+    @PutMapping("/update")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         userService.updateUser(user);
         return ResponseEntity.ok().body(user);
