@@ -30,7 +30,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long UserId;
     private String firstname;
-    private String lastName;
+    private String lastname;
     private String username;
     private String email;
     private String password;
@@ -50,6 +50,7 @@ public class User implements UserDetails {
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
+
 
 
 
@@ -81,4 +82,27 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+        public String firstname(){
+            return firstname;
+        }
+        public void setfirstname(String firstname){
+            this.firstname=firstname;
+
+        }
+        public String getlastname(){
+            return lastname;
+        }
+        public void setlastname (String lastname){
+            this.lastname = lastname;
+        }
+
+        public String getemail () {
+            return email;
+        }
+
+        public void setemail (String email){
+            this.email = email;
+        }
+
 }

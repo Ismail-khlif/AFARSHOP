@@ -24,10 +24,10 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+   public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
                 .username(request.getFirstname())
-                .lastName(request.getLastname())
+                .lastname(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .roles(request.getRole())
