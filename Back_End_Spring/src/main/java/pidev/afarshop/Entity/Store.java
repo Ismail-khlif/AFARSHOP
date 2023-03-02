@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
+
 import java.io.Serializable;
 @Entity
 @AllArgsConstructor
@@ -11,16 +13,39 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
+@Data
 @Table(name = "Store")
 public class Store  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="storeId")
     private Long storeId;
+
+    @NotBlank(message = "Store name should not be null")
     private  String storeName ;
+
+    @NotBlank(message = "The address is required.")
     private String storeLocation;
     private Integer contactInformation ;
+
+    @NotEmpty(message = "A store description is required.")
+    @Size(min = 2, max = 200, message = "The length of the store description must be between 2 and 200 characters.")
     private String storeDescription ;
+
+    @NotEmpty(message = "The email address is required.")
+    @Email(message = "The email address is invalid.", flags = { Pattern.Flag.CASE_INSENSITIVE })
     private String storeEmailAddress ;
-    /*olfa*/
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
+    @Lob
+    @Column(name = "image", unique = false, nullable = false, length = 100000)
+    private byte[] image;
+
+    private String ImagePath;
+
+
+
+
 }
