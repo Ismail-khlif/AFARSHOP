@@ -4,7 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import pidev.afarshop.Entity.MailBean;
 
 @Slf4j
 @Service
@@ -14,27 +22,28 @@ public class MailService {
     private String from;*/
 
     @Autowired
-    private JavaMailSender javaMailSender;
+    private JavaMailSender mailSender;
+    @Autowired
+    private TemplateEngine templateEngine;
 
    /* /**
      * 发送简单的文本邮件
      * @param mailBean
      */
-    /*public void sendSimpleMail(MailBean mailBean){
+   /* public void sendSimpleMail(MailBean mailBean){
         log.info("L'envoi du courrier commence.:{}",mailBean.toString());
         try{
             SimpleMailMessage simpleMailMessage=new SimpleMailMessage();
-            simpleMailMessage.setTo(mailBean.getTo());
+            simpleMailMessage.setTo(mailBean.getToEmail());
             simpleMailMessage.setSubject(mailBean.getSubject());
-            simpleMailMessage.setText(mailBean.getContent());
-            simpleMailMessage.setFrom(from);
-            javaMailSender.send(simpleMailMessage);
+            simpleMailMessage.setText(mailBean.getBody());
+            mailSender.send(simpleMailMessage);
             log.info("E-mail envoyé avec succès!");
         }catch (Exception e){
             log.error("Échec de l'envoi du courrier:{}",e.getMessage());
         }
     }*/
-    public void sendSimpleEmail(String toEmail,
+   public void sendSimpleEmail(String toEmail,
                                 String subject,
                                 String body
     ) {
@@ -43,7 +52,7 @@ public class MailService {
         message.setTo(toEmail);
         message.setText(body);
         message.setSubject(subject);
-        javaMailSender.send(message);
+        mailSender.send(message);
         System.out.println("Mail Send...");
 
 
@@ -119,4 +128,38 @@ public class MailService {
         }
     }
 */
+   public void sendEmail(String to, String subject, String message) throws MessagingException {
+       MimeMessage mimeMessage = mailSender.createMimeMessage();
+       MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
+       messageHelper.setSubject(subject);
+       messageHelper.setTo(to);
+
+       Context context = new Context();
+       context.setVariable("subject", subject);
+       context.setVariable("message", message);
+       //String content = templateEngine.process("email-template", context);
+       String content = templateEngine.process("my-new-email", context);
+
+
+       messageHelper.setText(content, true);
+       mailSender.send(mimeMessage);
+   }
+
+    public void sendWelcomeEmail(String to, String subject, String message) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
+        messageHelper.setSubject(subject);
+        messageHelper.setTo(to);
+
+        Context context = new Context();
+        context.setVariable("subject", subject);
+        context.setVariable("message", message);
+        //String content = templateEngine.process("email-template", context);
+        String content = templateEngine.process("welcomeMail", context);
+
+
+        messageHelper.setText(content, true);
+        mailSender.send(mimeMessage);
+    }
 }
+

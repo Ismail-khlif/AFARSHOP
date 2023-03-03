@@ -39,6 +39,7 @@ public class User implements UserDetails {
     private Date dayOfBirth;
     private String cin;
     private String telNum;
+    private String Etat;
     /*
     @Column(name = "reset_password_token")
     private String resetPasswordToken;
@@ -83,7 +84,7 @@ public class User implements UserDetails {
         return true;
     }
 
-        public String firstname(){
+        public String getfirstname(){
             return firstname;
         }
         public void setfirstname(String firstname){
@@ -104,5 +105,6 @@ public class User implements UserDetails {
         public void setemail (String email){
             this.email = email;
         }
+
 
 }
