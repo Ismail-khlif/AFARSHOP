@@ -14,12 +14,17 @@ import javax.mail.MessagingException;
 
 import javax.mail.MessagingException;
 
-@RequestMapping("/mail")
+@RequestMapping("/API/MAIL")
 @RestController
 public class MailController {
      @Autowired
     private MailService senderService;
     private UserService userService;
+
+    @GetMapping("/get")
+    public String hello(){
+        return "hello world";
+    }
 
 
     /* @PostMapping("/simple")
@@ -51,7 +56,7 @@ public class MailController {
             return ResponseEntity.ok("Email envoyé avec succès!");
         }
 */
-    @PostMapping
+    @PostMapping(value="/send")
     public ResponseEntity<String> sendMail() throws MessagingException {
         String to = "oumaima.mjb@gmail.com";
         String subject = "Hello WE ARE AFARSHOP";

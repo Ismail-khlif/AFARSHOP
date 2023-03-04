@@ -20,11 +20,11 @@ public class SecurityConfiguration {
     private final LogoutHandler logoutHandler;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+       /* http
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .mvcMatchers("/api/auth/**")
+                .mvcMatchers("/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -39,7 +39,15 @@ public class SecurityConfiguration {
                 .addLogoutHandler(logoutHandler)
                 .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
         ;
-
+*/
+        http.authorizeRequests()
+                .antMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                // .antMatchers("/api/user/**").hasRole(RoleType.SUPER_ADMIN.name())
+                .antMatchers("/**").permitAll()
+                // .antMatchers("/file-system/**").hasRole(RoleType.SUPER_ADMIN.name())
+                .anyRequest().authenticated()
+                .and()
+                .csrf().disable();
         return http.build();
     }
 }

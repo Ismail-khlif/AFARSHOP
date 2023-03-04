@@ -136,12 +136,13 @@ public class MailService {
 
        Context context = new Context();
        context.setVariable("subject", subject);
-       context.setVariable("message", message);
+       context.setVariable("Body", message);
        //String content = templateEngine.process("email-template", context);
-       String content = templateEngine.process("my-new-email", context);
+       String content = templateEngine.process("email-temp", context);
 
 
        messageHelper.setText(content, true);
+
        mailSender.send(mimeMessage);
    }
 
@@ -154,8 +155,8 @@ public class MailService {
         Context context = new Context();
         context.setVariable("subject", subject);
         context.setVariable("message", message);
-        //String content = templateEngine.process("email-template", context);
-        String content = templateEngine.process("welcomeMail", context);
+        String content = templateEngine.process(System.getProperty("user.dir")+"/src/main/resources/templates/email-temp.html", context);
+       // String content = templateEngine.process("welcomeMail", context);
 
 
         messageHelper.setText(content, true);

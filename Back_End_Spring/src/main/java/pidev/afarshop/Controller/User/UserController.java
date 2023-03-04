@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/API/USERS")
 public class UserController {
     @Autowired

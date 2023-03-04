@@ -31,7 +31,6 @@ public class PdfUserListReportView extends AbstractPdfView {
             table.addCell(user.getfirstname());
             table.addCell(user.getlastname());
             table.addCell(user.getemail());
-
         }
 
         document.add(table);

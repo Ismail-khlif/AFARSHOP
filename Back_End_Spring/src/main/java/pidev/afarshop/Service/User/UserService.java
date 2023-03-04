@@ -44,6 +44,10 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+   /* public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }*/
+
     //mdpoublier
     /*
     public void updateResetPasswordToken(String token, String email) throws UserNotFoundException {
