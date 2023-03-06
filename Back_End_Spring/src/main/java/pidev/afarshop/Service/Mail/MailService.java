@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -161,6 +162,16 @@ public class MailService {
 
         messageHelper.setText(content, true);
         mailSender.send(mimeMessage);
+    }
+    //token
+    @Autowired
+    public MailService(JavaMailSender javaMailSender) {
+        this.mailSender = javaMailSender;
+    }
+
+    @Async
+    public void sendEmail(SimpleMailMessage email) {
+        mailSender.send(email);
     }
 }
 

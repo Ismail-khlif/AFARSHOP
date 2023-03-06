@@ -2,9 +2,13 @@ package pidev.afarshop.Controller.User;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import pidev.afarshop.Entity.ConfirmationToken;
 import pidev.afarshop.Entity.User;
+import pidev.afarshop.Repository.ConfirmationTokenRepository;
 import pidev.afarshop.Repository.UserRepository;
 import pidev.afarshop.Service.User.UserService;
 import java.util.List;
@@ -15,6 +19,12 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private ConfirmationTokenRepository confirmationTokenRepository;
+    private PasswordEncoder passwordEncoder;
+
 
     @GetMapping("/get")
     public List<User> getAllUsers() {
@@ -26,8 +36,8 @@ public class UserController {
         Optional<User> user = userService.getUserById(id);
         return user.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+
+
     @PostMapping("/add")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         userService.createUser(user);
@@ -45,4 +55,6 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
+    //token
+
 }

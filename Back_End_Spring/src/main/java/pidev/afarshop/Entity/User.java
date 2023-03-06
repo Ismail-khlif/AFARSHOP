@@ -29,7 +29,9 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long UserId;
+    @Column(name="first_name")
     private String firstname;
+    @Column(name="last_name")
     private String lastname;
     private String username;
     private String email;
@@ -40,6 +42,7 @@ public class User implements UserDetails {
     private String cin;
     private String telNum;
     private String Etat;
+    private Boolean isEnabled;
     /*
     @Column(name = "reset_password_token")
     private String resetPasswordToken;
@@ -53,12 +56,6 @@ public class User implements UserDetails {
     private List<Token> tokens;
 
 
-
-
-    /* @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(roles.name()));
-    }*/
    @Override
    public Collection<? extends GrantedAuthority> getAuthorities() {
        return Arrays.asList(new SimpleGrantedAuthority(roles.name()));
@@ -106,5 +103,27 @@ public class User implements UserDetails {
             this.email = email;
         }
 
+    public long getUserId() {
+        return UserId;
+    }
 
+    public void setUserId(long userId) {
+        UserId = userId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Boolean getEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        isEnabled = enabled;
+    }
 }

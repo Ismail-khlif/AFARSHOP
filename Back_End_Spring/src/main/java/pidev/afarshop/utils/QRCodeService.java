@@ -8,6 +8,9 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,10 +19,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@Service
-public class QrCodeService {
 
-    public String generateQrCode(String data) throws WriterException, IOException {
+/*public class QrCodeService {
+
+    /*public String generateQrCode(String data) throws WriterException, IOException {
         Map<EncodeHintType, Object> hints = new HashMap<>();
         hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
         hints.put(EncodeHintType.MARGIN,2);
@@ -57,5 +60,30 @@ public class QrCodeService {
         FileOutputStream fileOutputStream = new FileOutputStream(new File(outputFileName));
         MatrixToImageWriter.writeToStream(bitMatrix, imageFormat, fileOutputStream);
         fileOutputStream.close();
-    }
+    }*/
+    @Service
+    public class QRCodeService {
+
+        public static void generateQRCodeImage(String text, int width, int height, String filePath)
+                throws WriterException, IOException {
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
+
+            Path path = FileSystems.getDefault().getPath(filePath);
+            MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
+
+        }
+
+
+        public static byte[] getQRCodeImage(String text, int width, int height) throws WriterException, IOException {
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
+
+            ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
+            MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
+            byte[] pngData = pngOutputStream.toByteArray();
+            return pngData;
+        }
+
+
 }

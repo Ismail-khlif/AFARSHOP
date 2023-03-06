@@ -40,7 +40,7 @@ public class SecurityConfiguration {
                 .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
         ;
 */
-        http.authorizeRequests()
+     /*   http.authorizeRequests()
                 .antMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 // .antMatchers("/api/user/**").hasRole(RoleType.SUPER_ADMIN.name())
                 .antMatchers("/**").permitAll()
@@ -48,6 +48,15 @@ public class SecurityConfiguration {
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable();
-        return http.build();
-    }
-}
+        return http.build();*/
+
+
+        http.authorizeRequests()
+                .antMatchers("/register").permitAll()
+                .antMatchers("/confirm").permitAll();
+                 return http.build();
+
+
+    }}
+
+
