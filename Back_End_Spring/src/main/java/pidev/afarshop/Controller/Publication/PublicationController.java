@@ -56,13 +56,14 @@ public class PublicationController {
     @PostMapping("/add-pub")
     @ResponseBody
     public String addPublication(@RequestBody Publication pub )
-    {
+    {/*
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication auth = context.getAuthentication();
         User u = UserRep.findByLogin(auth.getName());
         Long id = u.getUserId() ;
         return  PubSer.addPub(pub, id );
-
+*/
+        return "qsd";
 
     }
     @DeleteMapping("/remove-pub/{idPublication}")
