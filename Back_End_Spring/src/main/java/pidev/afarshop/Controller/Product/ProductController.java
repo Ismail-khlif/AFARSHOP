@@ -1,5 +1,6 @@
 package pidev.afarshop.Controller.Product;
 
+import com.google.zxing.WriterException;
 import org.springframework.format.annotation.DateTimeFormat;
 import pidev.afarshop.Entity.*;
 import pidev.afarshop.Repository.*;
@@ -9,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pidev.afarshop.utils.QRCodeGenerator;
 
 import java.io.IOException;
 import java.util.Date;
@@ -28,7 +30,7 @@ public class ProductController {
                               @RequestParam("video") MultipartFile video,@RequestParam("price") float price,
                               @RequestParam("date")  @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateOfProduct,
                               @RequestParam("discount") float discount,@RequestParam("brand") String brand,
-                              @RequestParam("yearsOfWarranty") int yearsOfWarranty) throws IOException {
+                              @RequestParam("yearsOfWarranty") int yearsOfWarranty) throws IOException, WriterException {
 
         Product product = new Product();
         product.setProductName(poductName);
@@ -44,6 +46,7 @@ public class ProductController {
         product.setYearsOfWarranty(yearsOfWarranty);
         product.setRating(rating);
         productRepository.save(product);
+        QRCodeGenerator.generateQRCode(product);
         return product;
     }
     @GetMapping("/retriveproduct/{id}")
