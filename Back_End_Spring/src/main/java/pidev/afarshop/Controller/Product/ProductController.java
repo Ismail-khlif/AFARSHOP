@@ -95,5 +95,7 @@ public class ProductController {
     @GetMapping("/filterbyName/{ProductName}")
     public List<Product> filterProducts(@PathVariable("ProductName") String ProductName){return productServices.filterProducts(ProductName);}
     //tri
+    @GetMapping("/sortedbyprice")
+    public List<Product> sortedprice(){return productServices.sortedprice();}
 
 }

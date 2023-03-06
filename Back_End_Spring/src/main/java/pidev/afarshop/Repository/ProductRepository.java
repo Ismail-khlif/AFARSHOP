@@ -13,4 +13,6 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
         // Renvoie tous les produits dont le nom contient la chaîne spécifiée
         //filtre
         List<Product> findByProductNameContaining(String productName);
+        //tri
+        List<Product> findAllByOrderByPrice();
 }

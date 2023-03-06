@@ -20,4 +20,5 @@ public interface IProductServices {
     Product findProductByName(String productName);
     List<Product> filterProducts(String productName);
     Product update(Product product);
+    List<Product> sortedprice();
 }

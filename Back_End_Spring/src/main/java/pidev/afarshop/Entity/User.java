@@ -1,4 +1,5 @@
 package pidev.afarshop.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -74,4 +75,23 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+    //added by Ismail
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Publication> publications ;
+
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy ="user" )
+    private List<CommentD> commentDs  ;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy ="user" )
+    private List<Reaction> reactions  ;
+    //fin ajout
+
 }

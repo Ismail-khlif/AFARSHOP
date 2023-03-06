@@ -49,6 +49,9 @@ public class ProductServices implements IProductServices  {
     public Product update(Product product) {
         return productRepository.save(product);
     }
+    public List<Product> sortedprice(){
+        return productRepository.findAllByOrderByPrice();
+    }
 
 
 }
