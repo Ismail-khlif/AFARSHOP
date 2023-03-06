@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pidev.afarshop.Entity.MailBean;
+import pidev.afarshop.Entity.User;
 import pidev.afarshop.Service.Mail.MailService;
 import pidev.afarshop.Service.User.UserService;
 
@@ -27,35 +28,6 @@ public class MailController {
     }
 
 
-    /* @PostMapping("/simple")
-        public ResponseEntity<String> sendEmail(@RequestBody MailBean mailBean) {
-          try {
-         senderService.sendSimpleMail(mailBean.getSubject(),mailBean.getBody(),mailBean.getToEmail());
-            return ResponseEntity.ok("Email envoyé avec succès!");
-          } catch (MessagingException e) {
-              e.printStackTrace();
-              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to send email.");
-          }
-
-
-        /*@PostMapping("/html")
-        public ResponseEntity<String> sendHtmlMail(@RequestBody MailBean mailBean) {
-            mailService.sendHtmlMessage(mailBean);
-            return ResponseEntity.ok("Email envoyé avec succès!");
-        }
-
-        @PostMapping("/attachment")
-        public ResponseEntity<String> sendAttachmentMail(@RequestBody MailBean mailBean) {
-            mailService.sendAttachMentMessage(mailBean);
-            return ResponseEntity.ok("Email envoyé avec succès!");
-        }
-
-        @PostMapping("/image")
-        public ResponseEntity<String> sendImageMail(@RequestBody MailBean mailBean) {
-            mailService.sendImageMessage(mailBean);
-            return ResponseEntity.ok("Email envoyé avec succès!");
-        }
-*/
     @PostMapping(value="/send")
     public ResponseEntity<String> sendMail() throws MessagingException {
         String to = "oumaima.mjb@gmail.com";
@@ -83,8 +55,8 @@ public class MailController {
         return ResponseEntity.ok("Mail sending to "+m);
     }
 
-    @PostMapping("/wel/{mail}/{id}")
-    public String sendWel(@PathVariable("mail") String m,@PathVariable("id") Long id) throws MessagingException {
+    @PostMapping("/welcome/{mail}/{id}")
+    public String sendWelcome(@PathVariable("mail") String m,@PathVariable("id") Long id) throws MessagingException {
         //User u = userService.getUserById(id).get();
         String mes = "test";
         senderService.sendWelcomeEmail(m,"HELLO",mes);

@@ -28,8 +28,6 @@ public class ReportController {
 
      @Autowired
      UserRepository user;
-    /* @Autowired
-     QrCodeService qrCodeService;*/
      MailService emailService;
     private static final String QR_CODE_IMAGE_PATH = "./src/main/resources/images/QRCode.png";
 
@@ -42,7 +40,7 @@ public class ReportController {
         return new ModelAndView(new ExcelUserListReportView(), "usersList", list);
     }
 
-   /* @GetMapping(value = "/Rapport/qrCode")
+   /*@GetMapping(value = "/Rapport/qrCode")
     public String qrCode(HttpServletRequest request, HttpServletResponse response) {
         //create data
         List<User> list;
@@ -53,14 +51,14 @@ public class ReportController {
         }
         String path = null;
         try {
-            path =  qrCodeService.generateQrCode(data);
+            path =  QR_CODE_IMAGE_PATH ;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 return path;
 
-    }*/
-   @GetMapping(value = "/genrateAndDownloadQRCode/{codeText}/{width}/{height}")
+    }
+  /* @GetMapping(value = "/genrateAndDownloadQRCode/{codeText}/{width}/{height}")
    public void download(
            @PathVariable("codeText") String codeText,
            @PathVariable("width") Integer width,
@@ -76,9 +74,9 @@ return path;
             @PathVariable("height") Integer height)
             throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(QRCodeService.getQRCodeImage(codeText, width, height));
-    }
+    }*/
 
-    @RequestMapping(value = "/Rapport/pdf")
+    @GetMapping(value = "/Rapport/pdf")
     public ModelAndView createPdf(HttpServletRequest request, HttpServletResponse response) {
         String typeReport = request.getParameter("type");
 

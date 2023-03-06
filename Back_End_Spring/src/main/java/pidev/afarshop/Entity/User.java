@@ -81,25 +81,24 @@ public class User implements UserDetails {
         return true;
     }
 
-        public String getfirstname(){
+    public String getfirstname(){
             return firstname;
         }
-        public void setfirstname(String firstname){
+    public void setfirstname(String firstname){
             this.firstname=firstname;
-
-        }
-        public String getlastname(){
+   }
+    public String getlastname(){
             return lastname;
         }
-        public void setlastname (String lastname){
+    public void setlastname (String lastname){
             this.lastname = lastname;
         }
 
-        public String getemail () {
+    public String getemail () {
             return email;
         }
 
-        public void setemail (String email){
+    public void setemail (String email){
             this.email = email;
         }
 

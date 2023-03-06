@@ -59,7 +59,7 @@ public class UserAccountController {
             mailMessage.setText("To confirm your account, please click here : "
                     +"http://localhost:9090/confirm-account?token="+confirmationToken.getConfirmationToken());
 
-            mailService.sendEmail(mailMessage);
+           /* mailService.sendEmail(mailMessage);*/
 
             modelAndView.addObject("emailId", user.getEmail());
 
@@ -89,5 +89,5 @@ public class UserAccountController {
         }
 
         return modelAndView;
-    }
+    }*/
 }
