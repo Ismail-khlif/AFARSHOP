@@ -1,5 +1,6 @@
 package pidev.afarshop.Service.Product;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import pidev.afarshop.Entity.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,4 +17,8 @@ public interface IProductServices {
     Product retrieveProduct (Long productId);
 
     void deleteProduct(Long productId);
+    Product findProductByName(String productName);
+    List<Product> filterProducts(String productName);
+    Product update(Product product);
+    List<Product> sortedprice();
 }
