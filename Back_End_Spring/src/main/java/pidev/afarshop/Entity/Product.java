@@ -35,4 +35,20 @@ public class Product  implements Serializable {
     private float rating;
     private float discount;
     private int yearsOfWarranty;
+    //dailyoffres
+    @Column(name = "created_at", nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+    @Enumerated(EnumType.STRING)
+    ProductCategory productCategory;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    List<Review> reviews;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "products",cascade = CascadeType.ALL)
+    List<Store> stores;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    List<LikeDislikeProduct> likeDislikeProducts;
+
 }

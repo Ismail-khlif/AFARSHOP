@@ -14,9 +14,6 @@ public class MailBean implements Serializable {
     private  String from;
     private  String subject;
     private  String Body;
-    private  List<String> attachmentPath;
-    private  String imagePath;
-    private  String rscId;
 
 
 }
