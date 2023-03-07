@@ -1,4 +1,5 @@
 package pidev.afarshop.Entity;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
@@ -95,3 +96,4 @@ public class User implements UserDetails {
     //fin ajout
 
 }
+
