@@ -44,7 +44,7 @@ public class StoreController {
 
 
     @PostMapping(value = {"/addStore"}, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Store add (@RequestParam("image") MultipartFile image, @Valid @RequestParam String storeName, @RequestParam String storeLocation, @RequestParam String storeDescription, @RequestParam int contactInformation, @RequestParam String storeEmailAddress, @RequestParam Category category ) throws Exception {
+    public Store add (@RequestParam("image") MultipartFile image, @Valid @RequestParam String storeName, @RequestParam String storeLocation, @RequestParam String storeDescription, @RequestParam int contactInformation, @RequestParam String storeEmailAddress ) throws Exception {
         String path = fileSystemRepository.save(image);
         Store store = new Store();
         store.setStoreName(storeName);
@@ -52,10 +52,9 @@ public class StoreController {
         store.setStoreDescription(storeDescription);
         store.setImage(image.getBytes());
         store.setContactInformation(contactInformation);
-        store.setCategory(category);
         store.setStoreLocation(storeLocation);
         store.setImagePath(path);
-        return storeService.add(store);
+        return storeService.addStore(store);
 
     }
 

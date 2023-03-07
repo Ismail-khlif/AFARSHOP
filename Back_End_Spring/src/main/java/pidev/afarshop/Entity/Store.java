@@ -1,5 +1,6 @@
 package pidev.afarshop.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -7,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.Set;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,14 +39,23 @@ public class Store  implements Serializable {
     @Email(message = "The email address is invalid.", flags = { Pattern.Flag.CASE_INSENSITIVE })
     private String storeEmailAddress ;
 
-    @Enumerated(EnumType.STRING)
-    private Category category;
+
 
     @Lob
     @Column(name = "image", unique = false, nullable = false, length = 100000)
     private byte[] image;
 
     private String ImagePath;
+
+
+    @JsonBackReference
+    @ManyToOne
+    private Category category ;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "store")
+    private Set<Rating> ratings;
+
+
 
 
 
