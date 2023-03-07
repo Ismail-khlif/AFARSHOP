@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -20,15 +21,15 @@ public class Bill implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long billId;
-    @Enumerated(EnumType.STRING)
-    private PaymentMethod paymentMethod;
     private int installmentsNb ;
     private float paymentAmount;
+    @JsonFormat(pattern="dd/MM/yy")
+    private LocalDate billDate;
 
     @OneToOne(mappedBy = "bill")
     private Order order;
 
     @OneToMany(mappedBy = "billPayment")
-    private Set<Payement> payments;
+    private Set<Payment> payments;
 
 }

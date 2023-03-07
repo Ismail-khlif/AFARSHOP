@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -22,4 +23,6 @@ public class Order implements Serializable {
 
     @OneToOne
     private Bill bill;
+    @OneToMany(mappedBy = "order")
+    private Set<Product> products;
 }

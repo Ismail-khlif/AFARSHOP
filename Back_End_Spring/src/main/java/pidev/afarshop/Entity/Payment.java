@@ -1,11 +1,11 @@
 package pidev.afarshop.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -14,15 +14,17 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@Table(name = "Payement")
-public class Payement  implements Serializable {
+
+public class Payment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long payementId;
+    private Long paymentId;
     private boolean paid;
     @JsonFormat(pattern="dd/MM/yy")
-    private Date paymentDate;
+    private LocalDate paymentDate;
     private float installmentAmount;
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod;
 
     @ManyToOne
     private Bill billPayment;
