@@ -30,11 +30,11 @@ public class Delivery implements Serializable {
     private String lastName ;
     private Long numTel;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "home_deliveryid", referencedColumnName = "homeDeliveryId")
     private HomeDelivery homeDelivery ;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "store_deliveryid", referencedColumnName = "storeDeliveryId")
     private StoreDelivery storeDelivery ;
 

@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -18,4 +19,10 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="orderId")
     private Long orderId;
+
+
+    @OneToOne
+    private Bill bill;
+    @OneToMany(mappedBy = "order")
+    private Set<Product> products;
 }

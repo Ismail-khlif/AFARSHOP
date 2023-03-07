@@ -40,7 +40,6 @@ public class Store  implements Serializable {
     private String storeEmailAddress ;
 
 
-
     @Lob
     @Column(name = "image", unique = false, nullable = false, length = 100000)
     private byte[] image;
@@ -54,8 +53,6 @@ public class Store  implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "store")
     private Set<Rating> ratings;
-
-
 
 
 
