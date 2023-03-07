@@ -35,4 +35,9 @@ public class Product  implements Serializable {
     private float rating;
     private float discount;
     private int yearsOfWarranty;
+    private boolean facility;
+
+    @ManyToOne
+    private Order order;
+
 }
