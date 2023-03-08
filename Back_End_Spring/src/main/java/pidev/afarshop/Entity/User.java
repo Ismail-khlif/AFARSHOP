@@ -1,5 +1,6 @@
 package pidev.afarshop.Entity;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
@@ -95,5 +96,7 @@ public class User implements UserDetails {
     private List<Reaction> reactions  ;
     //fin ajout
 
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+    private Set<Rating> ratings;
 }
 
