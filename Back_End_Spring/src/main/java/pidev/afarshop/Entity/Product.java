@@ -38,6 +38,6 @@ public class Product  implements Serializable {
     private boolean facility;
 
     @ManyToOne
-    private Order order;
+    private Order1 order;
 
 }

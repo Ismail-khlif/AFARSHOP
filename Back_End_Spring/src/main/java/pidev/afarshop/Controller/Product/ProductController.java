@@ -2,6 +2,8 @@ package pidev.afarshop.Controller.Product;
 
 import com.google.zxing.WriterException;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import pidev.afarshop.Entity.*;
 import pidev.afarshop.Repository.*;
 
@@ -100,5 +102,13 @@ public class ProductController {
     //tri
     @GetMapping("/sortedbyprice")
     public List<Product> sortedprice(){return productServices.sortedprice();}
+    @PostMapping(path="certifGen/{certificate}")
+    public ResponseEntity<byte[]> product(@PathVariable("certificate") Long prodid) throws IOException, InterruptedException{
+        Long certi = prodid.longValue();
+        byte[] res = productServices.product(certi);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=Certificate.pdf")
+                .contentType(MediaType.APPLICATION_PDF).body(res);
+    }
 
 }

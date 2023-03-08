@@ -1,4 +1,4 @@
-package pidev.afarshop.Service.Order;
+package pidev.afarshop.Service.Order1;
 
 import pidev.afarshop.Entity.*;
 import pidev.afarshop.Service.*;
@@ -12,21 +12,21 @@ import java.util.List;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class OrderService implements ICRUDService<Order,Long> , IOrderServices {
+public class Order1Service implements ICRUDService<Order1,Long> , IOrderServices {
 
-    OrderRepository orderRepository;
+    Order1Repository orderRepository;
     @Override
-    public List<Order> findAll() {
+    public List<Order1> findAll() {
         return orderRepository.findAll();
     }
 
     @Override
-    public Order retrieveItem(Long idItem) {
+    public Order1 retrieveItem(Long idItem) {
         return orderRepository.findById(idItem).get();
     }
 
     @Override
-    public Order add(Order order) {
+    public Order1 add(Order1 order) {
         return orderRepository.save(order);
     }
 
@@ -37,7 +37,7 @@ public class OrderService implements ICRUDService<Order,Long> , IOrderServices {
     }
 
     @Override
-    public Order update(Order order) {
+    public Order1 update(Order1 order) {
         return orderRepository.save(order);
     }
 }

@@ -27,7 +27,7 @@ public class Bill implements Serializable{
     private LocalDate billDate;
 
     @OneToOne(mappedBy = "bill")
-    private Order order;
+    private Order1 order1;
 
     @OneToMany(mappedBy = "billPayment")
     private Set<Payment> payments;
