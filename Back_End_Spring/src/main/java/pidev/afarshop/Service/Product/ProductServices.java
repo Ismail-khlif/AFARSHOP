@@ -44,23 +44,5 @@ public class ProductServices implements IProductServices {
         return productRepository.findByProductName(name);
     }
 
-    public ProductCategory TopProductCategoryByUserThisWeek (User u){ // add by Ahmed lasmar for the daily offers mail
-        Long userId =u.getUserId();
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        Date startOfWeek = calendar.getTime();
-        calendar.add(Calendar.DATE, 6);
-        Date endOfWeek = calendar.getTime();
-        return productRepository.findTopProductCategoryByUserThisWeek(userId, startOfWeek, endOfWeek);
-    }
-
-    public List<Product> findTop4ProductsByCategoryOrderByRecentlyAdded(ProductCategory categorie) {
-        List<Product> top4ProductsByCategory = new ArrayList<>();
-
-        Pageable pageable = PageRequest.of(0, 4);
-        List<Product> top4Products = productRepository.findTop4ProductsByCategoryOrderByRecentlyAdded(categorie, pageable);
-        top4ProductsByCategory.addAll(top4Products);
-        return top4ProductsByCategory;
-    }
 
 }

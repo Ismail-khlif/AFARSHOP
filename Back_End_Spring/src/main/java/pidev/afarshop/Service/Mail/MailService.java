@@ -28,12 +28,9 @@ public class MailService {
 
     @Autowired
     private JavaMailSender mailSender;
-    private static final Logger logger = LoggerFactory.getLogger(MailService.class);
-    @Autowired
+        @Autowired
     private TemplateEngine templateEngine;
-    private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\." +
-            "[a-zA-Z0-9_+&*-]+)*@" +
-            "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
     private User u;
     private List<Product> p;
 
@@ -70,34 +67,7 @@ public class MailService {
         messageHelper.setText(content, true);
         mailSender.send(mimeMessage);
     }
-    //dailyofferemail
-    public void sendDailyOfferEmail(User u, List<Product> p) throws MessagingException {
-        if (StringUtils.isEmpty(u.getEmail())) {
-            logger.error("Recipient address is empty");
-            return;
-        }
-        Pattern pattern = Pattern.compile(EMAIL_REGEX);
-        Matcher matcher = pattern.matcher(u.getEmail());
-        if (!matcher.matches()) {
-            logger.error("Invalid recipient email address / the mail is: "+u.getEmail());
-            return;
-        }
-        logger.info("sending daily mail to "+ u.getEmail());
-        MimeMessage mimeMessage = mailSender.createMimeMessage();
-        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
-        messageHelper.setSubject("Daily Deals: Get Up to 40% Off on Our Latest Collection");
-        messageHelper.setTo(u.getEmail());
 
-        Context context = new Context();
-        //context.setVariable("subject", subject);
-        //context.setVariable("message", message);
-        String content = templateEngine.process("DailyOffres", context);
-
-
-        messageHelper.setText(content, true);
-        mailSender.send(mimeMessage);
-
-    }
 
 }
 
