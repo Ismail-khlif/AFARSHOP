@@ -1,6 +1,5 @@
 package pidev.afarshop.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,8 +11,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-@Table(name = "Order")
-public class Order implements Serializable {
+@Table(name = "Order1")
+public class Order1 implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="orderId")

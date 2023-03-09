@@ -7,29 +7,28 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
 @Slf4j
 @AllArgsConstructor
-public class OrderService implements ICRUDService<Order,Long> , IOrderServices {
+public class OrderService implements ICRUDService<Order1,Long> , IOrderServices {
 
     OrderRepository orderRepository;
     @Override
-    public List<Order> findAll() {
+    public List<Order1> findAll() {
         return orderRepository.findAll();
     }
 
     @Override
-    public Order retrieveItem(Long idItem) {
+    public Order1 retrieveItem(Long idItem) {
         return orderRepository.findById(idItem).get();
     }
 
     @Override
-    public Order add(Order order) {
-        return orderRepository.save(order);
+    public Order1 add(Order1 order1) {
+        return orderRepository.save(order1);
     }
 
     @Override
@@ -39,16 +38,21 @@ public class OrderService implements ICRUDService<Order,Long> , IOrderServices {
     }
 
     @Override
-    public Order update(Order order) {
-        return orderRepository.save(order);
+    public Order1 update(Order1 order1) {
+        return orderRepository.save(order1);
     }
-    public Map<String,List<Order>> displayOrdersByProvider() {
+
+    @Override
+    public Map<String, List<Order1>> displayOrdersByProvider() {
+        return null;
+    }
+   /* public Map<String,List<Order1>> displayOrdersByProvider() {
         List<String> findProviderNamesWithOrder = orderRepository.findProviderNamesWithOrder();
-        Map<String, List<Order>> map = new HashMap<>();
+        Map<String, List<Order1>> map = new HashMap<>();
         for (String obj : findProviderNamesWithOrder) {
             map.put(obj,orderRepository.findByDelivery_Provider_ProviderName(obj));
 
         }
         return map;
-    }
+    }*/
 }

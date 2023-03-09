@@ -20,11 +20,11 @@ public class SecurityConfiguration {
     private final LogoutHandler logoutHandler;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-       /* http
+       http
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .mvcMatchers("/**")
+                .mvcMatchers("/api/auth/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -37,10 +37,11 @@ public class SecurityConfiguration {
                 .logout()
                 .logoutUrl("/api/auth/logout")
                 .addLogoutHandler(logoutHandler)
-                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
-        ;
-*/
-       /* http.authorizeRequests()
+                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext());
+        return http.build();
+
+
+     /*   http.authorizeRequests()
                 .antMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 // .antMatchers("/api/user/**").hasRole(RoleType.SUPER_ADMIN.name())
                 .antMatchers("/**").permitAll()
@@ -48,15 +49,16 @@ public class SecurityConfiguration {
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable();
-        return http.build();*/
+        return http.build();
 
-
-        http.authorizeRequests()
+*/
+ /*       http.authorizeRequests()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/confirm").permitAll();
                  return http.build();
+*/
 
-
-    }}
+    }
+}
 
 

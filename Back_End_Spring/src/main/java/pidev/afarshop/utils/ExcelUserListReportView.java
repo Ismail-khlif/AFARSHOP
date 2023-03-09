@@ -34,7 +34,6 @@ public class ExcelUserListReportView extends AbstractXlsView {
             row.createCell(0).setCellValue(user.getfirstname());
             row.createCell(1).setCellValue(user.getlastname());
             row.createCell(2).setCellValue(user.getemail());
-            row.createCell(3).setCellValue(user.getEtat());
             row.createCell(4).setCellValue(user.getRoles().name());
         }
     }

@@ -2,7 +2,6 @@ package pidev.afarshop.Controller.Order;
 
 
 import pidev.afarshop.Entity.*;
-import pidev.afarshop.Repository.*;
 import pidev.afarshop.Service.Order.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,23 +14,23 @@ public class OrderController {
     OrderService orderService;
 
     @GetMapping("/retrive_all_orders")
-    public List<Order> retrieveOrderList(){
+    public List<Order1> retrieveOrderList(){
         return orderService.findAll();
     }
 
     @GetMapping("/retrive_order/{orderId}")
-    public Order retrieveOrder(@PathVariable("orderId") Long orderId){
+    public Order1 retrieveOrder(@PathVariable("orderId") Long orderId){
         return orderService.retrieveItem(orderId);
     }
 
     @PostMapping("/add_order")
-    public Order addOrder(@RequestBody Order order){
-        return orderService.add(order);
+    public Order1 addOrder(@RequestBody Order1 order1){
+        return orderService.add(order1);
     }
 
     @PutMapping("/update_order")
-    public Order updateOrder(@RequestBody Order order){
-        return orderService.update(order);
+    public Order1 updateOrder(@RequestBody Order1 order1){
+        return orderService.update(order1);
     }
 
     @DeleteMapping("/delete_order/{orderId}")

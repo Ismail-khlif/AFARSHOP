@@ -36,7 +36,7 @@ public class Product  implements Serializable {
     private float discount;
     private int yearsOfWarranty;
     //dailyoffres
-    @Column(name = "created_at", nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    /*@Column(name = "created_at", nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
     @Enumerated(EnumType.STRING)
@@ -49,6 +49,6 @@ public class Product  implements Serializable {
     List<Store> stores;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
-    List<LikeDislikeProduct> likeDislikeProducts;
+    List<LikeDislikeProduct> likeDislikeProducts;*/
 
 }
