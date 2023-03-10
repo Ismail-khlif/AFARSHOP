@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -17,4 +18,10 @@ public class Order1 implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="orderId")
     private Long orderId;
+
+    @ManyToOne
+    private User user;
+
+    @ManyToMany(mappedBy = "orders")
+    private List<Product> products;
 }

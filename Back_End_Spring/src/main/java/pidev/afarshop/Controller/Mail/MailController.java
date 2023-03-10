@@ -5,15 +5,21 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import pidev.afarshop.Entity.MailBean;
+import pidev.afarshop.Entity.Order1;
+import pidev.afarshop.Entity.Product;
 import pidev.afarshop.Entity.User;
+import pidev.afarshop.Repository.ProductRepository;
 import pidev.afarshop.Service.Mail.MailService;
 import pidev.afarshop.Service.User.UserService;
 
 import javax.mail.MessagingException;
 
 import javax.mail.MessagingException;
+import java.util.List;
+import java.util.Random;
 
 @RequestMapping("/API/MAIL")
 @RestController
@@ -21,6 +27,9 @@ public class MailController {
      @Autowired
     private MailService senderService;
     private UserService userService;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @GetMapping("/get")
     public String hello(){
@@ -61,6 +70,36 @@ public class MailController {
         String mes = "test";
         senderService.sendWelcomeEmail(m,"HELLO",mes);
         return "it's okey";
+    }
+
+    @Scheduled(fixedRate = 5000)
+    private void dailyMail() throws MessagingException {
+        List<User> users = userService.getAllUsers();
+
+        for (User u : users){
+            Random r = new Random();
+            int high = u.getOrders().size()-1;
+            int result = r.nextInt(high);
+            Order1 order = u.getOrders().get(result);
+            high = order.getProducts().size()-1;
+            result = r.nextInt(high);
+            Product product = order.getProducts().get(result);
+            List<Product> products = productRepository.findByCategory(product.getCategory());
+            String to = u.getemail();
+            String subject = "Checkout this ya boii";
+            String message = null;
+            Product p = null;
+            if (product.equals(products.get(0))){
+                high = order.getProducts().size()-1;
+                result = r.nextInt(high);
+                p = products.get(result);
+                message = "checkout "+p.getBrand();
+            }else{
+                p = products.get(0);
+                message = "checkout "+p.getBrand();
+            }
+            senderService.sendEmail(to, subject, message);
+        }
     }
 }
 

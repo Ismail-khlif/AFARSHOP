@@ -35,6 +35,12 @@ public class Product  implements Serializable {
     private float rating;
     private float discount;
     private int yearsOfWarranty;
+    @Enumerated(EnumType.STRING)
+    private ProductCategory category;
+
+    @ManyToMany(mappedBy = "products")
+    @JsonIgnore
+    private List<Order1> orders;
     //dailyoffres
     /*@Column(name = "created_at", nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)

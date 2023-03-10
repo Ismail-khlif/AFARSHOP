@@ -20,4 +20,6 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
  @Query("SELECT p FROM Product p WHERE p.productCategory = :category ORDER BY p.createdAt DESC")
  List<Product> findTop4ProductsByCategoryOrderByRecentlyAdded(@Param("category") ProductCategory category, Pageable pageable);
 */
+ @Query(value = "SELECT * FROM product WHERE product.category = :category ORDER BY dateOfProduct DESC", nativeQuery = true)
+ public List<Product> findByCategory(ProductCategory category);
 }
