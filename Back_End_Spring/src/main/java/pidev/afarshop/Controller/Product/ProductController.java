@@ -1,5 +1,6 @@
 package pidev.afarshop.Controller.Product;
 
+import org.springframework.http.ResponseEntity;
 import pidev.afarshop.Entity.*;
 import pidev.afarshop.Repository.*;
 
@@ -40,4 +41,9 @@ public class ProductController {
     public void deleteProduct(@PathVariable("id") Long id){
         productServices.deleteProduct(id);
     }
+    /*@PostMapping
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        Product newProduct = productServices.createProduct(product);
+        return ResponseEntity.ok(newProduct);
+    }*/
 }

@@ -17,4 +17,5 @@ public interface IProductServices {
 
     void deleteProduct(Long productId);
     /* ProductCategory TopProductCategoryByUserThisWeek (User u);// add by Oumaima majdoub for the daily offers mail*/
+    /*Product createProduct(Product product);*/
 }

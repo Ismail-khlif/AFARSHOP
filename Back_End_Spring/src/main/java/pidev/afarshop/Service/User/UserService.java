@@ -11,7 +11,10 @@ import pidev.afarshop.Entity.User;
 import pidev.afarshop.Repository.UserRepository;
 
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -59,29 +62,17 @@ public class UserService {
         return userRepository.findAll();
     }*/
 
-    //mdpoublier
-    /*
-    public void updateResetPasswordToken(String token, String email) throws UserNotFoundException {
-        User customer = userRepository.findByEmail(email);
-        if (customer != null) {
-            customer.setResetPasswordToken(token);
-            userRepository.save(customer);
+   public List<User> FindByfirstname(String firstname) {
+        List<User> listUser = new ArrayList<User>();
+        listUser = userRepository.FindByfirstname(firstname);
+        if (listUser.size() == 0) {
+            System.out.println("There Are No name In The DataBase With The Provided name ");
         } else {
-            throw new UserNotFoundException("Could not find any customer with the email " + email);
+            System.out.println("Name Avariable : ");
+            System.out.println(listUser);
         }
+        return listUser;
+
     }
 
-    public User getByResetPasswordToken(String token) {
-        return userRepository.findByResetPasswordToken(token);
-    }
-
-    public void updatePassword(User user, String newPassword) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(newPassword);
-        user.setPassword(encodedPassword);
-
-        user.setResetPasswordToken(null);
-        userRepository.save(user);
-    }
-}*/
 }

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,13 +47,6 @@ public class OrderService implements ICRUDService<Order1,Long> , IOrderServices 
     public Map<String, List<Order1>> displayOrdersByProvider() {
         return null;
     }
-   /* public Map<String,List<Order1>> displayOrdersByProvider() {
-        List<String> findProviderNamesWithOrder = orderRepository.findProviderNamesWithOrder();
-        Map<String, List<Order1>> map = new HashMap<>();
-        for (String obj : findProviderNamesWithOrder) {
-            map.put(obj,orderRepository.findByDelivery_Provider_ProviderName(obj));
 
-        }
-        return map;
-    }*/
+
 }

@@ -22,6 +22,8 @@ public class Order1 implements Serializable {
     @ManyToOne
     private User user;
 
-    @ManyToMany(mappedBy = "orders")
+    @ManyToMany(mappedBy = "orders", fetch = FetchType.EAGER)
     private List<Product> products;
+
+
 }

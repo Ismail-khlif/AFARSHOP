@@ -116,6 +116,10 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("/FindUser/FindByFirstName/{firstname}")
+    List<User> FindByfirstname(@PathVariable("firstname") String firstname) {
+        return userService.FindByfirstname(firstname);
+    }
 
 
 }

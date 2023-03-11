@@ -38,23 +38,15 @@ public class Product  implements Serializable {
     @Enumerated(EnumType.STRING)
     private ProductCategory category;
 
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany
     @JsonIgnore
     private List<Order1> orders;
-    //dailyoffres
-    /*@Column(name = "created_at", nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
-    @Enumerated(EnumType.STRING)
-    ProductCategory productCategory;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL)
-    List<Review> reviews;
-    @JsonIgnore
-    @ManyToMany(mappedBy = "products",cascade = CascadeType.ALL)
-    List<Store> stores;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL)
-    List<LikeDislikeProduct> likeDislikeProducts;*/
 
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
 }

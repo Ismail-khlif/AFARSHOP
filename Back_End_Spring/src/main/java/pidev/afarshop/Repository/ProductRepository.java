@@ -1,6 +1,7 @@
 package pidev.afarshop.Repository;
  import org.springframework.data.jpa.repository.Query;
  import org.springframework.data.repository.query.Param;
+ import org.springframework.mail.SimpleMailMessage;
  import pidev.afarshop.Entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,15 +12,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long> {
- List<Product> findByProductName(String productName);
- /*
- @Query("SELECT p.productCategory FROM Order1 o JOIN o.cart.products p WHERE o.payement.user.id = :userId " +
-         "AND o.orderDate BETWEEN :startOfWeek AND :endOfWeek GROUP BY p.productCategory " +
-         "ORDER BY COUNT(p.productCategory) DESC")
- ProductCategory findTopProductCategoryByUserThisWeek(Long userId, Date startOfWeek, Date endOfWeek);
- @Query("SELECT p FROM Product p WHERE p.productCategory = :category ORDER BY p.createdAt DESC")
- List<Product> findTop4ProductsByCategoryOrderByRecentlyAdded(@Param("category") ProductCategory category, Pageable pageable);
+ /*Product createProduct(Product product);
 */
- @Query(value = "SELECT * FROM product WHERE product.category = :category ORDER BY dateOfProduct DESC", nativeQuery = true)
- public List<Product> findByCategory(ProductCategory category);
+
 }

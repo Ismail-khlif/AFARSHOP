@@ -1,5 +1,6 @@
 package pidev.afarshop.Controller.Mail;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -23,9 +24,11 @@ import java.util.Random;
 
 @RequestMapping("/API/MAIL")
 @RestController
+@Slf4j
 public class MailController {
      @Autowired
     private MailService senderService;
+     @Autowired
     private UserService userService;
 
     @Autowired
@@ -72,17 +75,18 @@ public class MailController {
         return "it's okey";
     }
 
-    @Scheduled(fixedRate = 5000)
+   /* @Scheduled(fixedRate = 5000)
     private void dailyMail() throws MessagingException {
         List<User> users = userService.getAllUsers();
-
+        log.info ("sending daily mail");
         for (User u : users){
             Random r = new Random();
             int high = u.getOrders().size()-1;
-            int result = r.nextInt(high);
+            log.error(String.valueOf(high));
+            int result = high <= 0 ? 0: r.nextInt(high);
             Order1 order = u.getOrders().get(result);
             high = order.getProducts().size()-1;
-            result = r.nextInt(high);
+            result = high <= 0 ? 0: r.nextInt(high);
             Product product = order.getProducts().get(result);
             List<Product> products = productRepository.findByCategory(product.getCategory());
             String to = u.getemail();
@@ -91,7 +95,7 @@ public class MailController {
             Product p = null;
             if (product.equals(products.get(0))){
                 high = order.getProducts().size()-1;
-                result = r.nextInt(high);
+                result = high <= 0 ? 0: r.nextInt(high);
                 p = products.get(result);
                 message = "checkout "+p.getBrand();
             }else{
@@ -100,7 +104,8 @@ public class MailController {
             }
             senderService.sendEmail(to, subject, message);
         }
-    }
+    }*/
+
 }
 
 

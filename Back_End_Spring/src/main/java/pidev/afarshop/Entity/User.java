@@ -42,11 +42,6 @@ public class User implements UserDetails {
     private String telNum;
     @Lob
     private byte[] images;
-    /*
-    @Column(name = "reset_password_token")
-    private String resetPasswordToken;
-
-     */
     @Enumerated(EnumType.STRING)
     private Role roles;
 
@@ -54,7 +49,7 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Order1> orders;
 
@@ -113,6 +108,7 @@ public class User implements UserDetails {
         UserId = userId;
     }
 
-
-
+    public User(String firstname) {
+        this.firstname = firstname;
+    }
 }
