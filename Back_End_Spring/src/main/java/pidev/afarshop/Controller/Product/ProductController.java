@@ -4,6 +4,7 @@ import com.google.zxing.WriterException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import pidev.afarshop.Entity.*;
 import pidev.afarshop.Repository.*;
 
@@ -15,12 +16,20 @@ import org.springframework.web.multipart.MultipartFile;
 import pidev.afarshop.utils.QRCodeGenerator;
 
 import java.io.IOException;
+import java.nio.file.attribute.UserPrincipal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import springfox.documentation.annotations.ApiIgnore;
+
+import javax.transaction.Transactional;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/product")
+
 public class ProductController {
     ProductServices productServices;
     ProductRepository productRepository;
@@ -110,5 +119,23 @@ public class ProductController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=Certificate.pdf")
                 .contentType(MediaType.APPLICATION_PDF).body(res);
     }
+    @PostMapping("/add-Comment/{IdPost}/{IdUser}")
+    @ResponseBody
+    public ResponseEntity<?> addComment_to_Post(@RequestBody ProductComment productComment, @PathVariable("IdPost") Long IdPost,@PathVariable("IdUser") User u) {
+        productComment.setCommentedAt(java.sql.Date.valueOf(LocalDate.now()))	;
 
+        return productServices.addComment_to_Product(productComment,IdPost,u.getUserId());
+    }
+    @PostMapping("/AssignLocationtoStore/{IdLocation}/{IdStore}")
+    public void AssignLocationToStore ( @PathVariable("IdLocation") Long IdLocation,@PathVariable("IdStore" )Long IdStore){
+        productServices.AssignLocationtoStore(IdLocation,IdStore);
+
+    }
+    @GetMapping("/NearestStorewithproduct/{productId}/{lat}/{long}")
+    public Map<String ,StoreLocations> getNearestStorewithproduct(@PathVariable("productId") Long productId,@PathVariable("lat") double clientLatitude,
+                                                                  @PathVariable("long") double clientLongitude){
+
+    return productServices.getNearestStorewithproduct(productId,clientLatitude,clientLongitude);
+
+    }
 }

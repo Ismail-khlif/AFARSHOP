@@ -97,5 +97,13 @@ public class User implements UserDetails {
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
     private Set<Rating> ratings;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    Set<ProductComment> productComments;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    Set<Product> products;
 }
 

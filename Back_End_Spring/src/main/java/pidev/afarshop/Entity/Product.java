@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -39,5 +40,12 @@ public class Product  implements Serializable {
 
     @ManyToOne
     private Order1 order;
+    @ManyToOne
+    User user;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    Set<ProductComment> productComments;
+    @ManyToOne
+    @JoinColumn(name = "storeId")
+    private Store store;
 
 }

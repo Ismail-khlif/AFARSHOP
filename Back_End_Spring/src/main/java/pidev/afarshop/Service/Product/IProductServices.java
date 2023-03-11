@@ -22,4 +22,6 @@ public interface IProductServices {
     Product update(Product product);
     List<Product> sortedprice();
     public byte[] product(Long productId) throws IOException, InterruptedException;
+
+    Forbidden addForbidden(Forbidden b);
 }
