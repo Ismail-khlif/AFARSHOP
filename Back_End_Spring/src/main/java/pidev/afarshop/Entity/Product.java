@@ -47,5 +47,10 @@ public class Product  implements Serializable {
     @ManyToOne
     @JoinColumn(name = "storeId")
     private Store store;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    Set<ProductLike> productLikes;
+
+
 
 }

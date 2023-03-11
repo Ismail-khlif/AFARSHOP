@@ -140,4 +140,21 @@ public class ProductController {
     return productServices.getNearestStorewithproduct(productId,clientLatitude,clientLongitude);
 
     }
+
+    @PostMapping("/add-Like-post/{IdProduct}/{IdUser}")
+    @ResponseBody
+    public ProductLike addLike_to_Post(@RequestBody(required = false) ProductLike postLike, @PathVariable("IdProduct") Long IdProduct, @PathVariable("IdUser") User u) {
+        ProductLike pos1 = new ProductLike();
+        pos1.setIsLiked(true);
+
+        return productServices.addLike_to_Post(pos1,IdProduct,u.getUserId());
+    }
+    @PostMapping("/add-DisLike-post/{IdProduct}/{IdUser}")
+    @ResponseBody
+    public ProductLike addDisLike_to_Post(@RequestBody(required = false) ProductLike postLike, @PathVariable("IdProduct") Long IdProduct, @PathVariable("IdUser") User u) {
+        ProductLike pos1 = new ProductLike();
+        pos1.setIsLiked(false);
+
+        return productServices.addLike_to_Post(pos1,IdProduct,u.getUserId());
+    }
 }

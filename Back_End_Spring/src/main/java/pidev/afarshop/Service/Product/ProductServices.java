@@ -17,10 +17,9 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -34,6 +33,8 @@ public class ProductServices implements IProductServices  {
     CategoryAdverRepo categoryAdverRepo ;
     UserDataLoadRepo userDataLoadRepo;
     StoreLocationsRepository storeLocationsRepository;
+
+    ProductLikeRepository productLikeRepository;
     @Override
     public List<Product> retrieveAllProducts() {
         return productRepository.findAll();
@@ -203,6 +204,29 @@ public class ProductServices implements IProductServices  {
 
         store.getStoreLocations().add(storeLocations);
         storeRepository.save(store);
+    }
+
+    public ProductLike addLike_to_Post(ProductLike productLike, Long idProduct, Long idUser) {
+        int x=0;
+        boolean y =false;
+        Product p = productRepository.findById(idProduct).orElse(null);
+        User u = userRepository.findById(idUser).orElse(null);
+        for (ProductLike l : productLikeRepository.findAll()) {
+            if(l.getProduct().getProductId() == idProduct && l.getUser().getUserId() == idUser)
+            {
+                x=1;
+                y=l.getIsLiked();
+                productLikeRepository.delete(l);
+            }
+
+        }
+        if (x ==0 || (x == 1 && y!=productLike.getIsLiked()	)) {
+            DetctaDataLoad(p.getDescription(),idUser);
+            productLike.setUser(u);
+            productLike.setProduct(p);
+            productLike.setLikedAt( LocalDate.now());
+            productLikeRepository.save(productLike);}
+        return productLike;
     }
 
 

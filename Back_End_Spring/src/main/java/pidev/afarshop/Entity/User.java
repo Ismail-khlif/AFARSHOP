@@ -105,5 +105,10 @@ public class User implements UserDetails {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
     Set<Product> products;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    Set<ProductLike> productLikes;
+
 }
 
