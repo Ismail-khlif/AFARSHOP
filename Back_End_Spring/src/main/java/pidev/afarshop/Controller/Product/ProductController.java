@@ -131,6 +131,7 @@ public class ProductController {
         productServices.AssignLocationtoStore(IdLocation,IdStore);
 
     }
+    //here
     @GetMapping("/NearestStorewithproduct/{productId}/{lat}/{long}")
     public Map<String ,StoreLocations> getNearestStorewithproduct(@PathVariable("productId") Long productId,@PathVariable("lat") double clientLatitude,
                                                                   @PathVariable("long") double clientLongitude){
