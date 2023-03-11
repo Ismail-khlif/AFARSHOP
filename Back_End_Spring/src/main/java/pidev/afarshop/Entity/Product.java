@@ -51,6 +51,9 @@ public class Product  implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     Set<ProductLike> productLikes;
 
-
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    @JsonIgnore
+    private Cart cart;
 
 }

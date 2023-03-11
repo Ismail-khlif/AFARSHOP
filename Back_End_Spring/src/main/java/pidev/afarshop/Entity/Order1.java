@@ -1,5 +1,6 @@
 package pidev.afarshop.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,8 +19,18 @@ public class Order1 implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="orderId")
     private Long orderId;
+    private String codePromo;
+    private String orderStatus;
+    private Float amountBill;
     @OneToOne
     private Bill bill;
     @OneToMany(mappedBy = "order")
     private Set<Product> products;
+
+    @OneToOne
+    Cart cart ;
+
+    @JsonIgnore
+    @ManyToOne
+    Delivery delivery;
 }
