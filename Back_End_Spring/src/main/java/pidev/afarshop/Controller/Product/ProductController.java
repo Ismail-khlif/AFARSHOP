@@ -126,12 +126,13 @@ public class ProductController {
 
         return productServices.addComment_to_Product(productComment,IdPost,u.getUserId());
     }
+    //here
     @PostMapping("/AssignLocationtoStore/{IdLocation}/{IdStore}")
     public void AssignLocationToStore ( @PathVariable("IdLocation") Long IdLocation,@PathVariable("IdStore" )Long IdStore){
         productServices.AssignLocationtoStore(IdLocation,IdStore);
 
     }
-    //here
+
     @GetMapping("/NearestStorewithproduct/{productId}/{lat}/{long}")
     public Map<String ,StoreLocations> getNearestStorewithproduct(@PathVariable("productId") Long productId,@PathVariable("lat") double clientLatitude,
                                                                   @PathVariable("long") double clientLongitude){
