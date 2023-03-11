@@ -118,7 +118,7 @@ public class ProductController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=Certificate.pdf")
                 .contentType(MediaType.APPLICATION_PDF).body(res);
-    }
+    }//here
     @PostMapping("/add-Comment/{IdPost}/{IdUser}")
     @ResponseBody
     public ResponseEntity<?> addComment_to_Post(@RequestBody ProductComment productComment, @PathVariable("IdPost") Long IdPost,@PathVariable("IdUser") User u) {
@@ -126,7 +126,7 @@ public class ProductController {
 
         return productServices.addComment_to_Product(productComment,IdPost,u.getUserId());
     }
-    //here
+
     @PostMapping("/AssignLocationtoStore/{IdLocation}/{IdStore}")
     public void AssignLocationToStore ( @PathVariable("IdLocation") Long IdLocation,@PathVariable("IdStore" )Long IdStore){
         productServices.AssignLocationtoStore(IdLocation,IdStore);
