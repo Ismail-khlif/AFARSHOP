@@ -24,7 +24,7 @@ public class DiscountCodeService {
       DiscountCodeRepository discountCodeRepository;
 
 
-    //here
+
     @Scheduled(fixedRate = 10000000) // generate discount code every 10 seconds
     public String generateDiscount() {
         Random random = new Random();
