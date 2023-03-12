@@ -14,32 +14,32 @@ import java.util.List;
 @AllArgsConstructor
 public class PaymentServices implements ICRUDService<Payment,Long> , IPaymentServices {
 
-    PayementRepository payementRepository;
+    PaymentRepository paymentRepository;
 
     @Override
     public List<Payment> findAll() {
-        return payementRepository.findAll();
+        return paymentRepository.findAll();
     }
 
     @Override
     public Payment retrieveItem(Long idItem) {
-        return payementRepository.findById(idItem).get();
+        return paymentRepository.findById(idItem).get();
     }
 
     @Override
     public Payment add(Payment payment) {
-        return payementRepository.save(payment);
+        return paymentRepository.save(payment);
     }
 
     @Override
     public void delete(Long payementId) {
 
-        payementRepository.deleteById(payementId);
+        paymentRepository.deleteById(payementId);
 
     }
 
     @Override
     public Payment update(Payment payment) {
-        return payementRepository.save(payment);
+        return paymentRepository.save(payment);
     }
 }
