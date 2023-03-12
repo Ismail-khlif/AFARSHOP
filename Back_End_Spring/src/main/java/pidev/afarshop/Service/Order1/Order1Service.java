@@ -95,10 +95,10 @@ public class Order1Service implements ICRUDService<Order1,Long> , IOrderServices
     }
 
 
-    @Override
+    /*@Override
     public Map<String, List<Order1>> displayOrdersByProvider() {
         return null;
-    }
+    }*/
 
 
 }

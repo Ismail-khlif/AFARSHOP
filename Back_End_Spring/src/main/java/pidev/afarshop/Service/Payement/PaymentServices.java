@@ -16,7 +16,7 @@ import pidev.afarshop.Service.Payement.IPaymentServices;
 
 import javax.transaction.Transactional;
 import java.util.List;
-/**hk*/
+
 @Service
 @Slf4j
 @AllArgsConstructor
