@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long> {
         //recherche
-        Product findByProductName(String productName);
+        List<Product> findByProductName(String productName);
         // Renvoie tous les produits dont le nom contient la chaîne spécifiée
         //filtre
         List<Product> findByProductNameContaining(String productName);

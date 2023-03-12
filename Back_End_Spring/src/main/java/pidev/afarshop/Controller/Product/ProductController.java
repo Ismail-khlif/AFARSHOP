@@ -18,9 +18,7 @@ import pidev.afarshop.utils.QRCodeGenerator;
 import java.io.IOException;
 import java.nio.file.attribute.UserPrincipal;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -74,7 +72,7 @@ public class ProductController {
     }
     //recherche
     @GetMapping("/findProductByName/{ProductName}")
-    public Product findProductByName(@PathVariable("ProductName") String ProductName){
+    public List<Product> findProductByName(@PathVariable("ProductName") String ProductName){
         return productServices.findProductByName(ProductName);
     }
     @PutMapping(value ="/updateProduct", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -156,5 +154,23 @@ public class ProductController {
         pos1.setIsLiked(false);
 
         return productServices.addLike_to_Post(pos1,IdProduct,u.getUserId());
+    }
+    @GetMapping("/compare/{product}")
+    public Map<String,Product> comparePrices(@PathVariable("product") String productName) {
+        List<Product> productsByName = productRepository.findByProductName(productName);
+        productsByName.sort(Comparator.comparing(Product::getPrice));
+        Map<String,Product> productByStore=new HashMap<>();
+
+
+
+        for(Product product:productsByName){
+            productByStore.put(productServices.getStoreByProductId(product.getProductId()).getStoreName(), product);
+
+        }
+        return productByStore;
+    }
+    @GetMapping("/getstore/{pid}")
+    public Store getStoreByProductId(@PathVariable("pid") Long productId){
+        return productServices.getStoreByProductId(productId);
     }
 }

@@ -54,7 +54,7 @@ public class ProductServices implements IProductServices  {
         productRepository.deleteById(productId);
     }
     //recherche
-    public Product findProductByName(String productName){
+    public List<Product> findProductByName(String productName){
         return productRepository.findByProductName(productName);
     }
     //filtre
@@ -227,6 +227,18 @@ public class ProductServices implements IProductServices  {
             productLike.setLikedAt( LocalDate.now());
             productLikeRepository.save(productLike);}
         return productLike;
+    }
+    public Store getStoreByProductId(Long productId){
+        List<Store> stores= storeRepository.findAll();
+        Product product=productRepository.findById(productId).get();
+        for(Store store:stores){
+            for(Product p: store.getProducts()){
+                if(p.equals(product)){
+                    return store;
+                }
+            }
+        }
+        return null;
     }
 
 
