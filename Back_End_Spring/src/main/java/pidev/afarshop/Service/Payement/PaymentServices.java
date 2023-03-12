@@ -1,12 +1,17 @@
-package pidev.afarshop.Service.payment;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+package pidev.afarshop.Service.Payement;
+
+
 import pidev.afarshop.Entity.*;
 import pidev.afarshop.Service.*;
 import pidev.afarshop.Repository.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
 import pidev.afarshop.Service.Payement.IPaymentServices;
 
 import javax.transaction.Transactional;
@@ -84,7 +89,6 @@ public class PaymentServices  {
 
     @Override
     public void deletePayment(Long id) {
-
     }
 
     @Override
@@ -92,3 +96,4 @@ public class PaymentServices  {
         return null;
     } */
 }
+

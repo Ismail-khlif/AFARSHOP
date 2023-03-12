@@ -1,10 +1,12 @@
 package pidev.afarshop.Controller.Product;
 
+
 import com.google.zxing.WriterException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 import pidev.afarshop.Entity.*;
 import pidev.afarshop.Repository.*;
 
@@ -70,6 +72,7 @@ public class ProductController {
     public void deleteProduct(@PathVariable("id") Long id){
         productServices.deleteProduct(id);
     }
+
     //recherche
     @GetMapping("/findProductByName/{ProductName}")
     public List<Product> findProductByName(@PathVariable("ProductName") String ProductName){
@@ -173,4 +176,11 @@ public class ProductController {
     public Store getStoreByProductId(@PathVariable("pid") Long productId){
         return productServices.getStoreByProductId(productId);
     }
+
+    /*@PostMapping
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        Product newProduct = productServices.createProduct(product);
+        return ResponseEntity.ok(newProduct);
+    }*/
+
 }

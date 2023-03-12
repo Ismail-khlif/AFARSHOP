@@ -8,7 +8,9 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+
 import java.util.List;
+
 import java.util.Set;
 
 @Entity
@@ -41,6 +43,7 @@ public class Store  implements Serializable {
     private String storeEmailAddress ;
 
 
+
     @Lob
     @Column(name = "image", unique = false, nullable = false, length = 100000)
     private byte[] image;
@@ -62,7 +65,10 @@ public class Store  implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "store")
     private Set<Product> products;
 
-
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    Set<Quiz> quiz;
 
 
 }
+    
