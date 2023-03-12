@@ -20,7 +20,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByEmail(String email);
     User findByEmailIgnoreCase(String email);*/
 
-  @Query("SELECT u FROM User u  WHERE u.firstname LIKE %:firstname%")
+ @Query("SELECT u FROM User u  WHERE u.firstname LIKE %:firstname%")
   List<User> FindByfirstname(@Param("firstname") String firstname);
 
 }
