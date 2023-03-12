@@ -13,10 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Entity
@@ -84,7 +81,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Publication> publications ;
 
-
+    @JsonIgnore
+    @OneToMany(mappedBy ="user" )
+    private List<Comment> comments  ;
 
     @JsonIgnore
     @OneToMany(mappedBy ="user" )
@@ -98,5 +97,22 @@ public class User implements UserDetails {
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
     private Set<Rating> ratings;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    Set<ProductComment> productComments;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    Set<Product> products;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    Set<ProductLike> productLikes;
+
+    @JsonIgnore
+    @OneToOne
+    Cart cart;
+
 }
 

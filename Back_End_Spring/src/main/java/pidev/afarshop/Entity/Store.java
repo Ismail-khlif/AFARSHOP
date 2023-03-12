@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -53,6 +54,13 @@ public class Store  implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "store")
     private Set<Rating> ratings;
+
+    @OneToMany
+    @JsonIgnore
+    private List<StoreLocations> storeLocations;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "store")
+    private Set<Product> products;
 
 
 

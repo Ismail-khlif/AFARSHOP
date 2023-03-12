@@ -2,12 +2,14 @@ package pidev.afarshop.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -37,5 +39,13 @@ public class Delivery implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "store_deliveryid", referencedColumnName = "storeDeliveryId")
     private StoreDelivery storeDelivery ;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "delivery",cascade = CascadeType.ALL)
+    List<Order1> orders;
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "deliveryman_id")
+    Provider provider;
 
 }

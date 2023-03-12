@@ -17,8 +17,11 @@ public interface IProductServices {
     Product retrieveProduct (Long productId);
 
     void deleteProduct(Long productId);
-    Product findProductByName(String productName);
+    List<Product> findProductByName(String productName);
     List<Product> filterProducts(String productName);
     Product update(Product product);
     List<Product> sortedprice();
+    public byte[] product(Long productId) throws IOException, InterruptedException;
+
+    Forbidden addForbidden(Forbidden b);
 }

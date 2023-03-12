@@ -1,9 +1,8 @@
 package pidev.afarshop.Repository;
-
+import pidev.afarshop.Entity.ClientLocationRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pidev.afarshop.Entity.*;
 
 @Repository
-public interface OrderRepository extends JpaRepository<Order,Long> {
+public interface clientLocationRequestRepository  extends JpaRepository<ClientLocationRequest, Long> {
 }

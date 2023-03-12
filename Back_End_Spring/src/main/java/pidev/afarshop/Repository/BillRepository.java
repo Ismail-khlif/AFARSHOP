@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface BillRepository extends JpaRepository<Bill,Long> {
 
-    @Query("select p from Product p join p.order o where o.orderId=: orderId ")
-    List<Product> getProducts(@Param("orderId") Long orderId);
+   // @Query("select p from Product p join p.order o where o.orderId=: orderId ")
+    //List<Product> getProducts(@Param("orderId") Long orderId);
 
 }

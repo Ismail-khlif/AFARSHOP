@@ -13,16 +13,24 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-@Table(name = "Order")
-public class Order implements Serializable {
+
+public class Order1 implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="orderId")
     private Long orderId;
-
-
+    private String codePromo;
+    private String orderStatus;
+    private Float amountBill;
     @OneToOne
     private Bill bill;
     @OneToMany(mappedBy = "order")
     private Set<Product> products;
+
+    @OneToOne
+    Cart cart ;
+
+    @JsonIgnore
+    @ManyToOne
+    Delivery delivery;
 }
