@@ -34,7 +34,7 @@ public class MailService {
 
     @Autowired
     private JavaMailSender mailSender;
-        @Autowired
+    @Autowired
     private TemplateEngine templateEngine;
 
     private User u;

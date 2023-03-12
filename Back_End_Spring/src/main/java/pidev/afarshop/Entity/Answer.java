@@ -37,6 +37,6 @@ public class Answer implements Serializable {
     boolean isCorrect;
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "answers")
-    List<User> users;
+    Set<User> users;
 
 }

@@ -52,7 +52,7 @@ public class User implements UserDetails {
     private List<Order1> orders;
     @ManyToMany(cascade = CascadeType.ALL)
     @JsonIgnore
-    List<Answer> answers;
+    Set<Answer> answers;
 
 
    @Override

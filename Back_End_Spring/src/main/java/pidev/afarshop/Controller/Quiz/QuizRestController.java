@@ -65,7 +65,7 @@ public class QuizRestController {
         quizService.editQuestion(q,questionId);
     }
     @PostMapping(path = "addAnswers/{questionId}")
-    public void addAnswers(@RequestBody List<Answer> answer, @PathVariable("questionId")Long questionId) {
+    public void addAnswers(@RequestBody Set<Answer> answer, @PathVariable("questionId")Long questionId) {
 
         quizService.addAnswersToQuestion(answer, questionId);
 

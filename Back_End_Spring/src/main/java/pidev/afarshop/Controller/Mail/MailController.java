@@ -40,14 +40,14 @@ public class MailController {
     }
 
 
-   /* @PostMapping(value="/send")
+    @PostMapping(value="/send")
     public ResponseEntity<String> sendMail() throws MessagingException {
         String to = "oumaima.mjb@gmail.com";
         String subject = "Hello WE ARE AFARSHOP";
         String message = "This is a test email sent from a Spring Boot application using Thymeleaf templates.";
         senderService.sendEmail(to, subject, message);
         return ResponseEntity.ok("Mail sending");
-    }*/
+    }
 
     @PostMapping("/{mail}")
     public ResponseEntity<String> sendMailToOne(@PathVariable("mail") String m) throws MessagingException {
