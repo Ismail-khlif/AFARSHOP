@@ -30,27 +30,20 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
    public AuthenticationResponse register(RegisterRequest request) {
-       try {
-           UserRecord userRecord = FirebaseAuth.getInstance().getUserByEmail(request.getEmail());
-       } catch (FirebaseAuthException e) {
-           log.error(e.getMessage());
-       }
-        var user = User.builder()
-                .username(request.getFirstname())
-                .lastname(request.getLastname())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .roles(request.getRole())
-                .build();
-
-
+       var user = User.builder()
+               .username(request.getFirstname())
+               .lastname(request.getLastname())
+               .email(request.getEmail())
+               .password(passwordEncoder.encode(request.getPassword()))
+               .roles(request.getRole())
+               .build();
        var savedUser = repository.save(user);
-        var jwtToken = jwtService.generateToken(user);
-        saveUserToken(savedUser, jwtToken);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
-    }
+       var jwtToken = jwtService.generateToken(user);
+       saveUserToken(savedUser, jwtToken);
+       return AuthenticationResponse.builder()
+               .token(jwtToken)
+               .build();
+   }
 
 
 

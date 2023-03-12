@@ -73,36 +73,7 @@ public class UserController {
         user.setDayOfBirth(dayOfBirth);
         userService.createUser(user,image);
         return user;
-    }/*
-   @PostMapping(value = "/addandupdateuser" ,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-   public User addUser(@RequestParam("image") MultipartFile image, @RequestParam("username") String username,
-                       @RequestParam("firstname") String firstname,
-                       @RequestParam("lastname") String lastname,
-                       @RequestParam("email") String email,
-                       @RequestParam("password") String password,
-                       @RequestParam("address") String address,
-                       @RequestParam("cin") String cin,
-                       @RequestParam("telNum") String telNum,
-                       @RequestParam("roles") Role roles,
-                       @RequestParam("dayOfBirth")  @DateTimeFormat(pattern = "yyyy-MM-dd") Date dayOfBirth
-                       )throws IOException {
-
-       User user = new User();
-       user.setUsername(username);
-       user.setfirstname(firstname);
-       user.setImages(image.getBytes());
-       user.setlastname(lastname);
-       user.setemail(email);
-       user.setPassword(password);
-       user.setAddress(address);
-       user.setCin(cin);
-       user.setTelNum(telNum);
-       user.setRoles(roles);
-       user.setDayOfBirth(dayOfBirth);
-       userRepository.save(user);
-       return user;
-   }*/
-
+    }
 
     @PutMapping("/update")
     public ResponseEntity<User> updateUser(@RequestBody User user) {

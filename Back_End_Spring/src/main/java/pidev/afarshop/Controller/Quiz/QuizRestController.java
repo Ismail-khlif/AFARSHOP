@@ -21,6 +21,7 @@ import pidev.afarshop.Service.Store.StoreService;
 
 
 import java.nio.file.attribute.UserPrincipal;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -64,7 +65,7 @@ public class QuizRestController {
         quizService.editQuestion(q,questionId);
     }
     @PostMapping(path = "addAnswers/{questionId}")
-    public void addAnswers(@RequestBody Set<Answer> answer, @PathVariable("questionId")Long questionId) {
+    public void addAnswers(@RequestBody List<Answer> answer, @PathVariable("questionId")Long questionId) {
 
         quizService.addAnswersToQuestion(answer, questionId);
 

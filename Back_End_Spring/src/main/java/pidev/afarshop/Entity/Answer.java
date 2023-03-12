@@ -1,6 +1,7 @@
 package pidev.afarshop.Entity;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -36,6 +37,6 @@ public class Answer implements Serializable {
     boolean isCorrect;
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "answers")
-    Set<User> users;
+    List<User> users;
 
 }

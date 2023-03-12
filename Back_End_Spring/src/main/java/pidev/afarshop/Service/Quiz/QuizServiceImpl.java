@@ -68,7 +68,7 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public void addAnswersToQuestion(Set<Answer> answers, Long questionId) {
+    public void addAnswersToQuestion(List<Answer> answers, Long questionId) {
         answerRepository.saveAll(answers);
         QuizQuestion qq = questionRepository.findById(questionId).get();
         qq.getAnswers().addAll(answers);
