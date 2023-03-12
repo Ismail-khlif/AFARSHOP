@@ -44,4 +44,8 @@ public class Delivery implements Serializable {
     @OneToMany(mappedBy = "delivery",cascade = CascadeType.ALL)
     List<Order1> orders;
 
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "deliveryman_id")
+    Provider provider;
+
 }
