@@ -30,9 +30,8 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
    public AuthenticationResponse register(RegisterRequest request) {
-       UserRecord userRecord = null;
        try {
-           userRecord = FirebaseAuth.getInstance().getUserByEmail(request.getEmail());
+           UserRecord userRecord = FirebaseAuth.getInstance().getUserByEmail(request.getEmail());
        } catch (FirebaseAuthException e) {
            log.error(e.getMessage());
        }
@@ -44,9 +43,7 @@ public class AuthenticationService {
                 .roles(request.getRole())
                 .build();
 
-       if (userRecord != null){
-        user.setUid(userRecord.getUid());
-       }
+
        var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         saveUserToken(savedUser, jwtToken);

@@ -7,12 +7,17 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 @Service
 @Slf4j
 @AllArgsConstructor
 public class StoreService implements ICRUDService<Store,Long> , IStoreServices {
     StoreRepository storeRepository;
+    UserRepository userRepository;
+    QuizzRepository quizzRepository;
     @Override
     public List<Store> findAll() {
 
@@ -46,4 +51,17 @@ public class StoreService implements ICRUDService<Store,Long> , IStoreServices {
     public Store findStoreByName(String storeName) {
         return storeRepository.findBystoreName(storeName);
     }
+    public void createQuizz(Quiz Q, Long idCourse,Long idUser)  {
+        Store c = storeRepository.findById(idCourse).get();
+        User usr = userRepository.findById(idUser).get();
+
+        Set<Quiz> quiz = new HashSet<>();
+        quiz.add(Q);
+        c.getQuiz().add(Q);
+
+        storeRepository.flush();
+        quizzRepository.save(Q);
+
+    }
+
 }
