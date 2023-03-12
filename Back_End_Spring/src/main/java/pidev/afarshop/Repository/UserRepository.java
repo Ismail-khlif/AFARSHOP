@@ -1,7 +1,9 @@
 package pidev.afarshop.Repository;
 
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
 import pidev.afarshop.Entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -20,7 +22,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByEmail(String email);
     User findByEmailIgnoreCase(String email);*/
 
+   // User findByLogin(String Login) ;
+
+    
+
  @Query("SELECT u FROM User u  WHERE u.firstname LIKE %:firstname%")
   List<User> FindByfirstname(@Param("firstname") String firstname);
 
 }
+

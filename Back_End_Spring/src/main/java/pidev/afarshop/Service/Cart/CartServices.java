@@ -8,7 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -43,6 +45,18 @@ public class CartServices implements ICRUDService<Cart,Long> , ICartServices {
     @Override
     public Cart update(Cart cart) {
         return cartRepsitory.save(cart);
+    }
+
+    public Map<Product, Integer> items = new HashMap<>();
+
+    public Map<Product, Integer> addItem(Product product, int quantity) {
+        if (items.containsKey(product)) {
+            int currentQuantity = items.get(product);
+            items.put(product, currentQuantity + quantity);
+        } else {
+            items.put(product, quantity);
+        }
+        return items;
     }
 
 

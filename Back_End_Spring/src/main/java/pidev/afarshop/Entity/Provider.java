@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -18,4 +20,13 @@ public class Provider  implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="providerId")
     private Long providerId;
+    private String providerName;
+    private long providerPrice;
+    @Temporal (TemporalType.DATE)
+    private Date estimationDate;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "provider",cascade = CascadeType.ALL)
+    List<Delivery> deliveries;
 }

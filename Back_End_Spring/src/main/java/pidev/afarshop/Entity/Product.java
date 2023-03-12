@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -35,18 +36,33 @@ public class Product  implements Serializable {
     private float rating;
     private float discount;
     private int yearsOfWarranty;
+    private boolean facility;
+
+    @ManyToOne
+    private Order1 order;
+    @ManyToOne
+    User user;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    Set<ProductComment> productComments;
+    
+    @ManyToOne
+    @JoinColumn(name = "storeId")
+    private Store store;
+    
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    Set<ProductLike> productLikes;
+
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    @JsonIgnore
+    private Cart cart;
+
+
     @Enumerated(EnumType.STRING)
     private ProductCategory category;
 
-    @ManyToMany
-    @JsonIgnore
-    private List<Order1> orders;
 
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
+   
 }
