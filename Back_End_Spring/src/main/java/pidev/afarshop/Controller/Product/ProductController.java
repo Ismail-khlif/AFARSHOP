@@ -1,6 +1,7 @@
 package pidev.afarshop.Controller.Product;
 
 import com.google.zxing.WriterException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,11 @@ import java.nio.file.attribute.UserPrincipal;
 import java.time.LocalDate;
 import java.util.*;
 
+import pidev.afarshop.Controller.Chatgbt.CompletionRequest;
+import pidev.afarshop.Controller.Chatgbt.CompletionResponse;
+import pidev.afarshop.Controller.Chatgbt.OpenAiApiClient;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.transaction.Transactional;
@@ -31,6 +37,10 @@ import javax.transaction.Transactional;
 public class ProductController {
     ProductServices productServices;
     ProductRepository productRepository;
+
+    @Autowired
+    private ObjectMapper jsonMapper;
+    @Autowired private OpenAiApiClient client;
 
     @PostMapping(value = "/addandupdateproduct" ,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Product addProduct(@RequestParam("image") MultipartFile image, @RequestParam("productName") String poductName,
@@ -164,7 +174,7 @@ public class ProductController {
 
 
         for(Product product:productsByName){
-            productByStore.put(productServices.getStoreByProductId(product.getProductId()).getStoreName(), product);
+            productByStore.put(product.getStore().getStoreName(), product);
 
         }
         return productByStore;
@@ -172,5 +182,26 @@ public class ProductController {
     @GetMapping("/getstore/{pid}")
     public Store getStoreByProductId(@PathVariable("pid") Long productId){
         return productServices.getStoreByProductId(productId);
+    }
+
+    @GetMapping("/findmatchingaiproducts")
+    public ResponseEntity<List<Product>> chatWithGpt3(@RequestParam String message) throws Exception {
+        var completion = CompletionRequest.defaultWith("give me a list products which description is"+message);
+        var postBodyJson = jsonMapper.writeValueAsString(completion);
+        var responseBody = client.postToOpenAiApi(postBodyJson, OpenAiApiClient.OpenAiService.GPT_3);
+        var completionResponse = jsonMapper.readValue(responseBody, CompletionResponse.class);
+        List<Product> products=productRepository.findAll();
+        var result = completionResponse.firstAnswer().trim();
+        List<String> resultList = Arrays.asList(result.split("\n"));
+        resultList.replaceAll(s -> s.replaceAll("^\\d+\\.\\s*", ""));
+        List<Product> resultRes =new ArrayList<>();
+        for (String l:resultList){
+            for (Product product:products){
+                if(l.contains(product.getProductName())){
+                    resultRes.add(product);
+                }
+            }
+        }
+        return ResponseEntity.ok(resultRes);
     }
 }

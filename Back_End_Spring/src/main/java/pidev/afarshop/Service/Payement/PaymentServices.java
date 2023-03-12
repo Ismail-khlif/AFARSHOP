@@ -1,4 +1,4 @@
-package pidev.afarshop.Service.payment;
+package pidev.afarshop.Service.Payement;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import pidev.afarshop.Entity.*;
