@@ -15,31 +15,31 @@ import java.util.Map;
 @AllArgsConstructor
 public class Order1Service implements ICRUDService<Order1,Long> , IOrderServices {
 
-    OrderRepository orderRepository;
+    Order1Repository order1Repository;
     @Override
     public List<Order1> findAll() {
-        return orderRepository.findAll();
+        return order1Repository.findAll();
     }
 
     @Override
     public Order1 retrieveItem(Long idItem) {
-        return orderRepository.findById(idItem).get();
+        return order1Repository.findById(idItem).get();
     }
 
     @Override
     public Order1 add(Order1 order1) {
-        return orderRepository.save(order1);
+        return order1Repository.save(order1);
     }
 
     @Override
     public void delete(Long orderId) {
-        orderRepository.deleteById(orderId);
+        order1Repository.deleteById(orderId);
 
     }
 
     @Override
     public Order1 update(Order1 order1) {
-        return orderRepository.save(order1);
+        return order1Repository.save(order1);
     }
 
     @Override
