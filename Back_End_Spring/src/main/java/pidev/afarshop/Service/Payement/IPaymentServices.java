@@ -1,4 +1,4 @@
 package pidev.afarshop.Service.Payement;
 
-public interface IPayementServices {
+public interface IPaymentServices {
 }

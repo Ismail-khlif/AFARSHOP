@@ -1,10 +1,7 @@
 package pidev.afarshop.Service.Mail;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -12,17 +9,14 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.util.StringUtils;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import pidev.afarshop.Entity.Product;
 import pidev.afarshop.Entity.User;
-import pidev.afarshop.Service.Order.OrderService;
+import pidev.afarshop.Service.Order1.Order1Service;
 import pidev.afarshop.Service.User.UserService;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Slf4j
 @Service
@@ -30,7 +24,7 @@ public class MailService {
     @Autowired
     UserService userService;
     @Autowired
-    OrderService orderService;
+    Order1Service order1Service;
 
     @Autowired
     private JavaMailSender mailSender;

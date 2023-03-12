@@ -12,23 +12,23 @@ import java.util.List;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class PayementServices implements ICRUDService<Payement,Long> , IPayementServices {
+public class PaymentServices implements ICRUDService<Payment,Long> , IPaymentServices {
 
     PayementRepository payementRepository;
 
     @Override
-    public List<Payement> findAll() {
+    public List<Payment> findAll() {
         return payementRepository.findAll();
     }
 
     @Override
-    public Payement retrieveItem(Long idItem) {
+    public Payment retrieveItem(Long idItem) {
         return payementRepository.findById(idItem).get();
     }
 
     @Override
-    public Payement add(Payement payement) {
-        return payementRepository.save(payement);
+    public Payment add(Payment payment) {
+        return payementRepository.save(payment);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class PayementServices implements ICRUDService<Payement,Long> , IPayement
     }
 
     @Override
-    public Payement update(Payement payement) {
-        return payementRepository.save(payement);
+    public Payment update(Payment payment) {
+        return payementRepository.save(payment);
     }
 }

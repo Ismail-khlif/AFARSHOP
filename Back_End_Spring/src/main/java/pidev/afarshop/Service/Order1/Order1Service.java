@@ -1,4 +1,4 @@
-package pidev.afarshop.Service.Order;
+package pidev.afarshop.Service.Order1;
 
 import pidev.afarshop.Entity.*;
 import pidev.afarshop.Service.*;
@@ -7,14 +7,13 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Service
 @Slf4j
 @AllArgsConstructor
-public class OrderService implements ICRUDService<Order1,Long> , IOrderServices {
+public class Order1Service implements ICRUDService<Order1,Long> , IOrderServices {
 
     OrderRepository orderRepository;
     @Override
