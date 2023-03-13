@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @Service
 @Slf4j
 @AllArgsConstructor
@@ -26,6 +27,7 @@ public class Order1Service implements ICRUDService<Order1,Long> , IOrderServices
     public List<Order1> findAll() {
         return orderRepository.findAll();
 
+
     }
 
     @Override
@@ -38,13 +40,13 @@ public class Order1Service implements ICRUDService<Order1,Long> , IOrderServices
     public Order1 add(Order1 order) {
         return orderRepository.save(order);
 
+
     }
 
     @Override
     public void delete(Long orderId) {
 
         orderRepository.deleteById(orderId);
-
 
 
     }
@@ -102,4 +104,5 @@ public class Order1Service implements ICRUDService<Order1,Long> , IOrderServices
 
 
 }
+
 

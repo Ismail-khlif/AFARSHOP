@@ -20,6 +20,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
   /*  Boolean existsByUsername(String username);
     Boolean existsByEmail(String email);
+
+    // User findByLogin(String Login) ;
+
+    @Query("SELECT u FROM User u where u.email= :email")
+    User retrieveUserByEmail(@Param("email") String email);
+
     User findByEmailIgnoreCase(String email);*/
 
    // User findByLogin(String Login) ;
@@ -28,6 +34,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
  @Query("SELECT u FROM User u  WHERE u.firstname LIKE %:firstname%")
   List<User> FindByfirstname(@Param("firstname") String firstname);
+
 
 }
 

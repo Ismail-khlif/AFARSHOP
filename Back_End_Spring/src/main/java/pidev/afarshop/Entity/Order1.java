@@ -12,7 +12,6 @@ import java.util.Set;
 
 import java.util.List;
 
-
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,29 +22,35 @@ import java.util.List;
 public class Order1 implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Column(name="orderId")
     private Long orderId;
 
     private String codePromo;
     private String orderStatus;
     private Float amountBill;
+
     @OneToOne
     private Bill bill;
     @OneToMany(mappedBy = "order")
     private Set<Product> products;
 
+
+
+    @OneToOne
+    @JsonIgnore
+    private Delivery delivery;
+
     @OneToOne
     Cart cart ;
 
-    @JsonIgnore
-    @ManyToOne
-    Delivery delivery;
-
     //BY oumaima 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     
+
 
 
 

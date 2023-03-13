@@ -4,7 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import pidev.afarshop.Entity.User;
@@ -39,6 +43,7 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+
    /* public User addUser(User user)throws IOException {
         user.setImages(image.getBytes());
         return userRepository.save(user);
@@ -49,6 +54,7 @@ public class UserService {
        user.setPassword(passwordencoder.encode(user.getPassword()));
        userRepository.save(user);
    }
+
 
     public void updateUser(User user) {
         userRepository.save(user);

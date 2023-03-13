@@ -5,12 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pidev.afarshop.Entity.Bill;
-import pidev.afarshop.Entity.Order1;
+
+import pidev.afarshop.Entity.*;
+
 import pidev.afarshop.Repository.BillRepository;
 import pidev.afarshop.Repository.Order1Repository;
 import pidev.afarshop.Repository.PaymentRepository;
+import pidev.afarshop.Service.Delivery.DeliveryService;
 
+import java.util.Calendar;
 import java.util.List;
 @Service
 @Slf4j
@@ -22,7 +25,12 @@ public class BillService implements IBillService {
     @Autowired
     PaymentRepository paymentRepository;
     @Autowired
-    Order1Repository Order1Repository;
+
+    Order1Repository order1Repository;
+
+    @Autowired
+    DeliveryService deliveryService;
+
 
 
 
@@ -34,7 +42,7 @@ public class BillService implements IBillService {
     }
 
     @Override
-    public Bill retriveBillById(Long billId) {
+    public Bill retrieveBillById(Long billId) {
         return billRepository.findById(billId).orElse(null);
     }
 
@@ -42,8 +50,10 @@ public class BillService implements IBillService {
     public Bill addBill(Bill bill, Long Order1Id) {
         float amount=calculatePaymentAmount(Order1Id, bill);
         bill.setPaymentAmount(amount);
-        Order1 Order1= Order1Repository.findById(Order1Id).orElse(null);
-        bill.setOrder1(Order1);
+
+        bill.setBillDate(Calendar.getInstance().getTime());
+        Order1 order1 = order1Repository.findById(orderId).orElse(null);
+        order1.setBill(bill);
 
         billRepository.save(bill);
         return bill;
@@ -75,6 +85,14 @@ public class BillService implements IBillService {
         }*/
         return amount;
 
+    }
+
+    @Override
+    public List<Bill> retrieveBillByUser() {
+        User user = deliveryService.retrieveConnectedUser();
+        long Id = user.getUserId();
+        List<Bill> bill = billRepository.retrieveBillByUser(Id);
+        return bill;
     }
 
 

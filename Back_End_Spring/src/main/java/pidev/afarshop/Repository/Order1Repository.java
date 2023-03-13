@@ -1,6 +1,7 @@
 package pidev.afarshop.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pidev.afarshop.Entity.*;
@@ -15,5 +16,6 @@ public interface Order1Repository extends JpaRepository<Order1,Long> {
 
     //Show Orders list of every Provider
     List<Order1> findByDelivery_Provider_ProviderName(String name);
+
 
 }

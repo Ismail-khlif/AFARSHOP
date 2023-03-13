@@ -102,6 +102,12 @@ public class User implements UserDetails {
     private List<Reaction> reactions  ;
     //fin ajout
 
+
+    @OneToMany(mappedBy ="user")
+    private Set<Order1> orders;
+
+
+
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
     private Set<Rating> ratings;
 
@@ -112,6 +118,7 @@ public class User implements UserDetails {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
     Set<Product> products;
+
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")

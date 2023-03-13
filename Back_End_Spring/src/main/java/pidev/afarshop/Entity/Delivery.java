@@ -40,12 +40,13 @@ public class Delivery implements Serializable {
     @JoinColumn(name = "store_deliveryid", referencedColumnName = "storeDeliveryId")
     private StoreDelivery storeDelivery ;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "delivery",cascade = CascadeType.ALL)
-    List<Order1> orders;
+
+    @OneToOne(mappedBy = "delivery", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Order1 order;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "deliveryman_id")
     Provider provider;
+
 
 }
