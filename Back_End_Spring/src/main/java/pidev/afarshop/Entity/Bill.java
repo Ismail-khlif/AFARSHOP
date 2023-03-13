@@ -6,7 +6,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Set;
 
 
@@ -27,7 +26,7 @@ public class Bill implements Serializable{
     private LocalDate billDate;
 
     @OneToOne(mappedBy = "bill")
-    private Order order;
+    private Order1 order1;
 
     @OneToMany(mappedBy = "billPayment")
     private Set<Payment> payments;

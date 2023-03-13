@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import pidev.afarshop.Entity.*;
 
 @Repository
-public interface OrderRepository extends JpaRepository<Order,Long> {
+public interface Order1Repository extends JpaRepository<Order1,Long> {
 }

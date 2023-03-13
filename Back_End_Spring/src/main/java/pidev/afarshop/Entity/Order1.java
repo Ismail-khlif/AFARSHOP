@@ -1,6 +1,5 @@
 package pidev.afarshop.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,7 +13,7 @@ import java.util.Set;
 @Setter
 @ToString
 @Table(name = "Order")
-public class Order implements Serializable {
+public class Order1 implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="orderId")
@@ -23,6 +22,6 @@ public class Order implements Serializable {
 
     @OneToOne
     private Bill bill;
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order1")
     private Set<Product> products;
 }
