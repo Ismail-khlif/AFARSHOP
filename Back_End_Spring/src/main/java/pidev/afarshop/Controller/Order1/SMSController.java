@@ -11,7 +11,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import pidev.afarshop.Entity.SmsPojo;
-import pidev.afarshop.Service.Order1.SmsService;
+import pidev.afarshop.Service.Order1.SmsS1ervice;
 
 @RestController
 @AllArgsConstructor
@@ -19,7 +19,7 @@ import pidev.afarshop.Service.Order1.SmsService;
 public class SMSController {
 
     @Autowired
-    SmsService smsService;
+    SmsS1ervice smsService;
 
     @Autowired
     private SimpMessagingTemplate webSocket;

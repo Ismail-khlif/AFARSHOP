@@ -23,12 +23,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // User findByLogin(String Login) ;
 
-    @Query("SELECT u FROM User u where u.email= :email")
-    User retrieveUserByEmail(@Param("email") String email);
+
 
     User findByEmailIgnoreCase(String email);*/
 
    // User findByLogin(String Login) ;
+   @Query("SELECT u FROM User u where u.email= :email")
+   User retrieveUserByEmail(@Param("email") String email);
 
     
 

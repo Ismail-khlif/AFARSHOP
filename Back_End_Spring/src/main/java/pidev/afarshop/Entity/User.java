@@ -103,8 +103,10 @@ public class User implements UserDetails {
     //fin ajout
 
 
-    @OneToMany(mappedBy ="user")
+   /* @OneToMany(mappedBy ="user")
     private Set<Order1> orders;
+    while merging (ismail-oumaaima with eya)
+    */
 
 
 

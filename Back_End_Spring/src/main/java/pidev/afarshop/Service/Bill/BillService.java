@@ -52,7 +52,7 @@ public class BillService implements IBillService {
         bill.setPaymentAmount(amount);
 
         bill.setBillDate(Calendar.getInstance().getTime());
-        Order1 order1 = order1Repository.findById(orderId).orElse(null);
+        Order1 order1 = order1Repository.findById(Order1Id).orElse(null);
         order1.setBill(bill);
 
         billRepository.save(bill);
