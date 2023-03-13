@@ -249,7 +249,7 @@ public class ProductController {
         return ResponseEntity.ok(resultRes);
     }
     @GetMapping("/AnalyzeProductComments")
-    public Map<String,List<Float>> analizeSentimentOfComments(){
+    public Map<String, Map<String,Float>> analizeSentimentOfComments(){
         return productServices.analizeSentimentOfComments();
     }
 }

@@ -243,15 +243,15 @@ public class ProductServices implements IProductServices  {
         }
         return null;
     }
-    public Map<String,List<Float>> analizeSentimentOfComments(){
+    public Map<String, Map<String,Float>> analizeSentimentOfComments(){
         List<ProductComment> productComments=productCommentRepository.findAll();
-        List<Float> resultAnalyze = new ArrayList<>();
-        Map<String,List<Float>> result=new HashMap<>();
+        Map<String,Float> resultAnalyze = new HashMap<>();
+        Map<String, Map<String,Float>> result=new HashMap<>();
         for (ProductComment pd:productComments){
-            resultAnalyze.add(SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getPositivePolarity());
-            resultAnalyze.add(SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getNegativePolarity());
-            resultAnalyze.add(SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getNeutralPolarity());
-            resultAnalyze.add(SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getCompoundPolarity());
+            resultAnalyze.put("PositivePolarity",SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getPositivePolarity());
+            resultAnalyze.put("NegativePolarity",SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getNegativePolarity());
+            resultAnalyze.put("NeutralPolarity",SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getNeutralPolarity());
+            resultAnalyze.put("CompoundPolarity",SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getCompoundPolarity());
             result.put(pd.getCommentBody(),resultAnalyze);
 
         }
