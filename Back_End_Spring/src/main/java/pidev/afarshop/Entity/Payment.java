@@ -25,8 +25,6 @@ public class Payment implements Serializable {
     private float installmentAmount;
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
-
-
     @ManyToOne
     private Bill billPayment;
 

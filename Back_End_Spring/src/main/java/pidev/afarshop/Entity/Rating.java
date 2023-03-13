@@ -30,3 +30,4 @@ public class Rating implements Serializable {
     private Store store;
 }
 
+

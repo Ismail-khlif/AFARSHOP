@@ -1,6 +1,9 @@
 package pidev.afarshop.Service.Product;
 
 
+import com.vader.sentiment.analyzer.SentimentAnalyzer;
+import com.vader.sentiment.analyzer.SentimentPolarities;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import pidev.afarshop.Entity.*;
@@ -239,6 +242,20 @@ public class ProductServices implements IProductServices  {
             }
         }
         return null;
+    }
+    public Map<String,List<Float>> analizeSentimentOfComments(){
+        List<ProductComment> productComments=productCommentRepository.findAll();
+        List<Float> resultAnalyze = new ArrayList<>();
+        Map<String,List<Float>> result=new HashMap<>();
+        for (ProductComment pd:productComments){
+            resultAnalyze.add(SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getPositivePolarity());
+            resultAnalyze.add(SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getNegativePolarity());
+            resultAnalyze.add(SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getNeutralPolarity());
+            resultAnalyze.add(SentimentAnalyzer.getScoresFor(pd.getCommentBody()).getCompoundPolarity());
+            result.put(pd.getCommentBody(),resultAnalyze);
+
+        }
+        return  result;
     }
 
 

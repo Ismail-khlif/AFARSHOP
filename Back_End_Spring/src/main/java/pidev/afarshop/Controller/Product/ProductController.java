@@ -173,10 +173,40 @@ public class ProductController {
         Map<String,Product> productByStore=new HashMap<>();
 
 
+        Product product1= new Product();
+        product1.setProductId((long)20);
+        product1.setProductName("dsf");
+        product1.setBrand("brand");
+        product1.setImages(null);
+        product1.setReference("reference");
+        product1.setDescription("description");
+        product1.setQuantity(2L);
+        product1.setVideo(null);
+        product1.setPrice(25);
+        product1.setDateOfProduct(null);
+        product1.setDiscount(1);
+        product1.setYearsOfWarranty(2);
+        product1.setRating(23);
+
+        productByStore.put("hello", product1);
+
+        for (Map.Entry<String, Product> entry : productByStore.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+
+
+
+        System.out.println("------------------------------------------------------------------------------------------");
 
         for(Product product:productsByName){
+            System.out.println("-----------------product.getStore().getStoreName()-------------------"+product.getStore().getStoreName());
             productByStore.put(product.getStore().getStoreName(), product);
 
+        }
+        System.out.println("----------------------------------result--------------------------------------------------------");
+
+        for (Map.Entry<String, Product> entry : productByStore.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
         }
         return productByStore;
     }
@@ -217,5 +247,9 @@ public class ProductController {
             }
         }
         return ResponseEntity.ok(resultRes);
+    }
+    @GetMapping("/AnalyzeProductComments")
+    public Map<String,List<Float>> analizeSentimentOfComments(){
+        return productServices.analizeSentimentOfComments();
     }
 }

@@ -24,6 +24,7 @@ public class Order1 implements Serializable {
     private Float amountBill;
     @OneToOne
     private Bill bill;
+
     @OneToMany(mappedBy = "order")
     private Set<Product> products;
 
