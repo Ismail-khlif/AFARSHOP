@@ -1,6 +1,7 @@
 package pidev.afarshop.Controller.Product;
 
 import com.google.zxing.WriterException;
+import org.hibernate.boot.archive.scan.spi.ScanOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
@@ -186,18 +187,31 @@ public class ProductController {
 
     @GetMapping("/findmatchingaiproducts")
     public ResponseEntity<List<Product>> chatWithGpt3(@RequestParam String message) throws Exception {
-        var completion = CompletionRequest.defaultWith("give me a list products which description is"+message);
+        var completion = CompletionRequest.defaultWith("give me a list products which name is "+message);
+        System.out.println("-------------------------------completion------------------------------------"+completion);
         var postBodyJson = jsonMapper.writeValueAsString(completion);
+        System.out.println("-------------------------------postBodyJson------------------------------------"+postBodyJson);
         var responseBody = client.postToOpenAiApi(postBodyJson, OpenAiApiClient.OpenAiService.GPT_3);
+        System.out.println("-------------------------------responseBody------------------------------------"+responseBody);
         var completionResponse = jsonMapper.readValue(responseBody, CompletionResponse.class);
+        System.out.println("-------------------------------completionResponse------------------------------------"+completionResponse);
         List<Product> products=productRepository.findAll();
+        for(Product product:products){
+        System.out.println("-------------------------------products------------------------------------"+product.getProductId());}
         var result = completionResponse.firstAnswer().trim();
+        System.out.println("-------------------------------result------------------------------------"+result);
         List<String> resultList = Arrays.asList(result.split("\n"));
+        System.out.println("-------------------------------resultList------------------------------------"+resultList);
         resultList.replaceAll(s -> s.replaceAll("^\\d+\\.\\s*", ""));
+        System.out.println("-------------------------------resultList---with replace---------------------------------"+resultList);
         List<Product> resultRes =new ArrayList<>();
         for (String l:resultList){
+            System.out.println("------------------------for-------resultList------------------------------------"+l);
             for (Product product:products){
+                System.out.println("-------------------------------product------------------------------------"+product.getProductName());
                 if(l.contains(product.getProductName())){
+                  System.out.println("-------------------------------ajout final------------------------------------");
+
                     resultRes.add(product);
                 }
             }
