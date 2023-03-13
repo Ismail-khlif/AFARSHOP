@@ -1,8 +1,7 @@
-package pidev.afarshop.Service.Payment;
+package pidev.afarshop.Service.Payement;
 
 import com.twilio.Twilio;
 import com.twilio.exception.TwilioException;
-import com.twilio.rest.api.v2010.account.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import pidev.afarshop.Entity.*;
@@ -15,7 +14,7 @@ import javax.transaction.Transactional;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import com.twilio.type.PhoneNumber;
+
 import org.springframework.core.env.Environment;
 /**hk*/
 @Service

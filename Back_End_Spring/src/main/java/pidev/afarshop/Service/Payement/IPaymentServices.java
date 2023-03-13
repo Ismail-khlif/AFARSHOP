@@ -1,4 +1,4 @@
-package pidev.afarshop.Service.Payment;
+package pidev.afarshop.Service.Payement;
 
 import pidev.afarshop.Entity.Payment;
 

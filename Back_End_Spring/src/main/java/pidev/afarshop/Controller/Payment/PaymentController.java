@@ -3,7 +3,7 @@ package pidev.afarshop.Controller.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pidev.afarshop.Entity.Payment;
-import pidev.afarshop.Service.Payment.PaymentServices;
+import pidev.afarshop.Service.Payement.PaymentServices;
 
 import java.util.List;
 
