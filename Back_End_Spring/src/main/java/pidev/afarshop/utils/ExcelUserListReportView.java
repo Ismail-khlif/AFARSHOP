@@ -26,7 +26,6 @@ public class ExcelUserListReportView extends AbstractXlsView {
         header.createCell(0).setCellValue("NOM");
         header.createCell(1).setCellValue("PRENOM");
         header.createCell(2).setCellValue("EMAIL");
-        header.createCell(3).setCellValue("ETAT COMPTE");
         header.createCell(4).setCellValue("ROLE");
         int rowNumber = 1;
         for(User user : list) {

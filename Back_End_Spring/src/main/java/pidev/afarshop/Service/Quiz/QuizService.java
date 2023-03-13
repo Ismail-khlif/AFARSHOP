@@ -8,7 +8,6 @@ import java.util.*;
 
 @Service
 public interface QuizService {
-    /*public void createQuizz(QuizQuestion q,Long storeId,Long userId);*/
     public void addQuestionToQuiz(QuizQuestion q, Long quizId);
     public void addListQuestionsToQuiz(Set<QuizQuestion> questions, Long quizId);
     public void removeQuestion(Long questionId,Long quizId);
