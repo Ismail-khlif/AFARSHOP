@@ -13,10 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Entity
@@ -95,6 +92,7 @@ public class User implements UserDetails {
     @OneToMany(mappedBy ="user" )
     private List<Reaction> reactions  ;
     //fin ajout
+
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
     private Set<Rating> ratings;
