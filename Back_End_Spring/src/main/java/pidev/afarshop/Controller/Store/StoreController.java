@@ -1,5 +1,6 @@
 package pidev.afarshop.Controller.Store;
 
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -8,11 +9,19 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.multipart.MultipartFile;
 import pidev.afarshop.Entity.*;
 import pidev.afarshop.Repository.FileSystemRepository;
+import pidev.afarshop.Repository.StoreExcelExporter;
+import pidev.afarshop.Repository.StoreRepository;
+import pidev.afarshop.Service.Store.StorePdfGenerator;
 import pidev.afarshop.Service.Store.StoreService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +34,11 @@ public class StoreController {
 
     @Autowired
     FileSystemRepository fileSystemRepository;
+
+    @Autowired
+    StorePdfGenerator storePdfGenerator;
+    @Autowired
+    StoreRepository storeRepository;
 
 
     @RestControllerAdvice
@@ -44,7 +58,9 @@ public class StoreController {
 
 
     @PostMapping(value = {"/addStore"}, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Store add (@RequestParam("image") MultipartFile image, @Valid @RequestParam String storeName, @RequestParam String storeLocation, @RequestParam String storeDescription, @RequestParam int contactInformation, @RequestParam String storeEmailAddress ) throws Exception {
+    public Store add (@RequestParam("image") MultipartFile image, @Valid @RequestParam String storeName,
+                      @RequestParam String storeLocation, @RequestParam String storeDescription,
+                      @RequestParam int contactInformation, @RequestParam String storeEmailAddress ) throws Exception {
         String path = fileSystemRepository.save(image);
         Store store = new Store();
         store.setStoreName(storeName);
@@ -56,6 +72,26 @@ public class StoreController {
         store.setImagePath(path);
         return storeService.addStore(store);
 
+    }
+
+    @PutMapping("/affectScore/{storeId}")
+    public Store affectScore (@PathVariable ("storeId") Long storeId){
+        return storeService.affectScore(storeId);
+    }
+
+    @PutMapping("/affectStoreToCategory")
+    public void affectStoreToCategory(Long storeId, Long categoryId){
+        storeService.affectStoreToCategory(storeId,categoryId);
+    }
+
+    @PutMapping("/affectEvaluation/{storeId}")
+    public Store affectEvaluation(@PathVariable("storeId") Long storeId){
+        return storeService.affectEvaluation(storeId);
+    }
+
+    @GetMapping("/Srore")
+    public Store findHighestScoredStore(){
+        return storeService.findHighestScoredStore();
     }
 
 
@@ -82,4 +118,37 @@ public class StoreController {
     public Store findStore(@PathVariable("storeId") Long storeId) {
         return storeService.retrieveItem(storeId);
     }
+
+
+
+    @GetMapping("/stores/export")
+    public void exportToExcel (HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=stores.xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List<Store> storeList = storeService.findAll();
+
+        StoreExcelExporter storeExcelExporter = new StoreExcelExporter(storeList);
+        storeExcelExporter.export(response);
+    }
+
+    @GetMapping("/pdf/generateStoreEvaluation/{storeId}")
+    public void generatePDFStore(HttpServletResponse response, @PathVariable("storeId") Long storeId) throws IOException, DocumentException
+    { response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attatchement; filename=Store.." + currentDateTime + ".pdf";
+
+        response.setHeader(headerKey, headerValue);
+
+
+        StorePdfGenerator exporter = new StorePdfGenerator();
+        Store store= storeRepository.findById(storeId).orElse(null);
+        exporter.generatePdfReport(response, store);
+    }
 }
+

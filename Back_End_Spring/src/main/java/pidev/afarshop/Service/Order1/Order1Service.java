@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
+
 import java.util.HashMap;
 
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.Map;
 public class Order1Service implements ICRUDService<Order1,Long> , IOrderServices {
 
 
+
     Order1Repository orderRepository;
     CartRepository cartRepository;
     DiscountCodeRepository discountCodeRepository;
@@ -27,11 +29,11 @@ public class Order1Service implements ICRUDService<Order1,Long> , IOrderServices
     public List<Order1> findAll() {
         return orderRepository.findAll();
 
-
     }
 
     @Override
     public Order1 retrieveItem(Long idItem) {
+
 
         return orderRepository.findById(idItem).get();
     }
@@ -41,10 +43,12 @@ public class Order1Service implements ICRUDService<Order1,Long> , IOrderServices
         return orderRepository.save(order);
 
 
+
     }
 
     @Override
     public void delete(Long orderId) {
+
 
         orderRepository.deleteById(orderId);
 
@@ -52,6 +56,7 @@ public class Order1Service implements ICRUDService<Order1,Long> , IOrderServices
     }
 
     @Override
+
     public Order1 update(Order1 order) {
         return orderRepository.save(order);
     }
@@ -104,5 +109,6 @@ public class Order1Service implements ICRUDService<Order1,Long> , IOrderServices
 
 
 }
+
 
 

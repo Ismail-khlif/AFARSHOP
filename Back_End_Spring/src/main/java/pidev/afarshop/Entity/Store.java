@@ -50,6 +50,15 @@ public class Store  implements Serializable {
 
     private String ImagePath;
 
+    private double Score;
+
+    @Enumerated(EnumType.STRING)
+    private Evaluation evaluation;
+
+    private Integer nbLikes;
+
+    private Integer nbDislikes;
+
 
     @JsonBackReference
     @ManyToOne

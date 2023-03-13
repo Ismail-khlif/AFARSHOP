@@ -103,12 +103,11 @@ public class User implements UserDetails {
     //fin ajout
 
 
+
    /* @OneToMany(mappedBy ="user")
     private Set<Order1> orders;
     while merging (ismail-oumaaima with eya)
     */
-
-
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
     private Set<Rating> ratings;

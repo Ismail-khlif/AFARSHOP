@@ -1,12 +1,15 @@
 package pidev.afarshop.Entity;
 
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+
 
 import java.util.Set;
 
@@ -18,6 +21,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+
 
 public class Order1 implements Serializable {
     @Id
@@ -50,7 +54,6 @@ public class Order1 implements Serializable {
     private User user;
 
     
-
 
 
 
