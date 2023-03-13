@@ -265,11 +265,11 @@
 		</dependency>
 
 		<!-- pio lib export excel -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.15</version>
-		</dependency>
+		</dependency>-->
 		<!-- export pdf lib -->
 		<dependency>
 			<groupId>com.lowagie</groupId>

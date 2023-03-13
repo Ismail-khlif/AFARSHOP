@@ -1,6 +1,7 @@
 package pidev.afarshop.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
