@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface Order1Repository extends JpaRepository<Order1,Long> {
     // Show Provider name with their orders
-    @Query("SELECT p.providerName as n FROM Provider p JOIN p.deliveries d JOIN d.orders ")
+    @Query("SELECT p.providerName as n FROM Provider p JOIN p.deliveries d JOIN d.order ")
     List<String> findProviderNamesWithOrder();
 
     //Show Orders list of every Provider

@@ -13,7 +13,7 @@ import pidev.afarshop.Entity.*;
 
 @Component
 @Service
-public class SmsService {
+public class SmsS1ervice {
 
 
     private final String ACCOUNT_SID ="ACf8bed4c3284e859bb4b8f2a834e9f219";
