@@ -30,14 +30,14 @@ public class Product  implements Serializable {
     @Lob
     private byte[] video;
     private String brand;
-    private float price;
+    private double price;
     @Temporal(TemporalType.DATE)
     private Date dateOfProduct;
     private float rating;
     private float discount;
     private int yearsOfWarranty;
     private boolean facility;
-
+    @JsonIgnore
     @ManyToOne
     private Order1 order;
     @ManyToOne
@@ -45,7 +45,7 @@ public class Product  implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     Set<ProductComment> productComments;
     @ManyToOne
-    @JoinColumn(name = "storeId")
+    @JsonIgnore
     private Store store;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")

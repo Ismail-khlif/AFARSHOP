@@ -22,10 +22,10 @@ public class Order1 implements Serializable {
     private String codePromo;
     private String orderStatus;
     private Float amountBill;
-    @OneToOne
+    @OneToOne(mappedBy = "order1")
     private Bill bill;
-
-    @OneToMany(mappedBy = "order")
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "order")
     private Set<Product> products;
 
     @OneToOne

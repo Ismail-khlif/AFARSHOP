@@ -26,7 +26,7 @@ public class Bill implements Serializable{
     @JsonFormat(pattern="dd/MM/yy")
     private LocalDate billDate;
 
-    @OneToOne(mappedBy = "bill")
+    @OneToOne
     private Order1 order1;
 
     @OneToMany(mappedBy = "billPayment")

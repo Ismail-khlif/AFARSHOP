@@ -20,7 +20,7 @@ public class AfarshopApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AfarshopApplication.class, args);
 		/*final SentimentPolarities sentimentPolarities =
-				SentimentAnalyzer.getScoresFor("good");
+				SentimentAnalyzer.getScoresFor("nice and i don't think it's perfect");
 		System.out.println(sentimentPolarities);*/
 	}
 

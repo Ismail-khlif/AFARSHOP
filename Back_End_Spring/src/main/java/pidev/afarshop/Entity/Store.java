@@ -58,7 +58,7 @@ public class Store  implements Serializable {
     @OneToMany
     @JsonIgnore
     private List<StoreLocations> storeLocations;
-
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "store")
     private Set<Product> products;
 

@@ -166,13 +166,13 @@ public class ProductController {
 
         return productServices.addLike_to_Post(pos1,IdProduct,u.getUserId());
     }
+    /*
     @GetMapping("/compare/{product}")
     public Map<String,Product> comparePrices(@PathVariable("product") String productName) {
         List<Product> productsByName = productRepository.findByProductName(productName);
         productsByName.sort(Comparator.comparing(Product::getPrice));
         Map<String,Product> productByStore=new HashMap<>();
-
-
+/*
         Product product1= new Product();
         product1.setProductId((long)20);
         product1.setProductName("dsf");
@@ -194,22 +194,20 @@ public class ProductController {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
 
-
-
         System.out.println("------------------------------------------------------------------------------------------");
-
-        for(Product product:productsByName){
-            System.out.println("-----------------product.getStore().getStoreName()-------------------"+product.getStore().getStoreName());
+*/
+    /*    for(Product product:productsByName){
+           // System.out.println("-----------------product.getStore().getStoreName()-------------------"+product.getStore().getStoreName());
             productByStore.put(product.getStore().getStoreName(), product);
 
         }
-        System.out.println("----------------------------------result--------------------------------------------------------");
+       /*System.out.println("----------------------------------result--------------------------------------------------------");
 
         for (Map.Entry<String, Product> entry : productByStore.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
-        return productByStore;
-    }
+        }*/
+       /* return productByStore;
+    }*/
     @GetMapping("/getstore/{pid}")
     public Store getStoreByProductId(@PathVariable("pid") Long productId){
         return productServices.getStoreByProductId(productId);
@@ -251,5 +249,29 @@ public class ProductController {
     @GetMapping("/AnalyzeProductComments")
     public Map<String, Map<String,Float>> analizeSentimentOfComments(){
         return productServices.analizeSentimentOfComments();
+    }
+    @GetMapping("/compare/{productName}")
+    public ResponseEntity<Map<String, Double>> comparePrices(@PathVariable String productName) {
+        List<Product> products = productServices.findProductByName(productName);
+        if (products.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Map<String, Double> pricesByStore = new HashMap<>();
+        for (Product product : products) {
+            Store store = product.getStore();
+            if (store != null) {
+                Double price = product.getPrice();
+                if (price != null) {
+                    pricesByStore.put(store.getStoreName(), price);
+                }
+            }
+        }
+
+        if (pricesByStore.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(pricesByStore);
     }
 }
