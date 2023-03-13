@@ -1,13 +1,11 @@
 package pidev.afarshop.Entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -38,6 +36,6 @@ public class Product  implements Serializable {
     private boolean facility;
 
     @ManyToOne
-    private Order order;
+    private Order1 order;
 
 }

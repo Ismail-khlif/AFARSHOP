@@ -2,6 +2,7 @@ package pidev.afarshop.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
@@ -37,5 +38,8 @@ public class Delivery implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "store_deliveryid", referencedColumnName = "storeDeliveryId")
     private StoreDelivery storeDelivery ;
+
+    @OneToOne(mappedBy = "delivery", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Order1 order;
 
 }

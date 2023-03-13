@@ -1,6 +1,7 @@
 package pidev.afarshop.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,13 +22,16 @@ public class Payment implements Serializable {
     private Long paymentId;
     private boolean paid;
     @JsonFormat(pattern="dd/MM/yy")
-    private LocalDate paymentDate;
+    private Date paymentDate;
     private float installmentAmount;
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
+    @JsonFormat(pattern="dd/MM/yy")
+    private Date dueDate;
 
 
     @ManyToOne
+    @JsonIgnore
     private Bill billPayment;
 
 
