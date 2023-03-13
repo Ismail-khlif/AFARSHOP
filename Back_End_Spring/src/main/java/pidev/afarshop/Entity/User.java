@@ -114,5 +114,9 @@ public class User implements UserDetails {
     @OneToOne
     Cart cart;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
+    Set<Notification> notifications;
+
 }
 

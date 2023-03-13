@@ -47,7 +47,7 @@ public class ProductController {
     public Product addProduct(@RequestParam("image") MultipartFile image, @RequestParam("productName") String poductName,
                               @RequestParam("reference") String reference,@RequestParam("description") String description,
                               @RequestParam("quantity") Long quantity,@RequestParam("rating") float rating,
-                              @RequestParam("video") MultipartFile video,@RequestParam("price") float price,
+                              @RequestParam("video") MultipartFile video,@RequestParam("price") double price,
                               @RequestParam("date")  @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateOfProduct,
                               @RequestParam("discount") float discount,@RequestParam("brand") String brand,
                               @RequestParam("yearsOfWarranty") int yearsOfWarranty) throws IOException, WriterException {
@@ -91,7 +91,7 @@ public class ProductController {
                            @RequestParam("image") MultipartFile image, @RequestParam("productName") String poductName,
                            @RequestParam("reference") String reference,@RequestParam("description") String description,
                            @RequestParam("quantity") Long quantity,@RequestParam("rating") float rating,
-                           @RequestParam("video") MultipartFile video,@RequestParam("price") float price,
+                           @RequestParam("video") MultipartFile video,@RequestParam("price") double price,
                            @RequestParam("date")  @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateOfProduct,
                            @RequestParam("discount") float discount,@RequestParam("brand") String brand,
                            @RequestParam("yearsOfWarranty") int yearsOfWarranty) throws IOException {

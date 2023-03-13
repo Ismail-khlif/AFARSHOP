@@ -28,6 +28,7 @@ import java.util.*;
 @Slf4j
 @AllArgsConstructor
 public class ProductServices implements IProductServices  {
+     NotificationRepository notificationRepository;
     StoreRepository storeRepository;
     ProductRepository productRepository;
     ForbiddenRepository  forbiddenRepo;
@@ -107,6 +108,7 @@ public class ProductServices implements IProductServices  {
         Product p = productRepository.findById(idProduct).orElse(null);
         User u = userRepository.findById(idUser).orElse(null);
         DetctaDataLoad(ProductComment.getCommentBody(),idUser);
+        Notification notif = new Notification();
         if (Filtrage_bad_word(ProductComment.getCommentBody()) == 0) {
             ProductComment.setUser(u);
             ProductComment.setProduct(p);
@@ -123,6 +125,13 @@ public class ProductServices implements IProductServices  {
              *
              */
             //}
+
+            notif.setCreatedAt(new Date());
+            notif.setMessage("Warning Bads Word Detected "  );
+            notif.setRead(false);
+            notif.setUser(u);
+            notificationRepository.save(notif);
+
             return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body("Bads Word Detected");
     }
 
