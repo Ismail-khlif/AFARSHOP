@@ -1,11 +1,16 @@
 package pidev.afarshop.Entity;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+
 import java.util.Set;
+
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -18,22 +23,35 @@ public class Order1 implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
+    @Column(name="orderId")
     private Long orderId;
+
     private String codePromo;
     private String orderStatus;
     private Float amountBill;
-
 
     @OneToOne
     private Bill bill;
     @OneToMany(mappedBy = "order")
     private Set<Product> products;
 
-    @ManyToOne
-    @JsonIgnore
-    private User user;
+
 
     @OneToOne
     @JsonIgnore
     private Delivery delivery;
+
+    @OneToOne
+    Cart cart ;
+
+    //BY oumaima 
+    @ManyToOne
+    @JsonIgnore
+    private User user;
+
+    
+
+
+
+
 }

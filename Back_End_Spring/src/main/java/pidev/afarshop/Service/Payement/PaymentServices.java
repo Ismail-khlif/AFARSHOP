@@ -1,22 +1,32 @@
+
 package pidev.afarshop.Service.Payement;
+
+
 
 import com.twilio.Twilio;
 import com.twilio.exception.TwilioException;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.scheduling.annotation.Scheduled;
+
 import pidev.afarshop.Entity.*;
 import pidev.afarshop.Repository.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+
+import pidev.afarshop.Service.Payement.IPaymentServices;
+
+
 import javax.transaction.Transactional;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+
 import org.springframework.core.env.Environment;
-/**hk*/
+
 @Service
 @Slf4j
 @AllArgsConstructor
@@ -122,6 +132,7 @@ public class PaymentServices implements IPaymentServices {
 
 
     @Override
+
     public Payment updatePayment(Long idPayment) {
         Payment p=paymentRepository.findById(idPayment).orElse(null);
         p.setPaid(true);
@@ -133,6 +144,7 @@ public class PaymentServices implements IPaymentServices {
     @Override
     public List<Payment> retrievePaymentsByBill(Long idBill) {
         return paymentRepository.findPaymentByBillId(idBill);
+
     }
 
     @Override
@@ -162,3 +174,4 @@ public class PaymentServices implements IPaymentServices {
     }
 
 }
+

@@ -1,13 +1,18 @@
 package pidev.afarshop.Entity;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+
 import java.time.LocalDate;
 import java.util.Date;
+
 
 @Entity
 @AllArgsConstructor
@@ -15,6 +20,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
+
 
 public class Payment implements Serializable {
     @Id
@@ -33,6 +39,7 @@ public class Payment implements Serializable {
     @ManyToOne
     @JsonIgnore
     private Bill billPayment;
+
 
 
 }

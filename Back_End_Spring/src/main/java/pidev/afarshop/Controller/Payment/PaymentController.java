@@ -1,5 +1,6 @@
 package pidev.afarshop.Controller.Payment;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pidev.afarshop.Entity.Payment;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/payment")
+
 public class PaymentController {
 
     @Autowired
@@ -42,3 +44,4 @@ public class PaymentController {
     }
 
 }
+

@@ -14,8 +14,10 @@ import java.util.List;
 @Repository
 public interface BillRepository extends JpaRepository<Bill,Long> {
 
+
     @Query("select p from Product p join p.order o where o.orderId= :orderId ")
     List<Product> getProducts(@Param("orderId") Long orderId);
+
 
     @Query("SELECT b FROM Bill b join b.order1 o where o.user.UserId = :UserId")
     public List<Bill> retrieveBillByUser(@Param("UserId") Long UserId);

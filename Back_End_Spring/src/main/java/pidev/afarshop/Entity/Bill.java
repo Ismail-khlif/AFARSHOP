@@ -28,7 +28,9 @@ public class Bill implements Serializable{
     private Date billDate;
 
     @OneToOne(mappedBy = "bill")
+
     @JsonIgnore
+
     private Order1 order1;
 
     @OneToMany(mappedBy = "billPayment")

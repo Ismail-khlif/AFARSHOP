@@ -9,6 +9,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -39,7 +40,13 @@ public class Delivery implements Serializable {
     @JoinColumn(name = "store_deliveryid", referencedColumnName = "storeDeliveryId")
     private StoreDelivery storeDelivery ;
 
+
     @OneToOne(mappedBy = "delivery", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Order1 order;
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "deliveryman_id")
+    Provider provider;
+
 
 }

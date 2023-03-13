@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import pidev.afarshop.Entity.*;
+
 import pidev.afarshop.Repository.BillRepository;
 import pidev.afarshop.Repository.Order1Repository;
 import pidev.afarshop.Repository.PaymentRepository;
@@ -23,10 +25,12 @@ public class BillService implements IBillService {
     @Autowired
     PaymentRepository paymentRepository;
     @Autowired
+
     Order1Repository order1Repository;
 
     @Autowired
     DeliveryService deliveryService;
+
 
 
 
@@ -43,22 +47,24 @@ public class BillService implements IBillService {
     }
 
     @Override
-    public Bill addBill(Bill bill, Long orderId) {
-        float amount=calculatePaymentAmount(orderId, bill);
+    public Bill addBill(Bill bill, Long Order1Id) {
+        float amount=calculatePaymentAmount(Order1Id, bill);
         bill.setPaymentAmount(amount);
+
         bill.setBillDate(Calendar.getInstance().getTime());
         Order1 order1 = order1Repository.findById(orderId).orElse(null);
         order1.setBill(bill);
+
         billRepository.save(bill);
         return bill;
 
     }
 
     @Override
-    public float calculatePaymentAmount(Long orderId, Bill bill){
+    public float calculatePaymentAmount(Long Order1Id, Bill bill){
 
         float amount=0;
-        List<Product> products=billRepository.getProducts(orderId);
+       /* List<Product> products=billRepository.getProducts(Order1Id);
         for (Product product: products){
             if(product.isFacility())
             {
@@ -76,7 +82,7 @@ public class BillService implements IBillService {
                 amount=amount+(product.getPrice());
 
             }
-        }
+        }*/
         return amount;
 
     }
