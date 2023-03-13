@@ -212,7 +212,7 @@ public class ProductController {
     public Store getStoreByProductId(@PathVariable("pid") Long productId){
         return productServices.getStoreByProductId(productId);
     }
-    //here
+
     @GetMapping("/findmatchingaiproducts")
     public ResponseEntity<List<Product>> chatWithGpt3(@RequestParam String message) throws Exception {
         var completion = CompletionRequest.defaultWith("give me a list products which name is "+message);
@@ -250,6 +250,7 @@ public class ProductController {
     public Map<String, Map<String,Float>> analizeSentimentOfComments(){
         return productServices.analizeSentimentOfComments();
     }
+    //here
     @GetMapping("/compare/{productName}")
     public ResponseEntity<Map<String, Double>> comparePrices(@PathVariable String productName) {
         List<Product> products = productServices.findProductByName(productName);
