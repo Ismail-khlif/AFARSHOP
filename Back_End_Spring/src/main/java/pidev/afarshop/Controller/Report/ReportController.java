@@ -15,7 +15,7 @@ import pidev.afarshop.Service.Mail.MailService;
 import pidev.afarshop.utils.ExcelUserListReportView;
 import pidev.afarshop.utils.PdfUserListReportView;
 
-import pidev.afarshop.utils.QRCodeService;
+
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,9 +29,10 @@ public class ReportController {
      @Autowired
      UserRepository user;
      MailService emailService;
-    private static final String QR_CODE_IMAGE_PATH = "./src/main/resources/images/QRCode.png";
+    private static final String QR_CODE_IMAGE_PATH = "./src/main/QRCode";
 
 
+//excel
     @GetMapping(value = "/Rapport/excel")
     public ModelAndView createExcel(HttpServletRequest request, HttpServletResponse response) {
         //create data
@@ -39,43 +40,7 @@ public class ReportController {
 
         return new ModelAndView(new ExcelUserListReportView(), "usersList", list);
     }
-
-   /*@GetMapping(value = "/Rapport/qrCode")
-    public String qrCode(HttpServletRequest request, HttpServletResponse response) {
-        //create data
-        List<User> list;
-        list = user.findAll();
-        String data = "";
-        for (User user : list) {
-            data = data + user.getfirstname() + " " + user.getlastname() + " " + user.getemail() + "\n";
-        }
-        String path = null;
-        try {
-            path =  QR_CODE_IMAGE_PATH ;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-return path;
-
-    }
-  /* @GetMapping(value = "/genrateAndDownloadQRCode/{codeText}/{width}/{height}")
-   public void download(
-           @PathVariable("codeText") String codeText,
-           @PathVariable("width") Integer width,
-           @PathVariable("height") Integer height)
-           throws Exception {
-       QRCodeService.generateQRCodeImage(codeText, width, height, QR_CODE_IMAGE_PATH);
-   }
-
-    @GetMapping(value = "/genrateQRCode/{codeText}/{width}/{height}")
-    public ResponseEntity<byte[]> generateQRCode(
-            @PathVariable("codeText") String codeText,
-            @PathVariable("width") Integer width,
-            @PathVariable("height") Integer height)
-            throws Exception {
-        return ResponseEntity.status(HttpStatus.OK).body(QRCodeService.getQRCodeImage(codeText, width, height));
-    }*/
-
+    //pdf
     @GetMapping(value = "/Rapport/pdf")
     public ModelAndView createPdf(HttpServletRequest request, HttpServletResponse response) {
         String typeReport = request.getParameter("type");
@@ -85,4 +50,6 @@ return path;
 
         return new ModelAndView(new PdfUserListReportView(), "usersList", list);
     }
+
+
 }

@@ -90,8 +90,6 @@ public class QuizServiceImpl implements QuizService {
         user.getAnswers().add(answer);
         userRepository.flush();
         return answer;
-
-
     }
 
     @Override
