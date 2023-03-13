@@ -1,7 +1,11 @@
 package pidev.afarshop.Auth;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.UserRecord;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +21,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthenticationService {
     private final UserRepository repository;
     private final TokenRepository tokenRepository;
@@ -24,21 +29,21 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) {
-        var user = User.builder()
-                .username(request.getFirstname())
-                .lastName(request.getLastname())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .roles(request.getRole())
-                .build();
-        var savedUser = repository.save(user);
-        var jwtToken = jwtService.generateToken(user);
-        saveUserToken(savedUser, jwtToken);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
-    }
+   public AuthenticationResponse register(RegisterRequest request) {
+       var user = User.builder()
+               .username(request.getFirstname())
+               .lastname(request.getLastname())
+               .email(request.getEmail())
+               .password(passwordEncoder.encode(request.getPassword()))
+               .roles(request.getRole())
+               .build();
+       var savedUser = repository.save(user);
+       var jwtToken = jwtService.generateToken(user);
+       saveUserToken(savedUser, jwtToken);
+       return AuthenticationResponse.builder()
+               .token(jwtToken)
+               .build();
+   }
 
 
 

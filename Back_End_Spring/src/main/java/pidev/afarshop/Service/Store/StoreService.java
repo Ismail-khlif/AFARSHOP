@@ -10,8 +10,13 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+
 import java.util.Optional;
+
+import java.util.Set;
+
 
 @Service
 @Slf4j
@@ -23,6 +28,7 @@ public class StoreService implements IStoreServices {
     @Autowired
     StoreRepository storeRepository;
 
+
     @Autowired
     CategoryRepository categoryRepository;
     @Autowired
@@ -31,6 +37,9 @@ public class StoreService implements IStoreServices {
     RatingRepository ratingRepository;
 
 
+
+
+    QuizzRepository quizzRepository;
 
     @Override
     public List<Store> findAll() {
@@ -48,10 +57,12 @@ public class StoreService implements IStoreServices {
     }
 
     @Override
+
     public Store addStore (Store store)   {
         Store s = storeRepository.save(store);
         findCategoryToStore(s.getStoreId());
         return s;
+
     }
 
     @Override
@@ -69,6 +80,7 @@ public class StoreService implements IStoreServices {
     public Store findStoreByName(String storeName) {
         return storeRepository.findBystoreName(storeName);
     }
+
 
     @Override
     public void affectStoreToCategory(Long storeId, Long categoryId) {
@@ -213,6 +225,20 @@ public class StoreService implements IStoreServices {
         nbLikes(storeId);
         nbDislikes(storeId);
         return storeRepository.save(store);
+
+    }
+
+
+    public void createQuizz(Quiz Q, Long idCourse,Long idUser)  {
+        Store c = storeRepository.findById(idCourse).get();
+        User usr = userRepository.findById(idUser).get();
+
+        Set<Quiz> quiz = new HashSet<>();
+        quiz.add(Q);
+        c.getQuiz().add(Q);
+
+        storeRepository.flush();
+        quizzRepository.save(Q);
 
     }
 
