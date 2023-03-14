@@ -12,13 +12,13 @@ import com.twilio.type.PhoneNumber;
 @Data
 public class TwilioConfig {
 
-    @Value("AC7047daeaee9ccc72a5ba56a49b897a82")
+    @Value("AC20887c66c515d0f7f341cb39c5c99ff7")
     private String accountSid;
 
-    @Value("41e500433f8e3470fc057c1318a471b7")
+    @Value("a269039bc1779b0b2dc59260efb2c1b4")
     private String authToken;
 
-    @Value("+15747014044")
+    @Value("+15073846037")
     private String phoneNumber;
 
     public void initTwilio() {

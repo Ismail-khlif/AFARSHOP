@@ -29,4 +29,7 @@ public interface IStoreServices {
 
     public void StoreEvaluationByScore();
     public Store affectEvaluation(Long storeId);
+
+    public List<Store> top5LikedStores();
+
 }

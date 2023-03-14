@@ -1,7 +1,11 @@
 package pidev.afarshop.Service.Store;
 
+import com.twilio.Twilio;
+import com.twilio.exception.TwilioException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.validation.annotation.Validated;
 import pidev.afarshop.Entity.*;
 import pidev.afarshop.Repository.*;
@@ -9,6 +13,7 @@ import pidev.afarshop.Service.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pidev.afarshop.Service.Payement.SmsService;
 
 import java.util.HashSet;
 import java.util.List;
@@ -21,10 +26,26 @@ import java.util.Set;
 @Service
 @Slf4j
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Validated
 public class StoreService implements IStoreServices {
 
+
+    private final String accountSid = "AC20887c66c515d0f7f341cb39c5c99ff7";
+    private final String authToken = "a269039bc1779b0b2dc59260efb2c1b4";
+    private final SmsService smsService;
+    @Autowired
+    private Environment environment;
+
+    public void init() {
+        String accountSid = environment.getProperty("accountSid");
+        String authToken = environment.getProperty("authToken");
+
+        try {
+            Twilio.init(accountSid, authToken);
+        } catch (TwilioException ex) {
+            // log error
+        }
+    }
     @Autowired
     StoreRepository storeRepository;
 
@@ -35,6 +56,7 @@ public class StoreService implements IStoreServices {
     UserRepository userRepository;
     @Autowired
     RatingRepository ratingRepository;
+
 
 
 
@@ -61,8 +83,14 @@ public class StoreService implements IStoreServices {
     public Store addStore (Store store)   {
         Store s = storeRepository.save(store);
         findCategoryToStore(s.getStoreId());
+        String fromNumber = environment.getProperty("+15747014044");
+        String message = "Your new Store is added successfully!"+s.getStoreName() ;
+        try {
+            smsService.sendSms("+21650879536",message);
+        } catch (TwilioException e) {
+            // Gérer les erreurs d'envoi de SMS
+        }
         return s;
-
     }
 
     @Override
@@ -240,6 +268,11 @@ public class StoreService implements IStoreServices {
         storeRepository.flush();
         quizzRepository.save(Q);
 
+    }
+
+    public List<Store> top5LikedStores(){
+        List<Store> stores =(List<Store>) storeRepository.top5LikedStores();
+        return stores;
     }
 
 
