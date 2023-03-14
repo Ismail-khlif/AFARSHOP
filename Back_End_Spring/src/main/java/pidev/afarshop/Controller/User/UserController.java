@@ -18,6 +18,7 @@ import pidev.afarshop.Repository.ConfirmationTokenRepository;
 import pidev.afarshop.Repository.UserRepository;
 import pidev.afarshop.Service.User.UserService;
 
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -72,6 +73,7 @@ public class UserController {
         user.setRoles(roles);
         user.setDayOfBirth(dayOfBirth);
         userService.createUser(user,image);
+        /*QRCodeUser.QRCode(User);*/
         return user;
     }
 
