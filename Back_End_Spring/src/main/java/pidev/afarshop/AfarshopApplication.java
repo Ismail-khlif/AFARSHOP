@@ -9,7 +9,12 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
 
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
+
+
 import org.springframework.context.event.EventListener;
+
 
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.multipart.MultipartResolver;
@@ -17,11 +22,13 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 
-@SpringBootApplication
-@EntityScan(basePackages = {"pidev.afarshop.Entity"})
-@ComponentScan(basePackages = {"pidev.afarshop.*"})
-@EnableScheduling
 @EnableWebMvc
+@EnableScheduling
+@EnableAspectJAutoProxy
+@EnableSpringConfigured
+@SpringBootApplication
+@ComponentScan({"pidev.afarshop.*","pidev.afarshop.Config"})
+@EntityScan(basePackages = {"pidev.afarshop.Entity"})
 public class AfarshopApplication {
 	@Bean
 	public MultipartResolver multipartResolver() {
@@ -30,7 +37,7 @@ public class AfarshopApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AfarshopApplication.class, args);
 		/*final SentimentPolarities sentimentPolarities =
-				SentimentAnalyzer.getScoresFor("good");
+				SentimentAnalyzer.getScoresFor("nice and i don't think it's perfect");
 		System.out.println(sentimentPolarities);*/
 	}
 

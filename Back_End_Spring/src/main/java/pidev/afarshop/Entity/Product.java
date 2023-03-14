@@ -33,14 +33,14 @@ public class Product  implements Serializable {
     @Lob
     private byte[] video;
     private String brand;
-    private float price;
+    private double price;
     @Temporal(TemporalType.DATE)
     private Date dateOfProduct;
     private float rating;
     private float discount;
     private int yearsOfWarranty;
     private boolean facility;
-
+    @JsonIgnore
     @ManyToOne
 
     private Order1 order;
@@ -52,7 +52,7 @@ public class Product  implements Serializable {
     Set<ProductComment> productComments;
     
     @ManyToOne
-    @JoinColumn(name = "storeId")
+    @JsonIgnore
     private Store store;
     
     @JsonIgnore

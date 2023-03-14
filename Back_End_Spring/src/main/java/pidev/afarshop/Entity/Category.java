@@ -29,3 +29,4 @@ public class Category implements Serializable {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "category")
     private Set<Store> stores;
 }
+

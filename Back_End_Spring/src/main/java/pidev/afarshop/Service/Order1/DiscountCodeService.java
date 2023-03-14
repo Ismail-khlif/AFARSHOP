@@ -1,6 +1,7 @@
 package pidev.afarshop.Service.Order1;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import pidev.afarshop.Entity.*;
 import pidev.afarshop.Service.*;
 import pidev.afarshop.Repository.*;
@@ -22,8 +23,9 @@ import java.util.*;
 public class DiscountCodeService {
 
       DiscountCodeRepository discountCodeRepository;
-
-
+      @Autowired
+      NotificationRepository notificationRepository;
+      UserRepository userRepository;
 
     @Scheduled(fixedRate = 10000000) // generate discount code every 10 seconds
     public String generateDiscount() {
@@ -35,7 +37,20 @@ public class DiscountCodeService {
         DiscountCode discountCode = new DiscountCode((long)discountId,code,discount,false); // create a new discount code object
         discountCodeRepository.save(discountCode); // save the discount code to the database
         System.out.println("Generated discount code: " + code);
+
+        List<User> user =  userRepository.findAll();
+        for(User us:  user){
+            Notification notif = new Notification();
+            notif.setCreatedAt(new Date());
+            notif.setMessage("Fast try to catch the Discount code " +code );
+            notif.setRead(false);
+            notif.setUser(us);
+            notificationRepository.save(notif);
+
+        }
+
         return code;
+
     }
 
     private String generateDiscountCode(int discount) {

@@ -48,9 +48,4 @@ public class ProductComment implements Serializable{
     @ManyToOne
     Product product; // The Product to comment
 
-
-
-
-
-
 }

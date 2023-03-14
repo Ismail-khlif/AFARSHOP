@@ -130,6 +130,12 @@ public class User implements UserDetails {
     Cart cart;
 
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
+    Set<Notification> notifications;
+
+
+
 
     public String getfirstname(){
             return firstname;

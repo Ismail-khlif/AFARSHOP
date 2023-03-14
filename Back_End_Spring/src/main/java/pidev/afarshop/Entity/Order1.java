@@ -33,10 +33,13 @@ public class Order1 implements Serializable {
     private String codePromo;
     private String orderStatus;
     private Float amountBill;
-
+    
     @OneToOne
+    @JsonIgnore
     private Bill bill;
-    @OneToMany(mappedBy = "order")
+    
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "order")
     private Set<Product> products;
 
 
@@ -49,12 +52,12 @@ public class Order1 implements Serializable {
     Cart cart ;
 
     //BY oumaima 
+    //@ManyToOne
+    //Delivery delivery;
+
     @ManyToOne
     @JsonIgnore
     private User user;
 
-    
-
-
-
+   
 }

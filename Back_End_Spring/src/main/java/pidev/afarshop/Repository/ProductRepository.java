@@ -1,5 +1,8 @@
 package pidev.afarshop.Repository;
 
+ import org.springframework.data.jpa.repository.Query;
+ import org.springframework.data.repository.query.Param;
+
  import org.springframework.web.bind.annotation.PathVariable;
 
  import org.springframework.data.jpa.repository.Query;
@@ -27,8 +30,13 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
         //tri
         List<Product> findAllByOrderByPrice();
 
+    @Query("SELECT SUM(s.quantity * s.price) FROM Sale s WHERE s.product.productId = :productId")
+    Double findTotalRevenueByProduct(@Param("productId") Long productId);
+
+
  /*Product createProduct(Product product);
 */
+
 
 
 }

@@ -2,6 +2,8 @@ package pidev.afarshop.Controller.Product;
 
 
 import com.google.zxing.WriterException;
+import org.hibernate.boot.archive.scan.spi.ScanOptions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +17,18 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pidev.afarshop.Service.Sale.SaleService;
 import pidev.afarshop.utils.QRCodeGenerator;
 
 import java.io.IOException;
 import java.nio.file.attribute.UserPrincipal;
 import java.time.LocalDate;
 import java.util.*;
+
+import pidev.afarshop.Controller.Chatgbt.CompletionRequest;
+import pidev.afarshop.Controller.Chatgbt.CompletionResponse;
+import pidev.afarshop.Controller.Chatgbt.OpenAiApiClient;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -33,12 +41,17 @@ import javax.transaction.Transactional;
 public class ProductController {
     ProductServices productServices;
     ProductRepository productRepository;
+    SaleService saleService;
+
+    @Autowired
+    private ObjectMapper jsonMapper;
+    @Autowired private OpenAiApiClient client;
 
     @PostMapping(value = "/addandupdateproduct" ,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Product addProduct(@RequestParam("image") MultipartFile image, @RequestParam("productName") String poductName,
                               @RequestParam("reference") String reference,@RequestParam("description") String description,
                               @RequestParam("quantity") Long quantity,@RequestParam("rating") float rating,
-                              @RequestParam("video") MultipartFile video,@RequestParam("price") float price,
+                              @RequestParam("video") MultipartFile video,@RequestParam("price") double price,
                               @RequestParam("date")  @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateOfProduct,
                               @RequestParam("discount") float discount,@RequestParam("brand") String brand,
                               @RequestParam("yearsOfWarranty") int yearsOfWarranty) throws IOException, WriterException {
@@ -83,7 +96,7 @@ public class ProductController {
                            @RequestParam("image") MultipartFile image, @RequestParam("productName") String poductName,
                            @RequestParam("reference") String reference,@RequestParam("description") String description,
                            @RequestParam("quantity") Long quantity,@RequestParam("rating") float rating,
-                           @RequestParam("video") MultipartFile video,@RequestParam("price") float price,
+                           @RequestParam("video") MultipartFile video,@RequestParam("price") double price,
                            @RequestParam("date")  @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateOfProduct,
                            @RequestParam("discount") float discount,@RequestParam("brand") String brand,
                            @RequestParam("yearsOfWarranty") int yearsOfWarranty) throws IOException {
@@ -158,29 +171,122 @@ public class ProductController {
 
         return productServices.addLike_to_Post(pos1,IdProduct,u.getUserId());
     }
+    /*
     @GetMapping("/compare/{product}")
     public Map<String,Product> comparePrices(@PathVariable("product") String productName) {
         List<Product> productsByName = productRepository.findByProductName(productName);
         productsByName.sort(Comparator.comparing(Product::getPrice));
         Map<String,Product> productByStore=new HashMap<>();
+/*
+        Product product1= new Product();
+        product1.setProductId((long)20);
+        product1.setProductName("dsf");
+        product1.setBrand("brand");
+        product1.setImages(null);
+        product1.setReference("reference");
+        product1.setDescription("description");
+        product1.setQuantity(2L);
+        product1.setVideo(null);
+        product1.setPrice(25);
+        product1.setDateOfProduct(null);
+        product1.setDiscount(1);
+        product1.setYearsOfWarranty(2);
+        product1.setRating(23);
 
+        productByStore.put("hello", product1);
 
+        for (Map.Entry<String, Product> entry : productByStore.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
 
-        for(Product product:productsByName){
-            productByStore.put(productServices.getStoreByProductId(product.getProductId()).getStoreName(), product);
+        System.out.println("------------------------------------------------------------------------------------------");
+*/
+    /*    for(Product product:productsByName){
+           // System.out.println("-----------------product.getStore().getStoreName()-------------------"+product.getStore().getStoreName());
+            productByStore.put(product.getStore().getStoreName(), product);
 
         }
-        return productByStore;
-    }
+       /*System.out.println("----------------------------------result--------------------------------------------------------");
+
+        for (Map.Entry<String, Product> entry : productByStore.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }*/
+       /* return productByStore;
+    }*/
     @GetMapping("/getstore/{pid}")
     public Store getStoreByProductId(@PathVariable("pid") Long productId){
         return productServices.getStoreByProductId(productId);
     }
 
-    /*@PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        Product newProduct = productServices.createProduct(product);
-        return ResponseEntity.ok(newProduct);
-    }*/
+    @GetMapping("/findmatchingaiproducts")
+    public ResponseEntity<List<Product>> chatWithGpt3(@RequestParam String message) throws Exception {
+        var completion = CompletionRequest.defaultWith("give me a list products which name is "+message);
+        System.out.println("-------------------------------completion------------------------------------"+completion);
+        var postBodyJson = jsonMapper.writeValueAsString(completion);
+        System.out.println("-------------------------------postBodyJson------------------------------------"+postBodyJson);
+        var responseBody = client.postToOpenAiApi(postBodyJson, OpenAiApiClient.OpenAiService.GPT_3);
+        System.out.println("-------------------------------responseBody------------------------------------"+responseBody);
+        var completionResponse = jsonMapper.readValue(responseBody, CompletionResponse.class);
+        System.out.println("-------------------------------completionResponse------------------------------------"+completionResponse);
+        List<Product> products=productRepository.findAll();
+        for(Product product:products){
+        System.out.println("-------------------------------products------------------------------------"+product.getProductId());}
+        var result = completionResponse.firstAnswer().trim();
+        System.out.println("-------------------------------result------------------------------------"+result);
+        List<String> resultList = Arrays.asList(result.split("\n"));
+        System.out.println("-------------------------------resultList------------------------------------"+resultList);
+        resultList.replaceAll(s -> s.replaceAll("^\\d+\\.\\s*", ""));
+        System.out.println("-------------------------------resultList---with replace---------------------------------"+resultList);
+        List<Product> resultRes =new ArrayList<>();
+        for (String l:resultList){
+            System.out.println("------------------------for-------resultList------------------------------------"+l);
+            for (Product product:products){
+                System.out.println("-------------------------------product------------------------------------"+product.getProductName());
+                if(l.contains(product.getProductName())){
+                  System.out.println("-------------------------------ajout final------------------------------------");
+
+                    resultRes.add(product);
+                }
+            }
+        }
+        return ResponseEntity.ok(resultRes);
+    }
+    @GetMapping("/AnalyzeProductComments")
+    public Map<String, Map<String,Float>> analizeSentimentOfComments(){
+        return productServices.analizeSentimentOfComments();
+    }
+    //here
+    @GetMapping("/compare/{productName}")
+    public ResponseEntity<Map<String, Double>> comparePrices(@PathVariable String productName) {
+        List<Product> products = productServices.findProductByName(productName);
+        if (products.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Map<String, Double> pricesByStore = new HashMap<>();
+        for (Product product : products) {
+            Store store = product.getStore();
+            if (store != null) {
+                Double price = product.getPrice();
+                if (price != null) {
+                    pricesByStore.put(store.getStoreName(), price);
+                }
+            }
+        }
+
+        if (pricesByStore.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(pricesByStore);
+    }
+    @GetMapping("/sales/{productId}")
+    public ResponseEntity<Double> getTotalRevenueByProduct(@PathVariable("productId") Long productId) {
+        Double totalRevenue = saleService.getTotalRevenueByProduct(productId);
+        if (totalRevenue == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(totalRevenue);
+    }
 
 }
