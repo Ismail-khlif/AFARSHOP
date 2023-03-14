@@ -28,7 +28,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableSpringConfigured
 @SpringBootApplication
 @ComponentScan({"pidev.afarshop.*","pidev.afarshop.Config"})
-@EntityScan(basePackages = {"pidev.afarshop.Entity"})
+//@EntityScan(basePackages = {"pidev.afarshop.Entity"})
 public class AfarshopApplication {
 	@Bean
 	public MultipartResolver multipartResolver() {

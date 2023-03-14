@@ -49,7 +49,7 @@ public class BillService implements IBillService {
 
     @Override
     public Bill addBill(Bill bill, Long Order1Id) {
-        float amount=calculatePaymentAmount(Order1Id, bill);
+        double amount=calculatePaymentAmount(Order1Id, bill);
         bill.setPaymentAmount(amount);
 
 
@@ -63,9 +63,9 @@ public class BillService implements IBillService {
     }
 
     @Override
-    public float calculatePaymentAmount(Long Order1Id, Bill bill){
+    public double calculatePaymentAmount(Long Order1Id, Bill bill){
 
-        float amount=0;
+        double amount=0;
         List<Product> products=billRepository.getProducts(Order1Id);
         for (Product product: products){
             if(product.isFacility())
