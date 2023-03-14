@@ -35,11 +35,8 @@ public class BillService implements IBillService {
 
 
 
-    @Override
-    public List<Bill> retrieveAllBills()
-    {
-        return (List<Bill>) billRepository.findAll();
-    }
+    //@Override
+    //public List<Bill> retrieveAllBills() {return (List<Bill>) billRepository.findAll();}
 
     @Override
     public Bill retrieveBillById(Long billId) {
@@ -64,7 +61,7 @@ public class BillService implements IBillService {
     public float calculatePaymentAmount(Long Order1Id, Bill bill){
 
         float amount=0;
-       /* List<Product> products=billRepository.getProducts(Order1Id);
+        List<Product> products=billRepository.getProducts(Order1Id);
         for (Product product: products){
             if(product.isFacility())
             {
@@ -82,7 +79,7 @@ public class BillService implements IBillService {
                 amount=amount+(product.getPrice());
 
             }
-        }*/
+        }
         return amount;
 
     }

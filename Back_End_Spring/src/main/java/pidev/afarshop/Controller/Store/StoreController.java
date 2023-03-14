@@ -82,4 +82,11 @@ public class StoreController {
     public Store findStore(@PathVariable("storeId") Long storeId) {
         return storeService.retrieveItem(storeId);
     }
+
+
+    @GetMapping("/Tpo5LikedStores")
+    public List<Store> top5LikedStores(){
+        List<Store> stores =storeService.top5LikedStores();
+        return stores;
+    }
 }

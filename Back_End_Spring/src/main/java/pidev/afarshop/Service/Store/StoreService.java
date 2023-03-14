@@ -161,4 +161,10 @@ public class StoreService implements  IStoreServices {
 
     }
 
+
+    public List<Store> top5LikedStores() {
+        List<Store> stores = (List<Store>) storeRepository.top5LikedStores();
+        return stores;
+    }
+
 }

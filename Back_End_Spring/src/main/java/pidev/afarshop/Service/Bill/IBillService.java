@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface IBillService {
 
-    List<Bill> retrieveAllBills();
+    //List<Bill> retrieveAllBills();
     Bill retrieveBillById(Long billId);
     Bill addBill(Bill bill, Long orderId);
     float calculatePaymentAmount(Long orderId, Bill bill);

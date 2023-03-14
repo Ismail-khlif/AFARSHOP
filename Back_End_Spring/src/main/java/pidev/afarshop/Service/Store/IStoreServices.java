@@ -15,4 +15,6 @@ public interface IStoreServices {
 
     public void findCategoryToStore(Long storeId);
     public void affectStoreToCategory(Long storeId, Long categoryId);
+
+    public List<Store> top5LikedStores();
 }
