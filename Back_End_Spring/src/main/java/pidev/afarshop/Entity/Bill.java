@@ -23,7 +23,7 @@ public class Bill implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long billId;
     private int installmentsNb ;
-    private float paymentAmount;
+    private double paymentAmount;
     @JsonFormat(pattern="dd/MM/yy")
     private Date billDate;
 

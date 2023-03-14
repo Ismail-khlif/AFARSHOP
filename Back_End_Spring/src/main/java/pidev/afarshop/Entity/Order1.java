@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 
@@ -31,7 +32,9 @@ public class Order1 implements Serializable {
     private Long orderId;
 
     private String codePromo;
+    @NotBlank(message = "amountBill required")
     private String orderStatus;
+    @NotBlank(message = " amountBill required")
     private Float amountBill;
     
     @OneToOne

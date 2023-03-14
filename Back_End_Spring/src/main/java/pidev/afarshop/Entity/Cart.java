@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Cart  implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="cartId")
     private Long cartId;
+    @NotBlank(message = "product quantity required")
     private Long productQuantity;
 
 

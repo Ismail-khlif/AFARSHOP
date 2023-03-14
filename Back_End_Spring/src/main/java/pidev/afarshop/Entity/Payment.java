@@ -29,7 +29,7 @@ public class Payment implements Serializable {
     private boolean paid;
     @JsonFormat(pattern="dd/MM/yy")
     private Date paymentDate;
-    private float installmentAmount;
+    private double installmentAmount;
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
