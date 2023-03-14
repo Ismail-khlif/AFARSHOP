@@ -68,15 +68,32 @@ public class PaymentServices implements IPaymentServices {
     }
 
     @Transactional
-    public void chooseMethod(Payment p, long idBill){
+    public String chooseMethod(Payment p, long idBill){
+
         if (p.getPaymentMethod()==PaymentMethod.Cash)
         {
             addPayment(p,idBill);
         }
         else if (p.getPaymentMethod()==PaymentMethod.Card){
 
+            Bill bill = billRepository.findById(idBill).orElse(null);
+            if  (bill.getInstallmentsNb()==1)
+            {
+           return "Votre paiement payment global est "+ bill.getPaymentAmount();
+            }
+            if  (bill.getInstallmentsNb()==4)
+            {
+               return "Votre paiement payment global est "+ bill.getPaymentAmount()*(110/100) +"sur 4 tranches";
+            }
+            if  (bill.getInstallmentsNb()==12)
+            {
+                return "Votre paiement payment global est "+ bill.getPaymentAmount()*(120/100) +"sur 12 tranches";
+            }
+
+
             
         }
+        return null;
     }
 
     @Override
