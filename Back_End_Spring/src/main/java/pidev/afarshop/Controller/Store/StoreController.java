@@ -1,7 +1,10 @@
 package pidev.afarshop.Controller.Store;
 
 import com.lowagie.text.DocumentException;
+import com.twilio.Twilio;
+import com.twilio.exception.TwilioException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -11,6 +14,7 @@ import pidev.afarshop.Entity.*;
 import pidev.afarshop.Repository.FileSystemRepository;
 import pidev.afarshop.Repository.StoreExcelExporter;
 import pidev.afarshop.Repository.StoreRepository;
+import pidev.afarshop.Service.Payement.SmsService;
 import pidev.afarshop.Service.Store.StorePdfGenerator;
 import pidev.afarshop.Service.Store.StoreService;
 import lombok.AllArgsConstructor;
@@ -29,6 +33,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @RequestMapping("/api/store")
 public class StoreController {
+
+
+
     @Autowired
     StoreService storeService;
 
@@ -70,7 +77,18 @@ public class StoreController {
         store.setContactInformation(contactInformation);
         store.setStoreLocation(storeLocation);
         store.setImagePath(path);
+
         return storeService.addStore(store);
+
+       /* Twilio.init("YOUR_ACCOUNT_SID", "YOUR_AUTH_TOKEN");
+        Message message = Message.creator(
+                        new PhoneNumber(phone),
+                        new PhoneNumber("YOUR_TWILIO_PHONE_NUMBER"), // Replace with your own Twilio phone number
+                        "New store created: " + name + ", " + location)
+                .create();
+        System.out.println(message.getSid()); // Optional - print the message SID for debugging purposes
+
+        return "success";*/
 
     }
 
@@ -92,6 +110,12 @@ public class StoreController {
     @GetMapping("/Srore")
     public Store findHighestScoredStore(){
         return storeService.findHighestScoredStore();
+    }
+
+    @GetMapping("/Tpo5LikedStores")
+    public List<Store> top5LikedStores(){
+        List<Store> stores =storeService.top5LikedStores();
+        return stores;
     }
 
 
