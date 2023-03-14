@@ -49,6 +49,14 @@ public class HappyHourService implements IHappyHourService {
 
         happyHourRepository.save(happyHour);
 
+        String fromNumber = environment.getProperty("+15747014044");
+        String message = "Your Happy Hour is NOW !";
+        try {
+            smsService.sendSms("+21650879536",message);
+        } catch (TwilioException e) {
+            // Gérer les erreurs d'envoi de SMS
+        }
+
         return happyHour;
     }
 
@@ -73,13 +81,6 @@ public class HappyHourService implements IHappyHourService {
         if (currentTime.isAfter(happyHour.getStartTime()) && currentTime.isBefore(happyHour.getEndTime())) {
             return true;
 
-        }
-        String fromNumber = environment.getProperty("+15747014044");
-        String message = "Your Happy Hour is NOW !";
-        try {
-            smsService.sendSms("+21650879536",message);
-        } catch (TwilioException e) {
-            // Gérer les erreurs d'envoi de SMS
         }
 
         return false;
