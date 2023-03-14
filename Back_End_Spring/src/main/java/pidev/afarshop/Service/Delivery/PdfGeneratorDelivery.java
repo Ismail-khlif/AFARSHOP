@@ -101,13 +101,6 @@ public class PdfGeneratorDelivery {
     private void getDbData(Document document,Order1 o) throws DocumentException {
 
 
-       // List<Product> products = billRepository.getProducts(o.getOrderId());
-        System.out.println(o.getOrderId());
-        //for (Product p: products)
-        //{
-          //  System.out.println(p.getPrice());
-       // }
-
         Font fontData = FontFactory.getFont(FontFactory.TIMES_ITALIC);
         fontData.setSize(20);
         fontData.setColor(Color.decode("#F5A503"));
@@ -121,15 +114,10 @@ public class PdfGeneratorDelivery {
         p2.add(new Paragraph("numéro  "  +o.getDelivery().getNumTel().toString(), fontData));
         p2.setAlignment(Element.ALIGN_CENTER);
         p2.setIndentationLeft(11);
-        leaveEmptyLine(p2, 3);
-        p2.add(new Paragraph("payment amount is  " + String.valueOf(o.getBill().getPaymentAmount()), fontText));
         leaveEmptyLine(p2, 1);
-        //for (Product p: products)
-        //{
-         //   p2.add(new Paragraph( p.getProductName() + "   " + p.getPrice(), fontText));
-        //}
-        //p2.add(new Paragraph( o., fontText));
-        //leaveEmptyLine(p2, 5);
+        p2.add(new Paragraph("payment amount is  " + String.valueOf(o.getBill().getPaymentAmount()), fontData));
+        leaveEmptyLine(p2, 1);
+
         document.add(p2);
 
 

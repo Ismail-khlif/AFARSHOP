@@ -16,6 +16,7 @@ public interface IStoreServices {
     public void findCategoryToStore(Long storeId);
     public void affectStoreToCategory(Long storeId, Long categoryId);
 
+
     public Integer nbLikes(Long storeId);
     public Integer nbDislikes (Long storeId);
     //public double Score(Long storeId);
@@ -31,5 +32,6 @@ public interface IStoreServices {
     public Store affectEvaluation(Long storeId);
 
     public List<Store> top5LikedStores();
+
 
 }

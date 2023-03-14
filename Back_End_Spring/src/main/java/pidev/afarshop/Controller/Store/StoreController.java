@@ -144,7 +144,6 @@ public class StoreController {
     }
 
 
-
     @GetMapping("/stores/export")
     public void exportToExcel (HttpServletResponse response) throws IOException {
         response.setContentType("application/octet-stream");
@@ -175,4 +174,5 @@ public class StoreController {
         exporter.generatePdfReport(response, store);
     }
 }
+
 

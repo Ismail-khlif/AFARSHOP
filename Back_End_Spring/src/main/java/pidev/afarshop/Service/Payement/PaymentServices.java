@@ -34,8 +34,8 @@ public class PaymentServices implements IPaymentServices {
     @Autowired
     BillRepository billRepository;
 
-    private final String accountSid = "AC7047daeaee9ccc72a5ba56a49b897a82";
-    private final String authToken = "41e500433f8e3470fc057c1318a471b7";
+    private final String accountSid = "AC20887c66c515d0f7f341cb39c5c99ff7";
+    private final String authToken = "a269039bc1779b0b2dc59260efb2c1b4";
 
     private final SmsService smsService;
 
@@ -68,15 +68,32 @@ public class PaymentServices implements IPaymentServices {
     }
 
     @Transactional
-    public void chooseMethod(Payment p, long idBill){
+    public String chooseMethod(Payment p, long idBill){
+
         if (p.getPaymentMethod()==PaymentMethod.Cash)
         {
             addPayment(p,idBill);
         }
         else if (p.getPaymentMethod()==PaymentMethod.Card){
 
+            Bill bill = billRepository.findById(idBill).orElse(null);
+            if  (bill.getInstallmentsNb()==1)
+            {
+           return "Votre paiement payment global est "+ bill.getPaymentAmount();
+            }
+            if  (bill.getInstallmentsNb()==4)
+            {
+               return "Votre paiement payment global est "+ bill.getPaymentAmount()*(110/100) +"sur 4 tranches";
+            }
+            if  (bill.getInstallmentsNb()==12)
+            {
+                return "Votre paiement payment global est "+ bill.getPaymentAmount()*(120/100) +"sur 12 tranches";
+            }
+
+
             
         }
+        return null;
     }
 
     @Override
@@ -122,13 +139,6 @@ public class PaymentServices implements IPaymentServices {
         return payment;
     }
 
-    @Override
-    public void deletePayment(Long id) {
-
-    }
-
-
-
 
 
     @Override
@@ -148,14 +158,14 @@ public class PaymentServices implements IPaymentServices {
     }
 
     @Override
-    @Scheduled(cron = "0 0 12 * * ?") // Exécution tous les jours à midi
+    @Scheduled(cron = "0 0 12 * * *") // Exécution tous les jours à midi
     public void alertPayment() {
 
         Date today = new Date();
 
         // Recherche des paiements qui dépassent la date limite
         List<Payment> overduePayments = paymentRepository.findByDueDateBeforeAndPaidIsFalse(today);
-        String fromNumber = environment.getProperty("+15747014044");
+        String fromNumber = environment.getProperty("+15073846037");
 
         // Envoi d'un SMS pour chaque paiement en retard
 
@@ -167,6 +177,7 @@ public class PaymentServices implements IPaymentServices {
             } catch (TwilioException e) {
                 // Gérer les erreurs d'envoi de SMS
             }
+            System.out.println(message);
             System.out.println(payment.getDueDate());
             //String message = "Votre paiement de " + payment.getInstallmentAmount() + "€ est en retard. Veuillez effectuer le paiement dès que possible.";
             //Message.creator(new PhoneNumber(payment.getBillPayment().getOrder1().getUser().getTelNum()), new PhoneNumber(fromNumber), message).create();

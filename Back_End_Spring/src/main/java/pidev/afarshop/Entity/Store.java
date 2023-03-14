@@ -21,7 +21,7 @@ import java.util.Set;
 @ToString
 @Data
 @Table(name = "Store")
-public class Store  implements Serializable {
+public class    Store  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="storeId")

@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface StoreRepository extends JpaRepository<Store,Long> {
     Store findBystoreName(String storeName);
+
     Store findByStoreId(Long storeId);
 
     @Query("SELECT s FROM Store s ORDER BY s.Score DESC")

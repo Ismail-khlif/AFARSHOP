@@ -25,9 +25,9 @@ public class PaymentController {
 
     @PostMapping("/add-payment/{bill-id}")
     @ResponseBody
-    public void addPayment(@RequestBody Payment p, @PathVariable("bill-id") Long billId)
+    public String addPayment(@RequestBody Payment p, @PathVariable("bill-id") Long billId)
     {
-        paymentService.chooseMethod(p, billId);
+        return paymentService.chooseMethod(p, billId);
     }
 
     @PutMapping("/modify-payment/{idPayment}")
