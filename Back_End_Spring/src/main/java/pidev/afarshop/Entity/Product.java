@@ -7,8 +7,11 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+
 import java.util.List;
 import java.util.Set;
+
+
 
 @Entity
 @AllArgsConstructor
@@ -39,14 +42,19 @@ public class Product  implements Serializable {
     private boolean facility;
     @JsonIgnore
     @ManyToOne
+
     private Order1 order;
+
     @ManyToOne
     User user;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     Set<ProductComment> productComments;
+    
     @ManyToOne
     @JsonIgnore
     private Store store;
+    
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     Set<ProductLike> productLikes;
@@ -56,4 +64,11 @@ public class Product  implements Serializable {
     @JsonIgnore
     private Cart cart;
 
+
+    @Enumerated(EnumType.STRING)
+    private ProductCategory category;
+
+
+
+   
 }

@@ -26,22 +26,24 @@ public class RatingServices implements IRatingServices {
 
 
     @Override
-    public Rating retrieveUserById(Long userId) {
-        User user = userRepository.findById(userId).orElse(null);
-        return ratingRepository.findById(userId).orElse(null );
+    public Rating retrieveUserById(Long UserId) {
+        User user = userRepository.findById(UserId).orElse(null);
+        return ratingRepository.findById(UserId).orElse(null );
     }
 
+
     @Override
-    public void UserLikesStore(Long userId, Long storeId, Boolean isLiked) {
-        User user = userRepository.findById(userId).orElse(null);
+    public void UserLikesStore(Long UserId, Long storeId, Boolean isLiked) {
+        User user = userRepository.findById(UserId).orElse(null);
         Store store = storeRepository.findById(storeId).orElse(null);
-        while (retrieveUserById(userId) ==null) {
+        if (retrieveUserById(UserId) == null) {
             Rating rating = new Rating();
             rating.setUser(user);
             rating.setStore(store);
             rating.setLiked(isLiked);
             ratingRepository.save(rating);
         }
+
     }
 
 
@@ -52,6 +54,33 @@ public class RatingServices implements IRatingServices {
         ratingRepository.save(rating);
 
     }
+   /* @Override
+    public Integer nbLikes(Long storeId){
+        Rating rating = ratingRepository.findById(storeId).orElse(null);
+        int nbLikes = 0;
+        if(rating.isLiked()== true){
+            nbLikes= nbLikes+1;
+        }
+        return nbLikes;
+    }
+
+    public Integer nbDislikes (Long storeId){
+        Rating rating = ratingRepository.findById(storeId).orElse(null);
+        int nbDislikes =0;
+        if (rating.isLiked()== false){
+            nbDislikes = nbDislikes+1;
+        }
+        return nbDislikes;
+
+    }
+    @Override
+    public double Score(Long storeId ){
+        Rating rating = ratingRepository.findById(storeId).orElse(null);
+        double score = 0;
+        score = (nbDislikes(storeId) *0.5 ) + (nbDislikes(storeId) *0.3)+ ((nbLikes(storeId)+nbDislikes(storeId))*0.2);
+        return score;
+
+    }*/
 
 
 

@@ -8,7 +8,9 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+
 import java.util.List;
+
 import java.util.Set;
 
 @Entity
@@ -19,7 +21,7 @@ import java.util.Set;
 @ToString
 @Data
 @Table(name = "Store")
-public class Store  implements Serializable {
+public class    Store  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="storeId")
@@ -41,11 +43,21 @@ public class Store  implements Serializable {
     private String storeEmailAddress ;
 
 
+
     @Lob
     @Column(name = "image", unique = false, nullable = false, length = 100000)
     private byte[] image;
 
     private String ImagePath;
+
+    private double Score;
+
+    @Enumerated(EnumType.STRING)
+    private Evaluation evaluation;
+
+    private Integer nbLikes;
+
+    private Integer nbDislikes;
 
 
     @JsonBackReference
@@ -62,7 +74,10 @@ public class Store  implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "store")
     private Set<Product> products;
 
-
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    Set<Quiz> quiz;
 
 
 }
+    
