@@ -1,6 +1,11 @@
 package pidev.afarshop.Service.Store;
 
+import com.twilio.Twilio;
+import com.twilio.exception.TwilioException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.validation.annotation.Validated;
 import pidev.afarshop.Entity.*;
 import pidev.afarshop.Repository.*;
@@ -8,6 +13,7 @@ import pidev.afarshop.Service.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pidev.afarshop.Service.Payement.SmsService;
 
 import java.util.HashSet;
 import java.util.List;
@@ -20,9 +26,26 @@ import java.util.Set;
 @Service
 @Slf4j
 @AllArgsConstructor
-//@Validated
-public class StoreService implements  IStoreServices {
+@Validated
+public class StoreService implements IStoreServices {
 
+
+    private final String accountSid = "AC20887c66c515d0f7f341cb39c5c99ff7";
+    private final String authToken = "a269039bc1779b0b2dc59260efb2c1b4";
+    private final SmsService smsService;
+    @Autowired
+    private Environment environment;
+
+    public void init() {
+        String accountSid = environment.getProperty("accountSid");
+        String authToken = environment.getProperty("authToken");
+
+        try {
+            Twilio.init(accountSid, authToken);
+        } catch (TwilioException ex) {
+            // log error
+        }
+    }
     @Autowired
     StoreRepository storeRepository;
 
@@ -31,6 +54,9 @@ public class StoreService implements  IStoreServices {
     CategoryRepository categoryRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    RatingRepository ratingRepository;
+
 
 
 
@@ -57,8 +83,14 @@ public class StoreService implements  IStoreServices {
     public Store addStore (Store store)   {
         Store s = storeRepository.save(store);
         findCategoryToStore(s.getStoreId());
+        String fromNumber = environment.getProperty("+15747014044");
+        String message = "Your new Store is added successfully!"+s.getStoreName() ;
+        try {
+            smsService.sendSms("+21650879536",message);
+        } catch (TwilioException e) {
+            // Gérer les erreurs d'envoi de SMS
+        }
         return s;
-
     }
 
     @Override
@@ -143,10 +175,87 @@ public class StoreService implements  IStoreServices {
         }
 
         System.out.println(ss.getCategory().getName());
+    }
+
+    @Override
+    public List<Rating> getRatingByStoreId(Long storeId) {
+        Store s = storeRepository.findById(storeId).orElse(null);
+        return ratingRepository.findByStore(s);
+    }
+    // return (List<Rating>) ratingRepository.findByStore(s).stream().filter(rating -> rating.isLiked()== true);    }
+
+    @Override
+    public Integer nbLikes(Long storeId){
+        List<Rating> ratings =getRatingByStoreId(storeId);
+        Store s = storeRepository.findById(storeId).orElse(null);
+        int nbLikes = 0;
+        for (Rating rating:ratings){
+            if(rating.isLiked()){
+                nbLikes= nbLikes+1;
+            }
+        }
+        s.setNbLikes(nbLikes);
+        return nbLikes;
+    }
+
+    @Override
+    public Integer nbDislikes (Long storeId){
+        List<Rating> ratings = getRatingByStoreId(storeId);
+        Store s = storeRepository.findById(storeId).orElse(null);
+        int nbDislikes =0;
+        for (Rating rating : ratings){
+            if (!rating.isLiked()){
+                nbDislikes = nbDislikes+1;
+            }
+        }
+        s.setNbDislikes(nbDislikes);
+        return nbDislikes;
+    }
+
+   // @Override
+   // public double Score(Long storeId) {
+      //  return 0;
+    //}
 
 
+    @Override
+    public Store affectScore (Long storeId){
+        Store store = storeRepository.findByStoreId(storeId);
+        double sc = (nbLikes(storeId) *0.5)+ (nbDislikes(storeId)*0.3)+((nbLikes(storeId)+nbDislikes(storeId))*0.2);
+        store.setScore(sc);
+        return storeRepository.save(store);
+    }
+
+    @Override
+    public Store findHighestScoredStore(){
+        return storeRepository.findHighestScoredStore();
 
     }
+
+    @Override
+    public void StoreEvaluationByScore(){
+        for(Store s : storeRepository.findAll()){
+            if(s.getScore()>3.5){
+                s.setEvaluation(Evaluation.TOP);
+            }
+            else
+            if(s.getScore()>3){
+                s.setEvaluation(Evaluation.MEDIUM);
+            }
+            else
+                s.setEvaluation(Evaluation.LOW);
+        }
+    }
+    @Override
+    public Store affectEvaluation(Long storeId){
+        Store store = storeRepository.findById(storeId).orElse(null);
+        StoreEvaluationByScore();
+        nbLikes(storeId);
+        nbDislikes(storeId);
+        return storeRepository.save(store);
+
+    }
+
 
     public void createQuizz(Quiz Q, Long idCourse,Long idUser)  {
         Store c = storeRepository.findById(idCourse).get();
@@ -162,9 +271,10 @@ public class StoreService implements  IStoreServices {
     }
 
 
-    public List<Store> top5LikedStores() {
-        List<Store> stores = (List<Store>) storeRepository.top5LikedStores();
+    public List<Store> top5LikedStores(){
+        List<Store> stores =(List<Store>) storeRepository.top5LikedStores();
         return stores;
     }
+
 
 }

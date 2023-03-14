@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,6 +42,7 @@ public class Product  implements Serializable {
     private boolean facility;
 
     @ManyToOne
+
     private Order1 order;
 
     @ManyToOne

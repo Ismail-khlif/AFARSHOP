@@ -13,9 +13,9 @@ public class RatingController {
     IRatingServices ratingServices;
 
 
-    @PostMapping("/LikeStore/{userId}/{storeId}")
-    public void UserLikesStore(@PathVariable("userId") Long userId, @PathVariable ("storeId") Long storeId, @RequestParam Boolean isLiked) {
-        ratingServices.UserLikesStore( userId, storeId,isLiked);
+    @PostMapping("/LikeStore/{UserId}/{storeId}")
+    public void UserLikesStore(@PathVariable("UserId") Long UserId, @PathVariable ("storeId") Long storeId, @RequestParam Boolean isLiked) {
+        ratingServices.UserLikesStore( UserId, storeId,isLiked);
     }
 
     @PutMapping("/ChangeStoreRating/{ratingId}")

@@ -6,7 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import pidev.afarshop.Entity.*;
+
 
 import pidev.afarshop.Repository.BillRepository;
 import pidev.afarshop.Repository.Order1Repository;
@@ -25,6 +27,8 @@ public class BillService implements IBillService {
     @Autowired
     PaymentRepository paymentRepository;
     @Autowired
+
+
 
     Order1Repository order1Repository;
 
@@ -47,6 +51,7 @@ public class BillService implements IBillService {
     public Bill addBill(Bill bill, Long Order1Id) {
         float amount=calculatePaymentAmount(Order1Id, bill);
         bill.setPaymentAmount(amount);
+
 
         bill.setBillDate(Calendar.getInstance().getTime());
         Order1 order1 = order1Repository.findById(Order1Id).orElse(null);
