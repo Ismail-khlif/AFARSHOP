@@ -266,6 +266,17 @@ public class ProductServices implements IProductServices  {
         }
         return  result;
     }
+    public String StatisticProdcuctComments(Long productId){
+        Product product = productRepository.findById(productId).get();
+        List<ProductComment> productComments=productCommentRepository.findAll();
+        String res=null;
+
+
+
+        return res;
+
+    }
+
 
 
     }

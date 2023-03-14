@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pidev.afarshop.Service.Sale.SaleService;
 import pidev.afarshop.utils.QRCodeGenerator;
 
 import java.io.IOException;
@@ -38,6 +39,7 @@ import javax.transaction.Transactional;
 public class ProductController {
     ProductServices productServices;
     ProductRepository productRepository;
+    SaleService saleService;
 
     @Autowired
     private ObjectMapper jsonMapper;
@@ -274,5 +276,13 @@ public class ProductController {
         }
 
         return ResponseEntity.ok(pricesByStore);
+    }
+    @GetMapping("/sales/{productId}")
+    public ResponseEntity<Double> getTotalRevenueByProduct(@PathVariable("productId") Long productId) {
+        Double totalRevenue = saleService.getTotalRevenueByProduct(productId);
+        if (totalRevenue == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(totalRevenue);
     }
 }
