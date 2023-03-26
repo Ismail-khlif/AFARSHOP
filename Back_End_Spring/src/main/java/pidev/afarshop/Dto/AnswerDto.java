@@ -3,8 +3,11 @@ package pidev.afarshop.Dto;
 import lombok.Builder;
 import lombok.Data;
 import pidev.afarshop.Entity.Answer;
+import pidev.afarshop.Entity.User;
 
 import java.util.Set;
+import java.util.stream.Collectors;
+
 @Builder
 @Data
 public class AnswerDto {
@@ -17,28 +20,34 @@ public class AnswerDto {
 
     Set<UserDto> users;
 
-    public  AnswerDto fromEntity(Answer answer){
+    public static AnswerDto toDto(Answer answer){
         if(answer==null){
 
         }
+        Set<UserDto> userDtos = answer.getUsers().stream()
+                .map(UserDto::toDto)
+                .collect(Collectors.toSet());
         return AnswerDto.builder()
                 .answerId(answer.getAnswerId())
                 .answerContent(answer.getAnswerContent())
                 .isCorrect(answer.isCorrect())
-                .users(answer.getUsers())
+                .users(userDtos)
                 .build();
     }
 
-    public Answer toEntity(AnswerDto answerDto){
+    public static Answer toEntity(AnswerDto answerDto){
         if (answerDto ==null) {
             //TODO ERROR EXCEPTION
             return  null;
         }
+        Set<User> users = answerDto.getUsers().stream()
+                .map(UserDto::toEntity)
+                .collect(Collectors.toSet());
         return Answer.builder()
                 .answerId(answerDto.getAnswerId())
                 .answerContent(answerDto.getAnswerContent())
                 .isCorrect(answerDto.isCorrect())
-                .users(answerDto.getUsers())
+                .users(users)
                 .build();
     }
 }

@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="confirmationToken")
-@Builder
+
 public class ConfirmationToken {
 
     @Id

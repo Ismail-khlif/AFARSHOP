@@ -1,5 +1,6 @@
 package pidev.afarshop.Dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import pidev.afarshop.Entity.*;
@@ -23,7 +24,7 @@ public class DeliveryDto {
     private String lastName ;
 
     private Long numTel;
-
+    @JsonIgnore
     private HomeDeliveryDto homeDelivery ;
 
     private StoreDeliveryDto storeDelivery ;
@@ -32,7 +33,7 @@ public class DeliveryDto {
 
     ProviderDto provider;
 
-    public DeliveryDto toEntity(Delivery delivery){
+    public static DeliveryDto toDto(Delivery delivery){
         if(delivery==null){
             //TODO EXCEPTION ERRROR
             return null;
@@ -51,7 +52,7 @@ public class DeliveryDto {
                 .provider(delivery.getProvider())
                 .build();
     }
-    public Delivery toEntity(DeliveryDto deliveryDto){
+    public static Delivery toEntity(DeliveryDto deliveryDto){
         if(deliveryDto==null){
             //TODO EXCEPTION ERRROR
             return null;

@@ -1,6 +1,7 @@
 package pidev.afarshop.Dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import pidev.afarshop.Entity.Bill;
@@ -19,12 +20,12 @@ public class BillDto {
     private double paymentAmount;
 
     private Date billDate;
-
+    @JsonIgnore
     private Order1Dto order1;
 
     private Set<PaymentDto> payments;
 
-    public BillDto fromEntity(Bill bill){
+    public BillDto toDto(Bill bill){
         if(bill==null){
             //TODO ERROR EXCEPTION
             return null;
