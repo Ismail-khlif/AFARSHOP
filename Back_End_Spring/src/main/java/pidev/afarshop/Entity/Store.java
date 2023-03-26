@@ -20,6 +20,7 @@ import java.util.Set;
 @Setter
 @ToString
 @Data
+@Builder
 @Table(name = "Store")
 public class    Store  implements Serializable {
     @Id

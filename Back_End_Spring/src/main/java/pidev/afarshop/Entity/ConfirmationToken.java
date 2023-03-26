@@ -1,4 +1,6 @@
 package pidev.afarshop.Entity;
+import lombok.Builder;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -16,6 +18,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="confirmationToken")
+@Builder
 public class ConfirmationToken {
 
     @Id

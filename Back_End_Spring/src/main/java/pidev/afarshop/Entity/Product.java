@@ -19,36 +19,38 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @ToString
 @Table(name = "Product")
+
 public class Product  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
-    @NotBlank(message = "reference required")
+
     private String reference;
-    @NotBlank(message = "productName required")
+
     private String productName;
-    @NotBlank(message = "description required")
+
     private String description;
-    @NotBlank(message = "quantity required")
+
     private Long quantity;
 
     @Lob
     private byte[] images;
     @Lob
     private byte[] video;
-    @NotBlank(message = "brand required")
+
     private String brand;
-    @NotBlank(message = "price required")
+
     private double price;
     @Temporal(TemporalType.DATE)
     private Date dateOfProduct;
     private float rating;
     private float discount;
-    @NotBlank(message = "yearsOfWarranty required")
+
     private int yearsOfWarranty;
-    @NotBlank(message = "facility required")
+
     private boolean facility;
     @JsonIgnore
     @ManyToOne

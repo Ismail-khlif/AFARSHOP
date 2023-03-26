@@ -12,6 +12,7 @@ import javax.persistence.*;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @ToString
+@Builder
 public class UserDataLoad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

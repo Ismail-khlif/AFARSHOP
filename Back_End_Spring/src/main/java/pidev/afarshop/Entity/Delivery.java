@@ -17,6 +17,7 @@ import java.util.List;
 @ToString
 @Getter
 @Setter
+@Builder
 public class Delivery implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

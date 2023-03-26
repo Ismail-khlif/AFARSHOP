@@ -15,6 +15,7 @@ import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @ToString
+@Builder
 public class ProductLike implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

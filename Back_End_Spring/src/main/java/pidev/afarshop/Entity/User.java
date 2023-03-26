@@ -23,6 +23,7 @@ import java.util.*;
         @UniqueConstraint(columnNames = {"username"}),
         @UniqueConstraint(columnNames = {"email"})
 })
+
 public class User implements UserDetails {
 
     @Id

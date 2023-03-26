@@ -18,6 +18,7 @@ import java.util.Date;
 @Setter
 @ToString
 @Table(name = "Homedelivery")
+@Builder
 public class HomeDelivery  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

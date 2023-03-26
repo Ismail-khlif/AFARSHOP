@@ -22,7 +22,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-
+@Builder
 
 public class Order1 implements Serializable {
     @Id

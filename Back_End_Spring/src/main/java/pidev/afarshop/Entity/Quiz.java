@@ -14,6 +14,7 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @ToString
+@Builder
 public class Quiz implements Serializable {
 
     @Id

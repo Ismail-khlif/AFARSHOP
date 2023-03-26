@@ -20,7 +20,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-
+@Builder
 
 public class Payment implements Serializable {
     @Id

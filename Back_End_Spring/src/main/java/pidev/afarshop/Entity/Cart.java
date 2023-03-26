@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @ToString
 @Table(name = "Cart")
 public class Cart  implements Serializable {

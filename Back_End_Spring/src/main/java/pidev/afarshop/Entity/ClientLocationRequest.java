@@ -1,6 +1,7 @@
 package pidev.afarshop.Entity;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@Builder
 public class ClientLocationRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

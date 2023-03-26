@@ -13,6 +13,7 @@ import java.io.Serializable;
 @Setter
 @ToString
 @Table(name = "Ass")
+@Builder
 public class AfterSalesService implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -17,7 +17,7 @@ import java.util.Set;
 @ToString
 @Getter
 @Setter
-
+@Builder
 public class Bill implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

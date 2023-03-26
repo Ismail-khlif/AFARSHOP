@@ -13,6 +13,7 @@ import java.io.Serializable;
 @ToString
 @Data
 @Table(name = "Rating")
+@Builder
 public class Rating implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

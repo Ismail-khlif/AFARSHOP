@@ -15,6 +15,7 @@ import javax.persistence.Id;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @ToString
+@Builder
 public class CategoryAdve {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

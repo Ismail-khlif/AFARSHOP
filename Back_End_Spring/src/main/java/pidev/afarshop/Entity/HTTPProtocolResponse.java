@@ -2,11 +2,13 @@ package pidev.afarshop.Entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 import java.util.Date;
 @Data
+@Builder
 public class HTTPProtocolResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy hh:mm:ss", timezone = "Europe/Berlin")
     private Date timeStamp;

@@ -12,6 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Table( name = "SmsPojo")
+@Builder
 public class SmsPojo implements Serializable {
 
     @Id

@@ -15,6 +15,7 @@ import java.util.List;
 @Setter
 @ToString
 @Table(name = "Provider")
+@Builder
 public class Provider  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

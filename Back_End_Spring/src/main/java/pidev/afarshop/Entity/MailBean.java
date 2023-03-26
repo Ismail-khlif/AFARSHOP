@@ -8,6 +8,7 @@ import java.util.List;
 @Getter
 @ToString
 @Data
+@Builder
 public class MailBean implements Serializable {
     private  String toEmail;
     private List<String> cc;
