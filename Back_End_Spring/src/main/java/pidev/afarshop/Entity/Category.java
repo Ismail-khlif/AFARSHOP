@@ -1,6 +1,7 @@
 package pidev.afarshop.Entity;
 
 import lombok.*;
+import pidev.afarshop.Dto.CategoryDto;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -29,5 +30,7 @@ public class Category implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "category")
     private Set<Store> stores;
+
+
 }
 

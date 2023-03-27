@@ -20,7 +20,7 @@ public class HomeDeliveryDto {
     private int postalCode;
 
     private DeliveryDto delivery ;
-    public HomeDelivery toEntity(HomeDeliveryDto homeDeliveryDto) {
+    public static HomeDelivery toEntity(HomeDeliveryDto homeDeliveryDto) {
         if (homeDeliveryDto == null) {
             //TODO EXCEPTION ERRROR
             return null;
@@ -32,8 +32,8 @@ public class HomeDeliveryDto {
                 .postalCode(homeDeliveryDto.getPostalCode())
                 .build();
     }
-    public HomeDeliveryDto toDto(HomeDelivery homeDelivery){
-        if(delivery==null){
+    public static HomeDeliveryDto toDto(HomeDelivery homeDelivery){
+        if(homeDelivery==null){
             //TODO EXCEPTION ERRROR
             return null;
         }

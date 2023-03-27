@@ -2,6 +2,7 @@ package pidev.afarshop.Dto;
 
 import lombok.Builder;
 import lombok.Data;
+import pidev.afarshop.Entity.Bill;
 import pidev.afarshop.Entity.Delivery;
 import pidev.afarshop.Entity.Payment;
 import pidev.afarshop.Entity.PaymentMethod;
@@ -24,11 +25,13 @@ public class PaymentDto {
     private Date dueDate;
 
     private BillDto billPayment;
-    public Payment toEntity(PaymentDto paymentDto) {
+    public static Payment toEntity(PaymentDto paymentDto) {
         if (paymentDto == null) {
             //TODO EXCEPTION ERRROR
             return null;
         }
+        Bill bill =BillDto.toEntity(paymentDto.getBillPayment());
+
         return Payment.builder()
                 .paymentId(paymentDto.getPaymentId())
                 .paid(paymentDto.isPaid())
@@ -36,14 +39,15 @@ public class PaymentDto {
                 .installmentAmount(paymentDto.getInstallmentAmount())
                 .paymentMethod(paymentDto.getPaymentMethod())
                 .dueDate(paymentDto.getDueDate())
-                .billPayment(paymentDto.getBillPayment())
+                .billPayment(bill)
                 .build();
     }
-    public PaymentDto toDto(Payment payment){
+    public static PaymentDto toDto(Payment payment){
         if(payment==null){
             //TODO EXCEPTION ERRROR
             return null;
         }
+        BillDto billDto=BillDto.toDto(payment.getBillPayment());
         return  PaymentDto.builder()
                 .paymentId(payment.getPaymentId())
                 .paid(payment.isPaid())
@@ -51,7 +55,7 @@ public class PaymentDto {
                 .installmentAmount(payment.getInstallmentAmount())
                 .paymentMethod(payment.getPaymentMethod())
                 .dueDate(payment.getDueDate())
-                .billPayment(payment.getBillPayment())
+                .billPayment(billDto)
                 .build();
     }
 

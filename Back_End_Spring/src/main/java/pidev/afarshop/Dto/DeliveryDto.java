@@ -38,6 +38,10 @@ public class DeliveryDto {
             //TODO EXCEPTION ERRROR
             return null;
         }
+        HomeDeliveryDto homeDeliveryDto = HomeDeliveryDto.toDto(delivery.getHomeDelivery());
+        StoreDeliveryDto storeDeliveryDto = StoreDeliveryDto.toDto(delivery.getStoreDelivery());
+        Order1Dto order1Dto = Order1Dto.toDto(delivery.getOrder());
+        ProviderDto providerDto = ProviderDto.toDto(delivery.getProvider());
         return  DeliveryDto.builder()
                 .DeliveryId(delivery.getDeliveryId())
                 .creationDate(delivery.getCreationDate())
@@ -46,10 +50,10 @@ public class DeliveryDto {
                 .firstName(delivery.getFirstName())
                 .lastName(delivery.getLastName())
                 .numTel(delivery.getNumTel())
-                .homeDelivery(delivery.getHomeDelivery())
-                .storeDelivery(delivery.getStoreDelivery())
-                .order(delivery.getOrder())
-                .provider(delivery.getProvider())
+                .homeDelivery(homeDeliveryDto)
+                .storeDelivery(storeDeliveryDto)
+                .order(order1Dto)
+                .provider(providerDto)
                 .build();
     }
     public static Delivery toEntity(DeliveryDto deliveryDto){
@@ -57,6 +61,10 @@ public class DeliveryDto {
             //TODO EXCEPTION ERRROR
             return null;
         }
+        HomeDelivery homeDelivery = HomeDeliveryDto.toEntity(deliveryDto.getHomeDelivery());
+        StoreDelivery storeDelivery = StoreDeliveryDto.toEntity(deliveryDto.getStoreDelivery());
+        Order1 order1 = Order1Dto.toEntity(deliveryDto.getOrder());
+        Provider provider = ProviderDto.toEntity(deliveryDto.getProvider());
         return  Delivery.builder()
                 .DeliveryId(deliveryDto.getDeliveryId())
                 .creationDate(deliveryDto.getCreationDate())
@@ -65,10 +73,10 @@ public class DeliveryDto {
                 .firstName(deliveryDto.getFirstName())
                 .lastName(deliveryDto.getLastName())
                 .numTel(deliveryDto.getNumTel())
-                .homeDelivery(deliveryDto.getHomeDelivery())
-                .storeDelivery(deliveryDto.getStoreDelivery())
-                .order(deliveryDto.getOrder())
-                .provider(deliveryDto.getProvider())
+                .homeDelivery(homeDelivery)
+                .storeDelivery(storeDelivery)
+                .order(order1)
+                .provider(provider)
                 .build();
     }
 }

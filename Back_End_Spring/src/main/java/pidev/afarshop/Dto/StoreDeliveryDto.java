@@ -19,28 +19,31 @@ public class StoreDeliveryDto {
 
     private DeliveryDto delivery ;
 
-    public StoreDelivery toEntity(StoreDeliveryDto storeDeliveryDto) {
+    public static StoreDelivery toEntity(StoreDeliveryDto storeDeliveryDto) {
         if (storeDeliveryDto == null) {
             //TODO EXCEPTION ERRROR
             return null;
         }
+        Delivery delivery1=DeliveryDto.toEntity(storeDeliveryDto.getDelivery());
+
         return StoreDelivery.builder()
                 .storeDeliveryId(storeDeliveryDto.getStoreDeliveryId())
                 .pickUpDate(storeDeliveryDto.getPickUpDate())
                 .store(storeDeliveryDto.getStore())
-                .delivery(storeDeliveryDto.getDelivery())
+                .delivery(delivery1)
                 .build();
     }
-    public StoreDeliveryDto toDto(StoreDelivery storeDelivery){
+    public static StoreDeliveryDto toDto(StoreDelivery storeDelivery){
         if(storeDelivery==null){
             //TODO EXCEPTION ERRROR
             return null;
         }
+        DeliveryDto deliveryDto =DeliveryDto.toDto(storeDelivery.getDelivery());
         return  StoreDeliveryDto.builder()
                 .storeDeliveryId(storeDelivery.getStoreDeliveryId())
                 .pickUpDate(storeDelivery.getPickUpDate())
                 .store(storeDelivery.getStore())
-                .delivery(storeDelivery.getDelivery())
+                .delivery(deliveryDto)
                 .build();
     }
 

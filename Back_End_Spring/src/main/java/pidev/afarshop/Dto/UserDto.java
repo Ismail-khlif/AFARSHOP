@@ -2,10 +2,7 @@ package pidev.afarshop.Dto;
 
 import lombok.Builder;
 import lombok.Data;
-import pidev.afarshop.Entity.Delivery;
-import pidev.afarshop.Entity.Order1;
-import pidev.afarshop.Entity.Role;
-import pidev.afarshop.Entity.User;
+import pidev.afarshop.Entity.*;
 
 import java.util.Date;
 import java.util.List;
@@ -69,6 +66,25 @@ public class UserDto {
         List<Order1> order1s = userDto.getOrders().stream()
                 .map(Order1Dto::toEntity)
                 .collect(Collectors.toList());
+        Set<Answer> answerSet = userDto.getAnswers().stream()
+                .map(AnswerDto::toEntity)
+                .collect(Collectors.toSet());
+        Set<Rating> ratingSet = userDto.getRatings().stream()
+                .map(RatingDto::toEntity)
+                .collect(Collectors.toSet());
+        Set<ProductComment> productCommentSet = userDto.getProductComments().stream()
+                .map(ProductCommentDto::toEntity)
+                .collect(Collectors.toSet());
+        Set<Product> productSet = userDto.getProducts().stream()
+                .map(ProductDto::toEntity)
+                .collect(Collectors.toSet());
+        Set<ProductLike> productLikeSet = userDto.getProductLikes().stream()
+                .map(ProductLikeDto::toEntity)
+                .collect(Collectors.toSet());
+        Cart cart1 = CartDto.toEntity(userDto.getCart());
+        Set<Notification> notificationSet = userDto.getNotifications().stream()
+                .map(NotificationDto::toEntity)
+                .collect(Collectors.toSet());
         return User.builder()
                 .UserId(userDto.getUserId())
                 .uid(userDto.getUid())
@@ -84,13 +100,13 @@ public class UserDto {
                 .images(userDto.getImages())
                 .roles(userDto.getRoles())
                 .orders(order1s)
-                .answers(userDto.getAnswers())
-                .ratings(userDto.getRatings())
-                .productComments(userDto.getProductComments())
-                .products(userDto.getProducts())
-                .productLikes(userDto.getProductLikes())
-                .cart(userDto.getCart())
-                .notifications(userDto.getNotifications())
+                .answers(answerSet)
+                .ratings(ratingSet)
+                .productComments(productCommentSet)
+                .products(productSet)
+                .productLikes(productLikeSet)
+                .cart(cart1)
+                .notifications(notificationSet)
                 .build();
     }
     public static UserDto toDto(User user){
@@ -101,6 +117,25 @@ public class UserDto {
         List<Order1Dto> order1Dtos = user.getOrders().stream()
                 .map(Order1Dto::toDto)
                 .collect(Collectors.toList());
+        Set<AnswerDto> answerDtos = user.getAnswers().stream()
+                .map(AnswerDto::toDto)
+                .collect(Collectors.toSet());
+        Set<RatingDto> ratingDtos = user.getRatings().stream()
+                .map(RatingDto::toDto)
+                .collect(Collectors.toSet());
+        Set<ProductCommentDto> productCommentDtos = user.getProductComments().stream()
+                .map(ProductCommentDto::toDto)
+                .collect(Collectors.toSet());
+        Set<ProductDto> productDtos = user.getProducts().stream()
+                .map(ProductDto::toDto)
+                .collect(Collectors.toSet());
+        Set<ProductLikeDto> productLikeDtos = user.getProductLikes().stream()
+                .map(ProductLikeDto::toDto)
+                .collect(Collectors.toSet());
+        CartDto cartDto =CartDto.toDto(user.getCart());
+        Set<NotificationDto> notificationDtos = user.getNotifications().stream()
+                .map(NotificationDto::toDto)
+                .collect(Collectors.toSet());
         return  UserDto.builder()
                 .UserId(user.getUserId())
                 .uid(user.getUid())
@@ -116,13 +151,13 @@ public class UserDto {
                 .images(user.getImages())
                 .roles(user.getRoles())
                 .orders(order1Dtos)
-                .answers(user.getAnswers())
-                .ratings(user.getRatings())
-                .productComments(user.getProductComments())
-                .products(user.getProducts())
-                .productLikes(user.getProductLikes())
-                .cart(user.getCart())
-                .notifications(user.getNotifications())
+                .answers(answerDtos)
+                .ratings(ratingDtos)
+                .productComments(productCommentDtos)
+                .products(productDtos)
+                .productLikes(productLikeDtos)
+                .cart(cartDto)
+                .notifications(notificationDtos)
                 .build();
     }
 

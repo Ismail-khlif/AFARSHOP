@@ -7,6 +7,7 @@ import pidev.afarshop.Entity.*;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Builder
 @Data
@@ -51,6 +52,7 @@ public class StoreDto {
             //TODO EXCEPTION ERRROR
             return null;
         }
+
         return Store.builder()
                 .storeId(storeDto.getStoreId())
                 .storeName(storeDto.getStoreName())
@@ -64,11 +66,11 @@ public class StoreDto {
                 .evaluation(storeDto.getEvaluation())
                 .nbLikes(storeDto.getNbLikes())
                 .nbDislikes(storeDto.getNbDislikes())
-                .category(storeDto.getCategory())
-                .ratings(storeDto.getRatings())
-                .storeLocations(storeDto.getStoreLocations())
-                .products(storeDto.getProducts())
-                .quiz(storeDto.getQuiz())
+                .category(storeDto.getCategory().toEntity(storeDto.getCategory()))
+                .ratings(storeDto.getRatings().stream().map(RatingDto::toEntity).collect(Collectors.toSet()))
+                .storeLocations(storeDto.getStoreLocations().stream().map(StoreLocationsDto::toEntity).collect(Collectors.toList()))
+                .products(storeDto.getProducts().stream().map(ProductDto::toEntity).collect(Collectors.toSet()))
+                .quiz(storeDto.getQuiz().stream().map(QuizDto::toEntity).collect(Collectors.toSet()))
                 .build();
     }
     public static StoreDto toDto(Store store){
@@ -89,11 +91,11 @@ public class StoreDto {
                 .evaluation(store.getEvaluation())
                 .nbLikes(store.getNbLikes())
                 .nbDislikes(store.getNbDislikes())
-                .category(store.getCategory())
-                .ratings(store.getRatings())
-                .storeLocations(store.getStoreLocations())
-                .products(store.getProducts())
-                .quiz(store.getQuiz())
+                .category(CategoryDto.toDto(store.getCategory()))
+                .ratings(store.getRatings().stream().map(RatingDto::toDto).collect(Collectors.toSet()))
+                .storeLocations(store.getStoreLocations().stream().map(StoreLocationsDto::toDto).collect(Collectors.toList()))
+                .products(store.getProducts().stream().map(ProductDto::toDto).collect(Collectors.toSet()))
+                .quiz(store.getQuiz().stream().map(QuizDto::toDto).collect(Collectors.toSet()))
                 .build();
     }
 }

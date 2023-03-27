@@ -5,6 +5,7 @@ import lombok.Data;
 import pidev.afarshop.Entity.*;
 import java.util.Date;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Builder
 @Data
@@ -52,11 +53,21 @@ public class ProductDto {
 
     private ProductCategory category;
 
-    public Product toEntity(ProductDto productDto) {
+    public static Product toEntity(ProductDto productDto) {
         if (productDto == null) {
             //TODO EXCEPTION ERRROR
             return null;
         }
+        Order1 order1 =Order1Dto.toEntity(productDto.getOrder());
+        User user1 =UserDto.toEntity(productDto.getUser());
+        Store store1= StoreDto.toEntity(productDto.getStore());
+        Cart cart1=CartDto.toEntity(productDto.getCart());
+        Set<ProductComment> productCommentSet = productDto.getProductComments().stream()
+                .map(ProductCommentDto::toEntity)
+                .collect(Collectors.toSet());
+        Set<ProductLike> productLikeSet = productDto.getProductLikes().stream()
+                .map(ProductLikeDto::toEntity)
+                .collect(Collectors.toSet());
         return Product.builder()
                 .productId(productDto.getProductId())
                 .reference(productDto.getReference())
@@ -72,20 +83,30 @@ public class ProductDto {
                 .discount(productDto.getDiscount())
                 .yearsOfWarranty(productDto.getYearsOfWarranty())
                 .facility(productDto.isFacility())
-                .order(productDto.getOrder())
-                .user(productDto.getUser())
-                .productComments(productDto.getProductComments())
-                .store(productDto.getStore())
-                .productLikes(productDto.getProductLikes())
-                .cart(productDto.getCart())
+                .order(order1)
+                .user(user1)
+                .productComments(productCommentSet)
+                .store(store1)
+                .productLikes(productLikeSet)
+                .cart(cart1)
                 .category(productDto.getCategory())
                 .build();
     }
-    public ProductDto toDto(Product product){
+    public static ProductDto toDto(Product product){
         if(product==null){
             //TODO EXCEPTION ERRROR
             return null;
         }
+        Set<ProductCommentDto> productCommentDtos = product.getProductComments().stream()
+                .map(ProductCommentDto::toDto)
+                .collect(Collectors.toSet());
+        Set<ProductLikeDto> productLikeDtos = product.getProductLikes().stream()
+                .map(ProductLikeDto::toDto)
+                .collect(Collectors.toSet());
+        Order1Dto order1Dto=Order1Dto.toDto(product.getOrder());
+        UserDto userDto=UserDto.toDto(product.getUser());
+        StoreDto storeDto = StoreDto.toDto(product.getStore());
+        CartDto cartDto =CartDto.toDto(product.getCart());
         return  ProductDto.builder()
                 .productId(product.getProductId())
                 .reference(product.getReference())
@@ -101,12 +122,12 @@ public class ProductDto {
                 .discount(product.getDiscount())
                 .yearsOfWarranty(product.getYearsOfWarranty())
                 .facility(product.isFacility())
-                .order(product.getOrder())
-                .user(product.getUser())
-                .productComments(product.getProductComments())
-                .store(product.getStore())
-                .productLikes(product.getProductLikes())
-                .cart(product.getCart())
+                .order(order1Dto)
+                .user(userDto)
+                .productComments(productCommentDtos)
+                .store(storeDto)
+                .productLikes(productLikeDtos)
+                .cart(cartDto)
                 .category(product.getCategory())
                 .build();
     }

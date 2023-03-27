@@ -20,7 +20,7 @@ public class QuizDto {
 
     Set<QuizQuestionDto> questions; // Questions related to quizz
 
-    public Quiz toEntity(QuizDto quizDto) {
+    public static Quiz toEntity(QuizDto quizDto) {
         if (quizDto == null) {
             //TODO EXCEPTION ERRROR
             return null;
@@ -34,7 +34,7 @@ public class QuizDto {
                 .questions(quizzes)
                 .build();
     }
-    public QuizDto toDto(Quiz quiz){
+    public static QuizDto toDto(Quiz quiz){
         if(quiz==null){
             //TODO EXCEPTION ERRROR
             return null;

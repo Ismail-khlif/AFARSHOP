@@ -2,10 +2,10 @@ package pidev.afarshop.Dto;
 
 import lombok.Builder;
 import lombok.Data;
-import pidev.afarshop.Entity.Delivery;
-import pidev.afarshop.Entity.Order1;
+import pidev.afarshop.Entity.*;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Builder
 @Data
@@ -29,37 +29,51 @@ public class Order1Dto {
 
     private UserDto user;
     public static Order1 toEntity(Order1Dto order1Dto) {
-        if (deliveryDto == null) {
+        if (order1Dto == null) {
             //TODO EXCEPTION ERRROR
             return null;
         }
+        Cart cart1 = CartDto.toEntity(order1Dto.getCart());
+        Bill bill1 = BillDto.toEntity((order1Dto.getBill()));
+        Set<Product> productSet = order1Dto.getProducts().stream()
+                .map(ProductDto::toEntity)
+                .collect(Collectors.toSet());
+        Delivery delivery1 =DeliveryDto.toEntity(order1Dto.getDelivery());
+        User user1 =UserDto.toEntity(order1Dto.getUser());
         return Order1.builder()
                 .orderId(order1Dto.getOrderId())
                 .codePromo(order1Dto.getCodePromo())
                 .orderStatus(order1Dto.getOrderStatus())
                 .amountBill(order1Dto.getAmountBill())
-                .bill(order1Dto.getBill())
-                .products(order1Dto.getProducts())
-                .delivery(order1Dto.getDelivery())
-                .cart(order1Dto.getCart())
-                .user(order1Dto.getUser())
+                .bill(bill1)
+                .products(productSet)
+                .delivery(delivery1)
+                .cart(cart1)
+                .user(user1)
                 .build();
     }
     public static Order1Dto toDto(Order1 order1){
-        if(delivery==null){
+        if(order1==null){
             //TODO EXCEPTION ERRROR
             return null;
         }
+        CartDto cartDto =CartDto.toDto(order1.getCart());
+        BillDto bill1Dto =BillDto.toDto(order1.getBill());
+        Set<ProductDto> productDtos = order1.getProducts().stream()
+                .map(ProductDto::toDto)
+                .collect(Collectors.toSet());
+        DeliveryDto deliveryDto =DeliveryDto.toDto(order1.getDelivery());
+        UserDto userDto=UserDto.toDto(order1.getUser());
         return  Order1Dto.builder()
                 .orderId(order1.getOrderId())
                 .codePromo(order1.getCodePromo())
                 .orderStatus(order1.getOrderStatus())
                 .amountBill(order1.getAmountBill())
-                .bill(order1.getBill())
-                .products(order1.getProducts())
-                .delivery(order1.getDelivery())
-                .cart(order1.getCart())
-                .user(order1.getUser())
+                .bill(bill1Dto)
+                .products(productDtos)
+                .delivery(deliveryDto)
+                .cart(cartDto)
+                .user(userDto)
                 .build();
     }
 

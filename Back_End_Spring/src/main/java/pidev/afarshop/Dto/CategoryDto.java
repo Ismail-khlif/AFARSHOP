@@ -35,7 +35,7 @@ public class CategoryDto {
                 .stores(stores)
                 .build();
     }
-    public CategoryDto toDto(Category category){
+    public static CategoryDto toDto(Category category){
         if(category==null){
             //TODO ERROR EXCEPTION
             return null;

@@ -23,7 +23,7 @@ public class ProviderDto {
     private Date estimationDate;
 
     List<DeliveryDto> deliveries;
-    public Provider toEntity(ProviderDto providerDto) {
+    public static Provider toEntity(ProviderDto providerDto) {
         if (providerDto == null) {
             //TODO EXCEPTION ERRROR
             return null;
@@ -39,7 +39,7 @@ public class ProviderDto {
                 .deliveries(deliveryList)
                 .build();
     }
-    public ProviderDto toDto(Provider provider){
+    public static ProviderDto toDto(Provider provider){
         if(provider==null){
             //TODO EXCEPTION ERRROR
             return null;

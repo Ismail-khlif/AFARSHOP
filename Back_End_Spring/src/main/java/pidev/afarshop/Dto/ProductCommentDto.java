@@ -4,7 +4,9 @@ package pidev.afarshop.Dto;
 import lombok.Builder;
 import lombok.Data;
 import pidev.afarshop.Entity.Delivery;
+import pidev.afarshop.Entity.Product;
 import pidev.afarshop.Entity.ProductComment;
+import pidev.afarshop.Entity.User;
 
 import java.util.Date;
 
@@ -22,30 +24,34 @@ public class ProductCommentDto {
 
     ProductDto product; // The Product to comment
 
-    public ProductComment toEntity(ProductCommentDto productCommentDto) {
+    public static ProductComment toEntity(ProductCommentDto productCommentDto) {
         if (productCommentDto == null) {
             //TODO EXCEPTION ERRROR
             return null;
         }
+        User user1 =UserDto.toEntity(productCommentDto.getUser());
+        Product product1 =ProductDto.toEntity(productCommentDto.getProduct());
         return ProductComment.builder()
                 .ProductCommentId(productCommentDto.getProductCommentId())
                 .commentBody(productCommentDto.getCommentBody())
                 .commentedAt(productCommentDto.getCommentedAt())
-                .user(productCommentDto.getUser())
-                .product(productCommentDto.getProduct())
+                .user(user1)
+                .product(product1)
                 .build();
     }
-    public ProductCommentDto toDto(ProductComment productComment){
+    public static ProductCommentDto toDto(ProductComment productComment){
         if(productComment==null){
             //TODO EXCEPTION ERRROR
             return null;
         }
+        UserDto userDto =UserDto.toDto(productComment.getUser());
+        ProductDto productDto =ProductDto.toDto(productComment.getProduct());
         return  ProductCommentDto.builder()
                 .ProductCommentId(productComment.getProductCommentId())
                 .commentBody(productComment.getCommentBody())
                 .commentedAt(productComment.getCommentedAt())
-                .user(productComment.getUser())
-                .product(productComment.getProduct())
+                .user(userDto)
+                .product(productDto)
                 .build();
     }
 }

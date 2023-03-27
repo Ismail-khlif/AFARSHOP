@@ -15,7 +15,7 @@ public class StoreLocationsDto {
     private double latitude;
 
     private double longitude;
-    public StoreLocations toEntity(StoreLocationsDto storeLocationsDto) {
+    public static StoreLocations toEntity(StoreLocationsDto storeLocationsDto) {
         if (storeLocationsDto == null) {
             //TODO EXCEPTION ERRROR
             return null;
@@ -27,7 +27,7 @@ public class StoreLocationsDto {
                 .longitude(storeLocationsDto.getLongitude())
                 .build();
     }
-    public StoreLocationsDto toDto(StoreLocations storeLocations){
+    public static StoreLocationsDto toDto(StoreLocations storeLocations){
         if(storeLocations==null){
             //TODO EXCEPTION ERRROR
             return null;

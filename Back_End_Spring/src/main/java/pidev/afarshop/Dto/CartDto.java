@@ -23,7 +23,7 @@ public class CartDto {
     Order1 order;
 
     private List<ProductDto> products = new ArrayList<>();
-    public CartDto toDto(Cart cart){
+    public static CartDto toDto(Cart cart){
         if(cart==null){
             //TODO ERROR EXCEPTION
             return null;
@@ -35,7 +35,7 @@ public class CartDto {
                 .user(cart.getUser())
                 .build();
     }
-    public Cart toEntity(CartDto cartdto){
+    public static Cart toEntity(CartDto cartdto){
         if(cartdto==null){
             //TODO ERROR EXCEPTION
             return null;
