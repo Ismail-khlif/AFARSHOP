@@ -1,7 +1,10 @@
 package pidev.afarshop.Dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pidev.afarshop.Entity.*;
 
 import java.util.Set;
@@ -9,6 +12,8 @@ import java.util.stream.Collectors;
 
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order1Dto {
 
     private Long orderId;
@@ -18,15 +23,15 @@ public class Order1Dto {
     private String orderStatus;
 
     private Float amountBill;
-
+    @JsonIgnore
     private BillDto bill;
-
+    @JsonIgnore
     private Set<ProductDto> products;
-
+    @JsonIgnore
     private DeliveryDto delivery;
-
+    @JsonIgnore
     CartDto cart ;
-
+    @JsonIgnore
     private UserDto user;
     public static Order1 toEntity(Order1Dto order1Dto) {
         if (order1Dto == null) {

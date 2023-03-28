@@ -1,14 +1,19 @@
 package pidev.afarshop.Dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pidev.afarshop.Entity.Delivery;
 import pidev.afarshop.Entity.HomeDelivery;
 
 import java.util.Date;
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class HomeDeliveryDto {
 
     private Long homeDeliveryId;
@@ -18,7 +23,7 @@ public class HomeDeliveryDto {
     private String address ;
 
     private int postalCode;
-
+    @JsonIgnore
     private DeliveryDto delivery ;
     public static HomeDelivery toEntity(HomeDeliveryDto homeDeliveryDto) {
         if (homeDeliveryDto == null) {

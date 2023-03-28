@@ -15,7 +15,7 @@ import java.time.LocalTime;
 @ToString
 @Data
 @Table(name = "HappyHour")
-@Builder
+
 public class HappyHour implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

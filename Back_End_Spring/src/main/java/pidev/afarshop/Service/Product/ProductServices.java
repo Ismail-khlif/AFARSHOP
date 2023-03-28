@@ -6,6 +6,7 @@ import com.vader.sentiment.analyzer.SentimentPolarities;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import pidev.afarshop.Dto.ProductDto;
 import pidev.afarshop.Entity.*;
 import pidev.afarshop.Repository.*;
 
@@ -64,9 +65,15 @@ public class ProductServices implements IProductServices  {
         return productRepository.save(product);
     }
     @Override
-    public Product retrieveProduct(Long productId) {
-        return productRepository.findById(productId).get();
+    public ProductDto retrieveProduct(Long productId) {
+        //return productRepository.findById(productId).get();
+        Optional<Product> product = this.productRepository.findById(productId);
+        if(product.isPresent()){
+            return ProductDto.toDto(product.get());
+        }
+        return null;
     }
+
     @Override
     public void deleteProduct(Long productId) {
         productRepository.deleteById(productId);

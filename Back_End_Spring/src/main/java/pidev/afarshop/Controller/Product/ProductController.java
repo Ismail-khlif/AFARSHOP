@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
+import pidev.afarshop.Dto.ProductDto;
 import pidev.afarshop.Entity.*;
 import pidev.afarshop.Repository.*;
 
@@ -74,7 +75,7 @@ public class ProductController {
         return product;
     }
     @GetMapping("/retriveproduct/{id}")
-    public Product retrieveProduct (@PathVariable("id") Long productId){
+    public ProductDto retrieveProduct (@PathVariable("id") Long productId){
         return productServices.retrieveProduct(productId);
     }
     @GetMapping("/retrieveallproducts")

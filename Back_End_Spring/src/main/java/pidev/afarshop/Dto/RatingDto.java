@@ -1,7 +1,10 @@
 package pidev.afarshop.Dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pidev.afarshop.Entity.Delivery;
 import pidev.afarshop.Entity.Rating;
 import pidev.afarshop.Entity.Store;
@@ -9,14 +12,16 @@ import pidev.afarshop.Entity.User;
 
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class RatingDto {
 
     private Long ratingId;
 
     private boolean isLiked;
-
+    @JsonIgnore
     private UserDto user;
-
+    @JsonIgnore
     private StoreDto store;
 
     public static Rating toEntity(RatingDto ratingDto) {

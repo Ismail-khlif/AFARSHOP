@@ -11,7 +11,6 @@ import com.twilio.type.PhoneNumber;
 
 @Configuration
 @Data
-@Builder
 public class TwilioConfig {
 
     @Value("AC20887c66c515d0f7f341cb39c5c99ff7")

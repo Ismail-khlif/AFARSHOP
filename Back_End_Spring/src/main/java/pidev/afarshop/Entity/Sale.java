@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Table(name = "Sale")
-@Builder
 public class Sale implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

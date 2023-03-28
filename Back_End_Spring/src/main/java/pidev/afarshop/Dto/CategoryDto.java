@@ -1,8 +1,10 @@
 package pidev.afarshop.Dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pidev.afarshop.Entity.Category;
 import pidev.afarshop.Entity.Store;
 
@@ -11,6 +13,8 @@ import java.util.stream.Collectors;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CategoryDto {
 
     Long categoryId;

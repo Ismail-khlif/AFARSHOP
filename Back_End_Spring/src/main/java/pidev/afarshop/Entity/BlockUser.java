@@ -15,7 +15,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Builder
+
 public class BlockUser {
 
     @Id

@@ -23,7 +23,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Builder
+
 public class CommentD {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)

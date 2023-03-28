@@ -1,7 +1,10 @@
 package pidev.afarshop.Dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pidev.afarshop.Entity.Delivery;
 import pidev.afarshop.Entity.Product;
 import pidev.afarshop.Entity.ProductLike;
@@ -11,6 +14,8 @@ import java.time.LocalDate;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductLikeDto {
 
     Long productLikeId;
@@ -18,9 +23,9 @@ public class ProductLikeDto {
     LocalDate likedAt;
 
     Boolean isLiked ;
-
+    @JsonIgnore
     UserDto user; // The user who clicked Like
-
+    @JsonIgnore
     ProductDto product; // The post to like
 
     public static ProductLike toEntity(ProductLikeDto productLikeDto) {

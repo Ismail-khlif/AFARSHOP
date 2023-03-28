@@ -1,5 +1,7 @@
 package pidev.afarshop.Service.StoreLocation;
 
+import pidev.afarshop.Dto.ProductDto;
+import pidev.afarshop.Dto.StoreLocationsDto;
 import pidev.afarshop.Entity.*;
 import pidev.afarshop.Service.*;
 import pidev.afarshop.Repository.*;
@@ -8,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -23,6 +26,15 @@ public class StoreLocationService implements ICRUDService<StoreLocations, Long>,
     @Override
     public StoreLocations retrieveItem(Long idStoreLocationService) {
         return storeLocationsRepository.findById(idStoreLocationService).get();
+    }
+
+    @Override
+    public StoreLocationsDto retrieveItema(Long idStoreLocationService) {
+        //return storeLocationsRepository.findById(idStoreLocationService).get();
+        Optional<StoreLocations>storeLocations=this.storeLocationsRepository.findById(idStoreLocationService);
+
+        return StoreLocationsDto.toDto(storeLocations.get());
+
     }
 
     @Override

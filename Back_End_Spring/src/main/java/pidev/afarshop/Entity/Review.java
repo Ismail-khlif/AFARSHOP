@@ -10,7 +10,6 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
-@Builder
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

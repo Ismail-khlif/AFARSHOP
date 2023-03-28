@@ -1,8 +1,11 @@
 package pidev.afarshop.Dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pidev.afarshop.Entity.Delivery;
 import pidev.afarshop.Entity.Provider;
 
@@ -12,6 +15,8 @@ import java.util.stream.Collectors;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProviderDto {
 
     private Long providerId;
@@ -21,7 +26,7 @@ public class ProviderDto {
     private long providerPrice;
 
     private Date estimationDate;
-
+    @JsonIgnore
     List<DeliveryDto> deliveries;
     public static Provider toEntity(ProviderDto providerDto) {
         if (providerDto == null) {

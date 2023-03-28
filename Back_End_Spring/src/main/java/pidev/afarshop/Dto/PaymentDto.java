@@ -1,7 +1,10 @@
 package pidev.afarshop.Dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pidev.afarshop.Entity.Bill;
 import pidev.afarshop.Entity.Delivery;
 import pidev.afarshop.Entity.Payment;
@@ -10,6 +13,8 @@ import java.util.Date;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PaymentDto {
 
     private Long paymentId;
@@ -23,7 +28,7 @@ public class PaymentDto {
     private PaymentMethod paymentMethod;
 
     private Date dueDate;
-
+    @JsonIgnore
     private BillDto billPayment;
     public static Payment toEntity(PaymentDto paymentDto) {
         if (paymentDto == null) {

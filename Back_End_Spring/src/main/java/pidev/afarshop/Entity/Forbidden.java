@@ -19,7 +19,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Builder
+
 public class Forbidden {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)

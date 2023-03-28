@@ -13,7 +13,6 @@ import java.util.Date;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Table( name = "DiscountCode")
-@Builder
 public class DiscountCode implements Serializable {
 
     @Id

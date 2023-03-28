@@ -1,8 +1,10 @@
 package pidev.afarshop.Dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pidev.afarshop.Entity.*;
 
 import java.util.List;
@@ -11,6 +13,8 @@ import java.util.stream.Collectors;
 
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class StoreDto {
 
     private Long storeId;
@@ -38,13 +42,13 @@ public class StoreDto {
     private Integer nbDislikes;
     @JsonIgnore
     private CategoryDto category ;
-
+    @JsonIgnore
     private Set<RatingDto> ratings;
-
+    @JsonIgnore
     private List<StoreLocationsDto> storeLocations;
-
+    @JsonIgnore
     private Set<ProductDto> products;
-
+    @JsonIgnore
     Set<QuizDto> quiz;
 
     public static Store toEntity(StoreDto storeDto) {
@@ -89,13 +93,13 @@ public class StoreDto {
                 .ImagePath(store.getImagePath())
                 .Score(store.getScore())
                 .evaluation(store.getEvaluation())
-                .nbLikes(store.getNbLikes())
-                .nbDislikes(store.getNbDislikes())
-                .category(CategoryDto.toDto(store.getCategory()))
-                .ratings(store.getRatings().stream().map(RatingDto::toDto).collect(Collectors.toSet()))
-                .storeLocations(store.getStoreLocations().stream().map(StoreLocationsDto::toDto).collect(Collectors.toList()))
-                .products(store.getProducts().stream().map(ProductDto::toDto).collect(Collectors.toSet()))
-                .quiz(store.getQuiz().stream().map(QuizDto::toDto).collect(Collectors.toSet()))
+                //.nbLikes(store.getNbLikes())
+               // .nbDislikes(store.getNbDislikes())
+               // .category(CategoryDto.toDto(store.getCategory()))
+                //.ratings(store.getRatings().stream().map(RatingDto::toDto).collect(Collectors.toSet()))
+                //.storeLocations(store.getStoreLocations().stream().map(StoreLocationsDto::toDto).collect(Collectors.toList()))
+                //.products(store.getProducts().stream().map(ProductDto::toDto).collect(Collectors.toSet()))
+                //.quiz(store.getQuiz().stream().map(QuizDto::toDto).collect(Collectors.toSet()))
                 .build();
     }
 }

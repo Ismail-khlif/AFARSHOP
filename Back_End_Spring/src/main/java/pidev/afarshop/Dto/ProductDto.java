@@ -1,7 +1,10 @@
 package pidev.afarshop.Dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pidev.afarshop.Entity.*;
 import java.util.Date;
 import java.util.Set;
@@ -9,6 +12,8 @@ import java.util.stream.Collectors;
 
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductDto {
 
     private Long productId;
@@ -38,20 +43,21 @@ public class ProductDto {
     private int yearsOfWarranty;
 
     private boolean facility;
-
+    @JsonIgnore
     private Order1Dto order;
-
+    @JsonIgnore
     UserDto user;
-
+    @JsonIgnore
     Set<ProductCommentDto> productComments;
-
+    @JsonIgnore
     private StoreDto store;
-
+    @JsonIgnore
     Set<ProductLikeDto> productLikes;
-
+    @JsonIgnore
     private CartDto cart;
-
+    @JsonIgnore
     private ProductCategory category;
+
 
     public static Product toEntity(ProductDto productDto) {
         if (productDto == null) {
@@ -110,25 +116,25 @@ public class ProductDto {
         return  ProductDto.builder()
                 .productId(product.getProductId())
                 .reference(product.getReference())
-                .productName(product.getProductName())
-                .description(product.getDescription())
-                .quantity(product.getQuantity())
-                .images(product.getImages())
-                .video(product.getVideo())
-                .brand(product.getBrand())
-                .price(product.getPrice())
-                .dateOfProduct(product.getDateOfProduct())
-                .rating(product.getRating())
-                .discount(product.getDiscount())
-                .yearsOfWarranty(product.getYearsOfWarranty())
+               // .productName(product.getProductName())
+                //.description(product.getDescription())
+               // .quantity(product.getQuantity())
+               // .images(product.getImages())
+                //.video(product.getVideo())
+                //.brand(product.getBrand())
+                //.price(product.getPrice())
+                //.dateOfProduct(product.getDateOfProduct())
+                //.rating(product.getRating())
+                //.discount(product.getDiscount())
+                //.yearsOfWarranty(product.getYearsOfWarranty())
                 .facility(product.isFacility())
-                .order(order1Dto)
-                .user(userDto)
-                .productComments(productCommentDtos)
+                //.order(order1Dto)
+                //.user(userDto)
+                //.productComments(productCommentDtos)
                 .store(storeDto)
-                .productLikes(productLikeDtos)
-                .cart(cartDto)
-                .category(product.getCategory())
+                //.productLikes(productLikeDtos)
+                //.cart(cartDto)
+                //.category(product.getCategory())
                 .build();
     }
 }

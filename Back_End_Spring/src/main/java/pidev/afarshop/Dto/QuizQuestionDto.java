@@ -1,7 +1,10 @@
 package pidev.afarshop.Dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pidev.afarshop.Entity.Answer;
 import pidev.afarshop.Entity.Delivery;
 import pidev.afarshop.Entity.QuizQuestion;
@@ -12,6 +15,8 @@ import java.util.stream.Collectors;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class QuizQuestionDto {
 
     Long questionId;
@@ -19,7 +24,7 @@ public class QuizQuestionDto {
     String question;
 
     int score;
-
+    @JsonIgnore
     Set<AnswerDto> answers; // Answers related to questions
     public static QuizQuestion toEntity(QuizQuestionDto quizQuestionDto) {
         if (quizQuestionDto == null) {

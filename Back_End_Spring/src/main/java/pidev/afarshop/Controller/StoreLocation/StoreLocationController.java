@@ -1,5 +1,6 @@
 package pidev.afarshop.Controller.StoreLocation;
 
+import pidev.afarshop.Dto.StoreLocationsDto;
 import pidev.afarshop.Entity.*;
 import pidev.afarshop.Repository.*;
 import pidev.afarshop.Service.StoreLocation.StoreLocationService;
@@ -18,8 +19,8 @@ public class StoreLocationController {
     }
 
     @GetMapping("/retrive_StoreLocations/{cartId}")
-    public StoreLocations retrieveCart(@PathVariable("cartId") Long cartId){
-        return storeLocationService.retrieveItem(cartId);
+    public StoreLocationsDto retrieveCart(@PathVariable("cartId") Long cartId){
+        return storeLocationService.retrieveItema(cartId);
     }
 
     @PostMapping("/add_StoreLocations")

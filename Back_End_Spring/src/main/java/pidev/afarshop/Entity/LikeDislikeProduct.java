@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+
 public class LikeDislikeProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

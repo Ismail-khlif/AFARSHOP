@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Builder
+
 public class Publication {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)

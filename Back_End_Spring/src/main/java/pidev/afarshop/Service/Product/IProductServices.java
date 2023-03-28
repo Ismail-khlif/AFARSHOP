@@ -1,6 +1,7 @@
 package pidev.afarshop.Service.Product;
 
 import org.springframework.web.bind.annotation.RequestBody;
+import pidev.afarshop.Dto.ProductDto;
 import pidev.afarshop.Entity.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +15,7 @@ public interface IProductServices {
     Product addAndUpdateProduct(MultipartFile image,Product product) throws IOException;
 
 
-    Product retrieveProduct (Long productId);
+    ProductDto retrieveProduct (Long productId);
 
     void deleteProduct(Long productId);
 

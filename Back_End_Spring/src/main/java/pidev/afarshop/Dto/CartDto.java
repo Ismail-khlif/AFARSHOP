@@ -1,8 +1,11 @@
 package pidev.afarshop.Dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pidev.afarshop.Entity.Cart;
 import pidev.afarshop.Entity.Order1;
 import pidev.afarshop.Entity.User;
@@ -12,14 +15,16 @@ import java.util.List;
 
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CartDto {
 
     private Long cartId;
 
     private Long productQuantity;
-
+    @JsonIgnore
     User user;
-
+    @JsonIgnore
     Order1 order;
 
     private List<ProductDto> products = new ArrayList<>();

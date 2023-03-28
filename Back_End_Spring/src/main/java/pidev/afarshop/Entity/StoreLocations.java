@@ -1,8 +1,6 @@
 package pidev.afarshop.Entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -10,6 +8,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class StoreLocations {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -19,6 +19,7 @@ public class StoreLocations {
     private String address;
     private double latitude;
     private double longitude;
+
 
 }
 

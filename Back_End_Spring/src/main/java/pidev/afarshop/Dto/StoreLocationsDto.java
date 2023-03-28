@@ -1,12 +1,16 @@
 package pidev.afarshop.Dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pidev.afarshop.Entity.Delivery;
 import pidev.afarshop.Entity.StoreLocations;
 
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class StoreLocationsDto {
     private Long id;
 
@@ -34,7 +38,7 @@ public class StoreLocationsDto {
         }
         return  StoreLocationsDto.builder()
                 .id(storeLocations.getId())
-                .address(storeLocations.getAddress())
+                //.address(storeLocations.getAddress())
                 .latitude(storeLocations.getLatitude())
                 .longitude(storeLocations.getLongitude())
                 .build();

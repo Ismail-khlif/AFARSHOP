@@ -1,5 +1,6 @@
 package pidev.afarshop.Dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import pidev.afarshop.Entity.*;
@@ -40,22 +41,22 @@ public class UserDto {
     private Role roles;
 
     //private List<Token> tokens;
-
+    @JsonIgnore
     private List<Order1Dto> orders;
-
+    @JsonIgnore
     Set<AnswerDto> answers;
 
-
+    @JsonIgnore
     private Set<RatingDto> ratings;
-
+    @JsonIgnore
     Set<ProductCommentDto> productComments;
-
+    @JsonIgnore
     Set<ProductDto> products;
-
+    @JsonIgnore
     Set<ProductLikeDto> productLikes;
-
+    @JsonIgnore
     CartDto cart;
-
+    @JsonIgnore
     Set<NotificationDto> notifications;
 
     public static User toEntity(UserDto userDto) {
@@ -153,7 +154,7 @@ public class UserDto {
                 .orders(order1Dtos)
                 .answers(answerDtos)
                 .ratings(ratingDtos)
-                .productComments(productCommentDtos)
+              //  .productComments(productCommentDtos)
                 .products(productDtos)
                 .productLikes(productLikeDtos)
                 .cart(cartDto)

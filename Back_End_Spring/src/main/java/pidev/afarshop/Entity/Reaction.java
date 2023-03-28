@@ -24,7 +24,6 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Builder
 public class Reaction {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
