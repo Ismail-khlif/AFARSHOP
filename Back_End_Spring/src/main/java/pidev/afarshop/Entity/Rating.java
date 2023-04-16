@@ -22,11 +22,12 @@ public class Rating implements Serializable {
     private boolean isLiked;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "UserId")
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "storeId")
     private Store store;
 }
+
 

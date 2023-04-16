@@ -4,6 +4,7 @@ package pidev.afarshop.Controller.Forbidden;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import pidev.afarshop.Service.Forbidden.IForbiddenService;
 @RestController
 @RequestMapping("/ForbiddenWords")
 public class ForbiddenWordsController {
+
 
     @Autowired
     private IForbiddenService iForbiddenService ;
