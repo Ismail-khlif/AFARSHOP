@@ -28,19 +28,24 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long UserId;
-    private String uid;
     private String firstname;
     private String lastname;
     private String username;
     private String email;
     private String password;
     private String address;
-    @Temporal (TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date dayOfBirth;
     private String cin;
+    private boolean expired;
+    @Temporal(TemporalType.DATE)
+    private Date dateToUnexired;
+    private boolean locked;
+    private Integer codeActivation;
     private String telNum;
     @Lob
     private byte[] images;
+    private Integer codeReset;
     @Enumerated(EnumType.STRING)
     private Role roles;
 
@@ -56,53 +61,32 @@ public class User implements UserDetails {
     Set<Answer> answers;
 
 
-   @Override
-   public Collection<? extends GrantedAuthority> getAuthorities() {
-       return Arrays.asList(new SimpleGrantedAuthority(roles.name()));
-   }
-
     @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Arrays.asList(new SimpleGrantedAuthority(roles.name()));
     }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
 
 
     //added by Ismail
     @JsonIgnore
     @OneToMany(mappedBy = "user")
-    private List<Publication> publications ;
+    private List<Publication> publications;
 
     @JsonIgnore
-    @OneToMany(mappedBy ="user" )
-    private List<Comment> comments  ;
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments;
 
     @JsonIgnore
-    @OneToMany(mappedBy ="user" )
-    private List<CommentD> commentDs  ;
+    @OneToMany(mappedBy = "user")
+    private List<CommentD> commentDs;
 
 
     @JsonIgnore
-    @OneToMany(mappedBy ="user" )
-    private List<Reaction> reactions  ;
+    @OneToMany(mappedBy = "user")
+    private List<Reaction> reactions;
     //fin ajout
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Rating> ratings;
 
     @JsonIgnore
@@ -122,27 +106,29 @@ public class User implements UserDetails {
     Cart cart;
 
 
+    public String getfirstname() {
+        return firstname;
+    }
 
-    public String getfirstname(){
-            return firstname;
-        }
-    public void setfirstname(String firstname){
-            this.firstname=firstname;
-   }
-    public String getlastname(){
-            return lastname;
-        }
-    public void setlastname (String lastname){
-            this.lastname = lastname;
-        }
+    public void setfirstname(String firstname) {
+        this.firstname = firstname;
+    }
 
-    public String getemail () {
-            return email;
-        }
+    public String getlastname() {
+        return lastname;
+    }
 
-    public void setemail (String email){
-            this.email = email;
-        }
+    public void setlastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getemail() {
+        return email;
+    }
+
+    public void setemail(String email) {
+        this.email = email;
+    }
 
     public long getUserId() {
         return UserId;
@@ -155,5 +141,28 @@ public class User implements UserDetails {
     public User(String firstname) {
         this.firstname = firstname;
     }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return !this.expired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !this.locked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+
 }
+
  

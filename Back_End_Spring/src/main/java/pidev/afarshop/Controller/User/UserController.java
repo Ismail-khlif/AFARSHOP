@@ -36,6 +36,7 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
 
+
     @GetMapping("/get")
     public List<User> getAllUsers() {
         return userService.getAllUsers();
