@@ -88,7 +88,6 @@ public class UserDto {
                 .collect(Collectors.toSet());
         return User.builder()
                 .UserId(userDto.getUserId())
-                .uid(userDto.getUid())
                 .firstname(userDto.getFirstname())
                 .lastname(userDto.getLastname())
                 .username(userDto.getUsername())
@@ -139,7 +138,6 @@ public class UserDto {
                 .collect(Collectors.toSet());
         return  UserDto.builder()
                 .UserId(user.getUserId())
-                .uid(user.getUid())
                 .firstname(user.getfirstname())
                 .lastname(user.getlastname())
                 .username(user.getUsername())

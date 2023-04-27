@@ -47,7 +47,7 @@ public class AuthenticationService {
 
 
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public String authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -59,9 +59,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
+        return "{\"token\": \""+jwtToken+"\",\"user\": \""+user.getUsername()+"\"}";
     }
 
     private void saveUserToken(User user, String jwtToken) {
