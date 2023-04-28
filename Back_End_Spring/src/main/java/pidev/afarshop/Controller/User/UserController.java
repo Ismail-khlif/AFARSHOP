@@ -19,6 +19,7 @@ import pidev.afarshop.Repository.UserRepository;
 import pidev.afarshop.Service.User.UserService;
 
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -93,6 +94,10 @@ public class UserController {
     @GetMapping("/FindUser/FindByFirstName/{firstname}")
     List<User> FindByfirstname(@PathVariable("firstname") String firstname) {
         return userService.FindByfirstname(firstname);
+    }
+    @PostMapping("/ResetPassword/{code}/{pwd}")
+    public String demResetPassword(@PathVariable("code") Integer code,@PathVariable("pwd") String pwd) throws MessagingException {
+        return userService.resetPassword(code,pwd);
     }
 
 

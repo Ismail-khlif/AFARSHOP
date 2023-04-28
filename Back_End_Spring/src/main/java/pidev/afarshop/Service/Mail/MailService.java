@@ -22,8 +22,6 @@ import java.util.List;
 @Service
 public class MailService {
     @Autowired
-    UserService userService;
-    @Autowired
     Order1Service order1Service;
 
     @Autowired
@@ -67,6 +65,7 @@ public class MailService {
         messageHelper.setText(content, true);
         mailSender.send(mimeMessage);
     }
+
 
 
 

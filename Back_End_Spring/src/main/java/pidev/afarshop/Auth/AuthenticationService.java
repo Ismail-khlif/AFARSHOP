@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,8 +17,11 @@ import pidev.afarshop.Repository.UserRepository;
 import pidev.afarshop.Entity.Token;
 import pidev.afarshop.Entity.TokenType;
 import pidev.afarshop.Entity.User;
+import pidev.afarshop.Service.Mail.MailService;
 
+import javax.mail.MessagingException;
 import java.util.List;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +32,8 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    @Autowired
+    private MailService mailService;
 
    public AuthenticationResponse register(RegisterRequest request) {
        var user = User.builder()
@@ -83,5 +89,18 @@ public class AuthenticationService {
             token.setRevoked(true);
         });
         tokenRepository.saveAll(validUserTokens);
+    }
+    public AuthenticationResponse demResetPassword(String email) throws MessagingException {
+        User user = repository.findByEmail(email).get();
+        Random random = new Random();
+        int randomNumber = random.nextInt(90000000) + 10000000;
+        user.setCodeReset(randomNumber);
+        mailService.sendWelcomeEmail(user.getemail(),"reset","reset");
+        return AuthenticationResponse.builder()
+                .user(user)
+                .build();
+    }
+    public String criptMDP(String  pwd){
+        return  passwordEncoder.encode(pwd);
     }
 }

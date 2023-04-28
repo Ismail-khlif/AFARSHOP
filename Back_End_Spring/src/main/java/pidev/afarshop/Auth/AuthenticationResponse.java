@@ -3,6 +3,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pidev.afarshop.Entity.User;
 
 import java.util.List;
 
@@ -12,5 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 public class AuthenticationResponse {
     private String token;
+    private User user;
     private List<String> errors;
 }

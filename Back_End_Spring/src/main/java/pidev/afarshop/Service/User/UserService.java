@@ -7,16 +7,21 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import pidev.afarshop.Auth.AuthenticationService;
 import pidev.afarshop.Entity.User;
 import pidev.afarshop.Repository.UserRepository;
+import pidev.afarshop.Service.Mail.MailService;
 
 
+import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+
 @Service
 @EnableScheduling
 @AllArgsConstructor
@@ -26,6 +31,9 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordencoder;
+    private MailService emailService;
+    private final AuthenticationService authenticationService;
+
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -73,6 +81,25 @@ public class UserService {
         }
         return listUser;
 
+    }
+    public User demReserPassword(String email) throws MessagingException {
+        User user = userRepository.findByEmail(email).get();
+        Random random = new Random();
+        int randomNumber = random.nextInt(90000000) + 10000000;
+        user.setCodeReset(randomNumber);
+        //emailService.sendCodeReset(user);
+        return userRepository.save(user);
+    }
+
+    public String resetPassword(Integer code, String pwd) {
+        User user = userRepository.findByCodeReset(code).get();
+        if (user == null){
+            return "User Not Found";
+        }
+        else {
+            user.setPassword(authenticationService.criptMDP(pwd));
+            return "done";
+        }
     }
 
 }
