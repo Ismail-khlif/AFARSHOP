@@ -95,7 +95,7 @@ public class AuthenticationService {
         Random random = new Random();
         int randomNumber = random.nextInt(90000000) + 10000000;
         user.setCodeReset(randomNumber);
-        mailService.sendWelcomeEmail(user.getemail(),"reset","reset");
+        mailService.sendCodeReset(user);
         return AuthenticationResponse.builder()
                 .user(user)
                 .build();

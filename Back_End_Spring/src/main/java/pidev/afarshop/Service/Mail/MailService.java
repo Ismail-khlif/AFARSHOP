@@ -65,6 +65,22 @@ public class MailService {
         messageHelper.setText(content, true);
         mailSender.send(mimeMessage);
     }
+    public void sendCodeReset(User u) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
+        messageHelper.setSubject("Your Account has benn Blocked");
+        messageHelper.setTo(u.getemail());
+
+        Context context = new Context();
+        context.setVariable("name", u.getfirstname());
+        context.setVariable("code", u.getCodeReset());
+        //String content = templateEngine.process("email-template", context);
+        String content = templateEngine.process("ResetMail", context);
+
+
+        messageHelper.setText(content, true);
+        mailSender.send(mimeMessage);
+    }
 
 
 
