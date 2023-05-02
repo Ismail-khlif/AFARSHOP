@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/API/USERS")
 public class UserController {
@@ -86,7 +86,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") long id) {
+    public ResponseEntity<Void> deleteById(@PathVariable("id") long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }

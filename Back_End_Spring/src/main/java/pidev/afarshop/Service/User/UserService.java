@@ -59,7 +59,16 @@ public class UserService {
    }
 
     public void updateUser(User user) {
-        userRepository.save(user);
+       User u = userRepository.findById(user.getUserId()).orElse(null);
+       if (u != null){
+           if(user.getPassword()!=null){
+               user.setPassword(passwordencoder.encode(user.getPassword()));
+           }else{
+               user.setPassword(u.getPassword());
+           }
+           userRepository.save(user);
+       }
+
     }
 
     public void deleteUser(long id) {

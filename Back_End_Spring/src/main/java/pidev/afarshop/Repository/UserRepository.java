@@ -30,5 +30,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
   List<User> FindByfirstname(@Param("firstname") String firstname);
     Optional<User> findByCodeReset(Integer code);
 
+    void deleteById(Long id);
+
 }
 
