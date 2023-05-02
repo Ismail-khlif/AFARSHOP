@@ -14,7 +14,7 @@ public class CorsFilter implements Filter {
         HttpServletRequest  req = (HttpServletRequest) request;
 
         res.setHeader("Access-Control-Allow-Origin", "*");
-        res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
         res.setHeader("Access-Control-Max-Age", "3600");
         res.setHeader("Access-Control-Allow-Headers", "authorization, content-type, xsrf-token");
         // Just REPLY OK if request method is OPTIONS for CORS (pre-flight)
