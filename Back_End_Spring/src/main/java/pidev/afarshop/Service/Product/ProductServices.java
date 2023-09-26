@@ -60,8 +60,7 @@ public class ProductServices implements IProductServices  {
         return productRepository.findAll();
     }
     @Override
-    public Product addAndUpdateProduct(MultipartFile image, Product product) throws IOException {
-        product.setImages(image.getBytes());
+    public Product addAndUpdateProduct( Product product)   {
         return productRepository.save(product);
     }
     @Override

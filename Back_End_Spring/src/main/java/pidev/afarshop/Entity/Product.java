@@ -36,10 +36,16 @@ public class Product  implements Serializable {
 
     private Long quantity;
 
-    @Lob
-    private byte[] images;
-    @Lob
-    private byte[] video;
+    @ManyToMany(fetch= FetchType.EAGER ,cascade = CascadeType.ALL)
+    @JoinTable(name="product_images",
+            joinColumns = {
+                    @JoinColumn(name="product_id")
+            },inverseJoinColumns = {
+            @JoinColumn(name = "image_id")
+    }
+    )
+    private Set<ImageSModel> images;
+
 
     private String brand;
 

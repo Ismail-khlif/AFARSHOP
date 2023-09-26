@@ -38,7 +38,7 @@ import javax.transaction.Transactional;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/product")
-
+@CrossOrigin("*")
 public class ProductController {
     ProductServices productServices;
     ProductRepository productRepository;
@@ -49,10 +49,10 @@ public class ProductController {
     @Autowired private OpenAiApiClient client;
 
     @PostMapping(value = "/addandupdateproduct" ,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Product addProduct(@RequestParam("image") MultipartFile image, @RequestParam("productName") String poductName,
+    public Product addProduct(@RequestParam("image") MultipartFile[] image, @RequestParam("productName") String poductName,
                               @RequestParam("reference") String reference,@RequestParam("description") String description,
                               @RequestParam("quantity") Long quantity,@RequestParam("rating") float rating,
-                              @RequestParam("video") MultipartFile video,@RequestParam("price") double price,
+                              @RequestParam("price") double price,
                               @RequestParam("date")  @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateOfProduct,
                               @RequestParam("discount") float discount,@RequestParam("brand") String brand,
                               @RequestParam("yearsOfWarranty") int yearsOfWarranty) throws IOException, WriterException {
@@ -60,19 +60,42 @@ public class ProductController {
         Product product = new Product();
         product.setProductName(poductName);
         product.setBrand(brand);
-        product.setImages(image.getBytes());
+        //product.setImages(image.getBytes());
         product.setReference(reference);
         product.setDescription(description);
         product.setQuantity(quantity);
-        product.setVideo(video.getBytes());
         product.setPrice(price);
         product.setDateOfProduct(dateOfProduct);
         product.setDiscount(discount);
         product.setYearsOfWarranty(yearsOfWarranty);
         product.setRating(rating);
-        productRepository.save(product);
-        QRCodeGenerator.generateQRCode(product);
-        return product;
+
+        try {
+            Set<ImageSModel> images = uploadImage(image);
+            product.setImages(images);
+            productRepository.save(product);
+            QRCodeGenerator.generateQRCode(product);
+            return product;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null ;
+        }
+
+    }
+    public Set<ImageSModel> uploadImage(MultipartFile[] multipartFiles)  throws IOException {
+        Set<ImageSModel> imageSModels = new HashSet<>();
+        for(MultipartFile file : multipartFiles){
+            ImageSModel imageSModel =new ImageSModel(
+                    file.getOriginalFilename(),
+                    file.getContentType(),
+                    file.getBytes()
+            );
+            imageSModels.add(imageSModel);
+        }
+
+
+        return imageSModels ;
+
     }
     @GetMapping("/retriveproduct/{id}")
     public ProductDto retrieveProduct (@PathVariable("id") Long productId){
@@ -94,31 +117,38 @@ public class ProductController {
     }
     @PutMapping(value ="/updateProduct", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Product update (@RequestParam("productId") Long productId ,
-                           @RequestParam("image") MultipartFile image, @RequestParam("productName") String poductName,
+                           @RequestParam("image") MultipartFile[] image, @RequestParam("productName") String poductName,
                            @RequestParam("reference") String reference,@RequestParam("description") String description,
                            @RequestParam("quantity") Long quantity,@RequestParam("rating") float rating,
-                           @RequestParam("video") MultipartFile video,@RequestParam("price") double price,
+                           @RequestParam("price") double price,
                            @RequestParam("date")  @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateOfProduct,
                            @RequestParam("discount") float discount,@RequestParam("brand") String brand,
-                           @RequestParam("yearsOfWarranty") int yearsOfWarranty) throws IOException {
+                           @RequestParam("yearsOfWarranty") int yearsOfWarranty) throws IOException, WriterException {
 
-        //update working
         Product product = new Product();
         product.setProductId(productId);
         product.setProductName(poductName);
         product.setBrand(brand);
-        product.setImages(image.getBytes());
+        //product.setImages(image.getBytes());
         product.setReference(reference);
         product.setDescription(description);
         product.setQuantity(quantity);
-        product.setVideo(video.getBytes());
         product.setPrice(price);
         product.setDateOfProduct(dateOfProduct);
         product.setDiscount(discount);
         product.setYearsOfWarranty(yearsOfWarranty);
         product.setRating(rating);
-        productRepository.save(product);
-        return product;
+
+        try {
+            Set<ImageSModel> images = uploadImage(image);
+            product.setImages(images);
+            productRepository.save(product);
+            return product;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null ;
+        }
+
     }
     //filtre
     @GetMapping("/filterbyName/{ProductName}")

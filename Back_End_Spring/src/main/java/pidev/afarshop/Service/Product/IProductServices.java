@@ -12,7 +12,7 @@ import java.util.List;
 public interface IProductServices {
     List<Product> retrieveAllProducts();
 
-    Product addAndUpdateProduct(MultipartFile image,Product product) throws IOException;
+    Product addAndUpdateProduct(Product product) ;
 
 
     ProductDto retrieveProduct (Long productId);
